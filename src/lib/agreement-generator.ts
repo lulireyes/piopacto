@@ -43,10 +43,9 @@ export function getRecommendedMinutes(age: number): number {
 }
 
 export function getSuggestedApps(age: number): string[] {
-  const base = ['WhatsApp', 'YouTube Kids', 'Google Maps'];
-  if (age <= 9) return [...base, 'Duolingo', 'Khan Academy Kids'];
-  if (age <= 12) return ['WhatsApp', 'YouTube', 'Spotify', 'Duolingo', 'Google Maps', 'Khan Academy'];
-  return ['WhatsApp', 'YouTube', 'Spotify', 'Instagram', 'Google Maps', 'Duolingo', 'Notion'];
+  if (age <= 9) return ['WhatsApp', 'Duolingo', 'Khan Academy Kids', 'Google Maps'];
+  if (age <= 12) return ['WhatsApp', 'Spotify', 'Duolingo', 'Google Maps', 'Khan Academy'];
+  return ['WhatsApp', 'Spotify', 'Instagram', 'Google Maps', 'Duolingo', 'Notion'];
 }
 
 export function generateAgreement(data: OnboardingData, lang: Language): Agreement {

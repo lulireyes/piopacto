@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useId } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
+import AccessibilityControls from '@/components/AccessibilityControls';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Smartphone, Check, Plus, X } from 'lucide-react';
 import { OnboardingData, getRecommendedMinutes, getSuggestedApps } from '@/lib/agreement-generator';
@@ -42,6 +43,7 @@ export default function Onboarding() {
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1);
   const [appInput, setAppInput] = useState('');
+  const formId = useId();
   const [data, setData] = useState<OnboardingData>({
     childName: '',
     age: 10,
@@ -108,7 +110,6 @@ export default function Onboarding() {
   const goNext = () => {
     if (step < TOTAL_STEPS) { setDirection(1); setStep(step + 1); }
     else {
-      // Convert to legacy format for agreement generator compatibility
       const exportData = {
         ...data,
         parent1Name: data.parentNames[0] || '',
@@ -152,15 +153,22 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="flex items-center justify-between px-6 py-4 max-w-2xl mx-auto w-full">
+      <a href="#onboarding-form" className="skip-link">
+        {t('skipToContent')}
+      </a>
+
+      <header className="flex items-center justify-between px-6 py-4 max-w-2xl mx-auto w-full" role="banner">
         <div className="flex items-center gap-2">
-          <Smartphone className="h-5 w-5 text-primary" />
+          <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
           <span className="font-bold text-foreground">{t('brandName')}</span>
         </div>
-        <LanguageSelector />
+        <div className="flex items-center gap-3">
+          <AccessibilityControls />
+          <LanguageSelector />
+        </div>
       </header>
 
-      <div className="max-w-md mx-auto w-full px-6 mb-2">
+      <div className="max-w-md mx-auto w-full px-6 mb-2" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS} aria-label={`${t('onboardingTitle')} - ${step} ${t('stepOf')} ${TOTAL_STEPS}`}>
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
           <span>{t('onboardingTitle')}</span>
           <span>{step} {t('stepOf')} {TOTAL_STEPS}</span>
@@ -174,7 +182,7 @@ export default function Onboarding() {
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center px-6 py-8">
+      <main className="flex-1 flex items-center justify-center px-6 py-8" id="onboarding-form" role="main">
         <div className="w-full max-w-md">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -189,14 +197,16 @@ export default function Onboarding() {
               {/* Step 1: Child Name */}
               {step === 1 && (
                 <StepContainer>
-                  <StepLabel>{t('childNameLabel')}</StepLabel>
+                  <StepLabel htmlFor={`${formId}-childname`}>{t('childNameLabel')}</StepLabel>
                   <input
+                    id={`${formId}-childname`}
                     autoFocus
                     value={data.childName}
                     onChange={(e) => update('childName', e.target.value)}
                     placeholder={t('childNamePlaceholder')}
                     maxLength={50}
-                    className="w-full rounded-xl border border-input bg-card px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    aria-required="true"
+                    className="w-full rounded-2xl border border-input bg-card px-5 py-3.5 text-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                   />
                 </StepContainer>
               )}
@@ -205,21 +215,23 @@ export default function Onboarding() {
               {step === 2 && (
                 <StepContainer>
                   <StepLabel>{t('ageLabel')}</StepLabel>
-                  <div className="flex items-center gap-6 justify-center">
+                  <div className="flex items-center gap-8 justify-center" role="group" aria-label={t('ageLabel')}>
                     <button
                       onClick={() => update('age', Math.max(6, data.age - 1))}
+                      aria-label={lang === 'es' ? 'Reducir edad' : 'Decrease age'}
                       className="w-12 h-12 rounded-full border border-border bg-card text-foreground text-xl font-bold flex items-center justify-center hover:bg-secondary transition-colors"
                     >−</button>
                     <div className="text-center">
-                      <span className="text-5xl font-extrabold text-foreground">{data.age}</span>
+                      <span className="text-5xl font-extrabold text-foreground" aria-live="polite">{data.age}</span>
                       <p className="text-sm text-muted-foreground mt-1">{t('ageYears')}</p>
                     </div>
                     <button
                       onClick={() => update('age', Math.min(17, data.age + 1))}
+                      aria-label={lang === 'es' ? 'Aumentar edad' : 'Increase age'}
                       className="w-12 h-12 rounded-full border border-border bg-card text-foreground text-xl font-bold flex items-center justify-center hover:bg-secondary transition-colors"
                     >+</button>
                   </div>
-                  <p className="text-center text-sm text-primary font-medium mt-4">💡 {ageRecText}</p>
+                  <p className="text-center text-sm text-primary font-medium mt-5" role="status">💡 {ageRecText}</p>
                 </StepContainer>
               )}
 
@@ -227,12 +239,13 @@ export default function Onboarding() {
               {step === 3 && (
                 <StepContainer>
                   <StepLabel>{t('firstPhoneLabel')}</StepLabel>
-                  <div className="flex gap-4 justify-center">
+                  <div className="flex gap-4 justify-center" role="group" aria-label={t('firstPhoneLabel')}>
                     {[true, false].map((val) => (
                       <button
                         key={String(val)}
                         onClick={() => update('isFirstPhone', val)}
-                        className={`px-8 py-3 rounded-xl text-lg font-semibold border transition-all ${
+                        aria-pressed={data.isFirstPhone === val}
+                        className={`px-8 py-3.5 rounded-2xl text-lg font-semibold border transition-all ${
                           data.isFirstPhone === val
                             ? 'border-primary bg-primary/10 text-primary'
                             : 'border-border bg-card text-foreground hover:bg-secondary'
@@ -249,7 +262,7 @@ export default function Onboarding() {
               {step === 4 && (
                 <StepContainer>
                   <StepLabel>{t('mainUsageLabel')}</StepLabel>
-                  <div className="grid grid-cols-1 gap-3">
+                  <div className="grid grid-cols-1 gap-3" role="group" aria-label={t('mainUsageLabel')}>
                     {usageOptions.map((opt) => (
                       <ToggleOption key={opt.key} icon={opt.icon} label={usageLabelMap[opt.key]}
                         selected={data.mainUsage.includes(opt.key)} onClick={() => toggleArray('mainUsage', opt.key)} />
@@ -262,7 +275,7 @@ export default function Onboarding() {
               {step === 5 && (
                 <StepContainer>
                   <StepLabel>{t('restrictionsLabel')}</StepLabel>
-                  <div className="grid grid-cols-1 gap-3">
+                  <div className="grid grid-cols-1 gap-3" role="group" aria-label={t('restrictionsLabel')}>
                     {restrictionOptions.map((opt) => (
                       <ToggleOption key={opt.key} icon={opt.icon} label={restrictionLabelMap[opt.key]}
                         selected={data.restrictions.includes(opt.key)} onClick={() => toggleArray('restrictions', opt.key)} />
@@ -274,11 +287,11 @@ export default function Onboarding() {
               {/* Step 6: Daily time */}
               {step === 6 && (
                 <StepContainer>
-                  <StepLabel>{t('dailyTimeLabel')}</StepLabel>
-                  <TimeSlider value={data.dailyMinutes} onChange={(v) => update('dailyMinutes', v)} label={t('minutes')} />
-                  <div className="mt-8">
-                    <p className="text-sm font-medium text-foreground mb-3">{t('weekendLabel')}</p>
-                    <TimeSlider value={data.weekendMinutes} onChange={(v) => update('weekendMinutes', v)} label={t('minutes')} />
+                  <StepLabel htmlFor={`${formId}-daily-time`}>{t('dailyTimeLabel')}</StepLabel>
+                  <TimeSlider id={`${formId}-daily-time`} value={data.dailyMinutes} onChange={(v) => update('dailyMinutes', v)} label={t('minutes')} />
+                  <div className="mt-10">
+                    <p className="text-sm font-semibold text-foreground mb-4" id={`${formId}-weekend-label`}>{t('weekendLabel')}</p>
+                    <TimeSlider id={`${formId}-weekend-time`} value={data.weekendMinutes} onChange={(v) => update('weekendMinutes', v)} label={t('minutes')} aria-labelledby={`${formId}-weekend-label`} />
                   </div>
                 </StepContainer>
               )}
@@ -288,43 +301,45 @@ export default function Onboarding() {
                 <StepContainer>
                   <StepLabel>{t('appsLabel')}</StepLabel>
                   
-                  {/* Suggested apps */}
                   <p className="text-xs text-muted-foreground font-medium mb-2">
                     {t('appsSuggested').replace('{age}', String(data.age))}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-5" role="group" aria-label={t('appsSuggested').replace('{age}', String(data.age))}>
                     {suggestedApps.map((app) => (
                       <button key={app} onClick={() => toggleArray('allowedApps', app)}
-                        className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${
+                        aria-pressed={data.allowedApps.includes(app)}
+                        className={`px-3.5 py-2 rounded-xl text-sm font-medium border transition-all ${
                           data.allowedApps.includes(app)
                             ? 'border-primary bg-primary/10 text-primary'
                             : 'border-border bg-card text-foreground hover:bg-secondary'
                         }`}>
                         {app}
-                        {data.allowedApps.includes(app) && <Check className="inline h-3 w-3 ml-1" />}
+                        {data.allowedApps.includes(app) && <Check className="inline h-3 w-3 ml-1" aria-hidden="true" />}
                       </button>
                     ))}
                   </div>
 
-                  {/* Custom app input */}
                   <div className="flex gap-2">
-                    <input value={appInput} onChange={(e) => setAppInput(e.target.value)}
+                    <label htmlFor={`${formId}-app-input`} className="sr-only">{t('appsPlaceholder')}</label>
+                    <input id={`${formId}-app-input`} value={appInput} onChange={(e) => setAppInput(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && addApp(appInput)}
                       placeholder={t('appsPlaceholder')} maxLength={30}
-                      className="flex-1 rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                      className="flex-1 rounded-2xl border border-input bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-shadow" />
                     <button onClick={() => addApp(appInput)}
-                      className="px-4 py-2.5 rounded-xl bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors">
-                      <Plus className="h-4 w-4" />
+                      aria-label={t('appsAdd')}
+                      className="px-4 py-3 rounded-2xl bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors">
+                      <Plus className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </div>
 
-                  {/* Selected apps */}
                   {data.allowedApps.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="flex flex-wrap gap-2 mt-4">
                       {data.allowedApps.filter(a => !suggestedApps.includes(a)).map((app) => (
-                        <span key={app} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-sm font-medium">
+                        <span key={app} className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-primary/10 text-primary text-sm font-medium">
                           {app}
-                          <button onClick={() => removeApp(app)}><X className="h-3 w-3" /></button>
+                          <button onClick={() => removeApp(app)} aria-label={`${lang === 'es' ? 'Quitar' : 'Remove'} ${app}`}>
+                            <X className="h-3 w-3" aria-hidden="true" />
+                          </button>
                         </span>
                       ))}
                     </div>
@@ -336,20 +351,24 @@ export default function Onboarding() {
               {step === 8 && (
                 <StepContainer>
                   <StepLabel>{t('supervisionLabel')}</StepLabel>
-                  <div className="grid grid-cols-1 gap-3">
+                  <div className="grid grid-cols-1 gap-3" role="group" aria-label={t('supervisionLabel')}>
                     {supervisionOptions.map((opt) => (
                       <ToggleOption key={opt.key} icon={opt.icon} label={supervisionLabelMap[opt.key]}
                         selected={data.supervision.includes(opt.key)} onClick={() => {
                           if (opt.key === 'none') {
                             update('supervision', data.supervision.includes('none') ? [] : ['none']);
                           } else {
-                            const filtered = data.supervision.filter(s => s !== 'none');
-                            toggleArray('supervision', opt.key);
+                            const newSupervision = data.supervision.filter(s => s !== 'none');
+                            if (newSupervision.includes(opt.key)) {
+                              update('supervision', newSupervision.filter(s => s !== opt.key));
+                            } else {
+                              update('supervision', [...newSupervision, opt.key]);
+                            }
                           }
                         }} />
                     ))}
                   </div>
-                  <p className="text-xs text-muted-foreground text-center mt-3">{t('supervisionNote')}</p>
+                  <p className="text-xs text-muted-foreground text-center mt-4" role="note">{t('supervisionNote')}</p>
                 </StepContainer>
               )}
 
@@ -360,26 +379,32 @@ export default function Onboarding() {
                   <div className="space-y-3">
                     {data.parentNames.map((name, i) => (
                       <div key={i} className="flex gap-2">
+                        <label htmlFor={`${formId}-parent-${i}`} className="sr-only">
+                          {i === 0 ? t('parent1Placeholder') : t('parent2Placeholder')}
+                        </label>
                         <input
+                          id={`${formId}-parent-${i}`}
                           autoFocus={i === 0}
                           value={name}
                           onChange={(e) => updateParentName(i, e.target.value)}
                           placeholder={i === 0 ? t('parent1Placeholder') : t('parent2Placeholder')}
                           maxLength={50}
-                          className="flex-1 rounded-xl border border-input bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                          aria-required={i === 0 ? 'true' : undefined}
+                          className="flex-1 rounded-2xl border border-input bg-card px-5 py-3.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-shadow"
                         />
                         {i > 1 && (
                           <button onClick={() => update('parentNames', data.parentNames.filter((_, idx) => idx !== i))}
-                            className="text-muted-foreground hover:text-destructive">
-                            <X className="h-4 w-4" />
+                            aria-label={`${lang === 'es' ? 'Quitar tutor' : 'Remove guardian'} ${i + 1}`}
+                            className="text-muted-foreground hover:text-destructive transition-colors">
+                            <X className="h-4 w-4" aria-hidden="true" />
                           </button>
                         )}
                       </div>
                     ))}
                     {data.parentNames.length < 4 && (
                       <button onClick={addParentField}
-                        className="text-sm text-primary hover:underline flex items-center gap-1">
-                        <Plus className="h-3 w-3" /> {t('addParent')}
+                        className="text-sm text-primary hover:underline flex items-center gap-1 font-medium">
+                        <Plus className="h-3 w-3" aria-hidden="true" /> {t('addParent')}
                       </button>
                     )}
                   </div>
@@ -389,14 +414,15 @@ export default function Onboarding() {
               {/* Step 10: Final message */}
               {step === 10 && (
                 <StepContainer>
-                  <StepLabel>{t('finalMessageLabel')}</StepLabel>
+                  <StepLabel htmlFor={`${formId}-finalmsg`}>{t('finalMessageLabel')}</StepLabel>
                   <textarea
+                    id={`${formId}-finalmsg`}
                     value={data.finalMessage}
                     onChange={(e) => update('finalMessage', e.target.value)}
                     placeholder={t('finalMessageDefault')}
                     rows={4}
                     maxLength={500}
-                    className="w-full rounded-xl border border-input bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
+                    className="w-full rounded-2xl border border-input bg-card px-5 py-3.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none transition-shadow"
                   />
                   <p className="text-xs text-muted-foreground text-center">{lang === 'es' ? 'Si lo dejas vacío, usaremos un mensaje predeterminado.' : 'Leave empty to use a default message.'}</p>
                 </StepContainer>
@@ -404,17 +430,19 @@ export default function Onboarding() {
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
+      </main>
 
       <div className="px-6 pb-8 max-w-md mx-auto w-full flex items-center justify-between">
         <button onClick={goBack}
+          aria-label={t('back')}
           className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors font-medium">
-          <ArrowLeft className="h-4 w-4" /> {t('back')}
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t('back')}
         </button>
         <button onClick={goNext} disabled={!canProceed()}
-          className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:shadow-none">
+          aria-label={step === TOTAL_STEPS ? t('generate') : t('next')}
+          className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:shadow-none">
           {step === TOTAL_STEPS ? t('generate') : t('next')}
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
     </div>
@@ -422,37 +450,52 @@ export default function Onboarding() {
 }
 
 function StepContainer({ children }: { children: React.ReactNode }) {
-  return <div className="space-y-6">{children}</div>;
+  return <fieldset className="space-y-6 border-0 p-0 m-0"><legend className="sr-only">Step</legend>{children}</fieldset>;
 }
 
-function StepLabel({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-2xl font-bold text-foreground text-center">{children}</h2>;
+function StepLabel({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
+  const Tag = htmlFor ? 'label' : 'h2';
+  return <Tag htmlFor={htmlFor} className="block text-2xl font-bold text-foreground text-center">{children}</Tag>;
 }
 
 function ToggleOption({ icon, label, selected, onClick }: { icon: string; label: string; selected: boolean; onClick: () => void }) {
   return (
     <button onClick={onClick}
-      className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl border text-left transition-all ${
+      role="checkbox"
+      aria-checked={selected}
+      className={`flex items-center gap-3 w-full px-5 py-3.5 rounded-2xl border text-left transition-all ${
         selected ? 'border-primary bg-primary/10 text-foreground' : 'border-border bg-card text-foreground hover:bg-secondary'
       }`}>
-      <span className="text-xl">{icon}</span>
+      <span className="text-xl" aria-hidden="true">{icon}</span>
       <span className="font-medium flex-1">{label}</span>
-      {selected && <Check className="h-4 w-4 text-primary" />}
+      {selected && <Check className="h-4 w-4 text-primary" aria-hidden="true" />}
     </button>
   );
 }
 
-function TimeSlider({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) {
+function TimeSlider({ id, value, onChange, label, ...rest }: { id: string; value: number; onChange: (v: number) => void; label: string; 'aria-labelledby'?: string }) {
   return (
     <div>
-      <div className="text-center mb-4">
-        <span className="text-4xl font-extrabold text-foreground">{value}</span>
+      <div className="text-center mb-5">
+        <span className="text-4xl font-extrabold text-foreground" aria-live="polite">{value}</span>
         <span className="text-sm text-muted-foreground ml-2">{label}</span>
       </div>
-      <input type="range" min={15} max={180} step={15} value={value}
+      <input
+        id={id}
+        type="range"
+        min={15}
+        max={180}
+        step={15}
+        value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 bg-secondary rounded-full appearance-none cursor-pointer accent-primary" />
-      <div className="flex justify-between text-xs text-muted-foreground mt-1">
+        aria-valuemin={15}
+        aria-valuemax={180}
+        aria-valuenow={value}
+        aria-valuetext={`${value} ${label}`}
+        className="w-full h-2 bg-secondary rounded-full appearance-none cursor-pointer accent-primary"
+        {...rest}
+      />
+      <div className="flex justify-between text-xs text-muted-foreground mt-1" aria-hidden="true">
         <span>15</span><span>60</span><span>120</span><span>180</span>
       </div>
     </div>
