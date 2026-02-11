@@ -12,12 +12,18 @@ const translations = {
     // Brand
     brandName: 'KidSmartphone',
 
+    // Accessibility
+    skipToContent: 'Ir al contenido principal',
+    mainNavigation: 'Navegación principal',
+    problemQuestionsLabel: 'Preguntas frecuentes de padres',
+
     // Landing - Hero
     heroTitle1: 'Primero el acuerdo.',
     heroTitle2: 'Después el smartphone.',
     heroSubtitle: 'Cread juntos un pacto claro, justo y editable.\nNo se trata de controlar. Se trata de acompañar.',
     heroCta: 'Crear nuestro acuerdo familiar',
     heroMicrocopy: '✓ Gratis · ✓ Sin registro · ✓ Listo en 5 minutos',
+    heroTrust: 'Ya lo usan familias de toda España y Latinoamérica',
 
     // Landing - H1 SEO
     seoH1: 'Acuerdo familiar para el uso del smartphone en niños y adolescentes',
@@ -76,11 +82,15 @@ const translations = {
     // Landing - About
     aboutTitle: 'Por qué creamos KidSmartphone',
     aboutP1: 'Cuando le dimos el primer smartphone a nuestro hijo, no encontramos información clara y práctica.',
-    aboutP2: 'Investigamos con psicólogos, educadores y artículos. Creamos nuestro propio contrato.',
-    aboutP3: 'Amigos nos pidieron el PDF. Como diseñadora, quise convertirlo en una herramienta digital para todas las familias.',
-    aboutP4: 'Este proyecto está creado con ayuda de IA. Tu feedback es bienvenido.',
-    aboutSupport: '¿Te gusta el proyecto? Puedes apoyarlo',
-    aboutSupportLink: 'Invítanos a un café ☕',
+    aboutP2: 'Investigamos con psicólogos, educadores y artículos. Creamos nuestro propio contrato. Amigos nos pidieron el PDF.',
+    aboutP3: 'Como diseñadora, quise convertirlo en una herramienta digital para todas las familias. Este proyecto está creado con ayuda de IA.',
+    aboutP4: 'Tu feedback es bienvenido. Cada sugerencia nos ayuda a mejorar.',
+
+    // Landing - Support
+    supportTitle: 'Apoyar el proyecto',
+    supportDesc: 'KidSmartphone es gratuito y sin publicidad. Si te resulta útil, puedes apoyar su desarrollo con una pequeña contribución.',
+    supportCta: 'Invítanos a un café ☕',
+    supportNote: '100% voluntario. Sin presión. Con gratitud.',
 
     // Landing - SEO Guide section
     guideTitle: 'Cómo configurar el smartphone de tu hijo paso a paso',
@@ -198,11 +208,16 @@ const translations = {
   en: {
     brandName: 'KidSmartphone',
 
+    skipToContent: 'Skip to main content',
+    mainNavigation: 'Main navigation',
+    problemQuestionsLabel: 'Common parent questions',
+
     heroTitle1: 'First the agreement.',
     heroTitle2: 'Then the smartphone.',
     heroSubtitle: 'Create together a clear, fair and editable pact.\nIt\'s not about controlling. It\'s about guiding.',
     heroCta: 'Create our family agreement',
     heroMicrocopy: '✓ Free · ✓ No sign-up · ✓ Ready in 5 minutes',
+    heroTrust: 'Already used by families across Europe and the Americas',
 
     seoH1: 'Family agreement for children and teens smartphone use',
 
@@ -254,11 +269,14 @@ const translations = {
 
     aboutTitle: 'Why we created KidSmartphone',
     aboutP1: 'When we gave our child their first smartphone, we couldn\'t find clear, practical information.',
-    aboutP2: 'We researched with psychologists, educators and articles. We created our own contract.',
-    aboutP3: 'Friends asked us for the PDF. As a designer, I wanted to turn it into a digital tool for all families.',
-    aboutP4: 'This project is created with the help of AI. Your feedback is welcome.',
-    aboutSupport: 'Do you like the project? You can support it',
-    aboutSupportLink: 'Buy us a coffee ☕',
+    aboutP2: 'We researched with psychologists, educators and articles. We created our own contract. Friends asked us for the PDF.',
+    aboutP3: 'As a designer, I wanted to turn it into a digital tool for all families. This project is created with the help of AI.',
+    aboutP4: 'Your feedback is welcome. Every suggestion helps us improve.',
+
+    supportTitle: 'Support the project',
+    supportDesc: 'KidSmartphone is free and ad-free. If you find it useful, you can support its development with a small contribution.',
+    supportCta: 'Buy us a coffee ☕',
+    supportNote: '100% voluntary. No pressure. With gratitude.',
 
     guideTitle: 'How to set up your child\'s smartphone step by step',
     guideIntro: 'A practical guide to prepare the phone before handing it over.',

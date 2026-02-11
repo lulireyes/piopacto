@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,32 +6,32 @@
 
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 220 20% 20%;
+    --background: 40 33% 98%;
+    --foreground: 220 25% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 20%;
+    --card-foreground: 220 25% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 20%;
+    --popover-foreground: 220 25% 14%;
 
     --primary: 160 30% 42%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 30% 93%;
-    --secondary-foreground: 220 20% 20%;
+    --secondary: 40 25% 94%;
+    --secondary-foreground: 220 25% 14%;
 
-    --muted: 40 20% 94%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 40 15% 94%;
+    --muted-foreground: 220 10% 46%;
 
-    --accent: 16 80% 62%;
+    --accent: 16 80% 58%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 20% 88%;
-    --input: 40 20% 88%;
+    --border: 40 15% 90%;
+    --input: 40 15% 88%;
     --ring: 160 30% 42%;
 
     --radius: 0.75rem;
@@ -45,36 +45,63 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --warm: 30 60% 96%;
+    --warm: 30 50% 96%;
     --warm-foreground: 30 30% 30%;
     --success: 145 50% 45%;
     --success-foreground: 0 0% 100%;
+
+    font-size: var(--base-font-size, 100%);
   }
 
   .dark {
-    --background: 220 20% 12%;
+    --background: 220 20% 10%;
     --foreground: 40 20% 95%;
-    --card: 220 20% 15%;
+    --card: 220 20% 13%;
     --card-foreground: 40 20% 95%;
-    --popover: 220 20% 15%;
+    --popover: 220 20% 13%;
     --popover-foreground: 40 20% 95%;
     --primary: 160 35% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 15% 20%;
+    --secondary: 220 15% 18%;
     --secondary-foreground: 40 20% 95%;
-    --muted: 220 15% 20%;
+    --muted: 220 15% 18%;
     --muted-foreground: 40 10% 60%;
     --accent: 16 70% 55%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 25%;
-    --input: 220 15% 25%;
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
     --ring: 160 35% 50%;
-    --warm: 220 15% 18%;
+    --warm: 220 15% 15%;
     --warm-foreground: 40 20% 80%;
     --success: 145 50% 50%;
     --success-foreground: 0 0% 100%;
+  }
+
+  /* High contrast mode */
+  .high-contrast {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --primary: 160 50% 30%;
+    --primary-foreground: 0 0% 100%;
+    --muted-foreground: 0 0% 30%;
+    --border: 0 0% 60%;
+    --input: 0 0% 60%;
+  }
+
+  .high-contrast.dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+    --primary: 160 60% 60%;
+    --primary-foreground: 0 0% 0%;
+    --muted-foreground: 0 0% 75%;
+    --border: 0 0% 50%;
+    --input: 0 0% 50%;
   }
 }
 
@@ -84,21 +111,59 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Nunito', system-ui, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Accessible focus styles - WCAG 2.1 AA */
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove focus outline for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Skip to content link for keyboard users */
+  .skip-link {
+    @apply absolute -top-12 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold;
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
   }
 }
 
 @layer utilities {
   .gradient-warm {
-    background: linear-gradient(135deg, hsl(40 33% 97%) 0%, hsl(30 60% 96%) 100%);
+    background: linear-gradient(135deg, hsl(40 33% 98%) 0%, hsl(30 50% 96%) 100%);
   }
 
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(160 30% 42%) 0%, hsl(160 40% 50%) 100%);
+    background: linear-gradient(135deg, hsl(160 30% 42%) 0%, hsl(160 40% 48%) 100%);
   }
 
   .gradient-hero {
-    background: linear-gradient(180deg, hsl(40 33% 97%) 0%, hsl(30 60% 96%) 50%, hsl(160 20% 92%) 100%);
+    background: linear-gradient(180deg, hsl(40 33% 98%) 0%, hsl(30 50% 96%) 50%, hsl(160 15% 95%) 100%);
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
   }
 }

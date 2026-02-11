@@ -1,20 +1,21 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
+import AccessibilityControls from '@/components/AccessibilityControls';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Shield, Heart, FileText, ArrowRight, Smartphone, Check,
   Clock, MessageCircle, Users, Sparkles, BookOpen, Coffee,
-  ChevronDown, Lock, Download, Settings, Eye
+  ChevronDown, Lock, Download, Settings, Eye, Star, HandHeart
 } from 'lucide-react';
 import { useState } from 'react';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' },
+    transition: { delay: i * 0.08, duration: 0.45, ease: 'easeOut' },
   }),
 };
 
@@ -33,277 +34,333 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Skip link for keyboard navigation */}
+      <a href="#main-content" className="skip-link">
+        {t('skipToContent')}
+      </a>
+
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="flex items-center justify-between px-6 py-3 max-w-5xl mx-auto">
-          <div className="flex items-center gap-2">
-            <Smartphone className="h-5 w-5 text-primary" />
-            <span className="font-extrabold text-lg text-foreground">{t('brandName')}</span>
+      <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/60" role="banner">
+        <nav className="flex items-center justify-between px-6 py-3.5 max-w-6xl mx-auto" aria-label={t('mainNavigation')}>
+          <div className="flex items-center gap-2.5">
+            <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
+            <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
           </div>
-          <LanguageSelector />
-        </div>
+          <div className="flex items-center gap-3">
+            <AccessibilityControls />
+            <LanguageSelector />
+          </div>
+        </nav>
       </header>
 
-      {/* ===== HERO ===== */}
-      <section className="gradient-hero px-6 pt-20 pb-24 text-center">
-        <div className="max-w-3xl mx-auto">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
-            className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-8">
-            <Heart className="h-3.5 w-3.5" /> {t('heroMicrocopy')}
-          </motion.div>
+      <main id="main-content" role="main">
+        {/* ===== HERO ===== */}
+        <section className="gradient-hero px-6 pt-24 pb-28 text-center" aria-labelledby="hero-heading">
+          <div className="max-w-3xl mx-auto">
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
+              className="inline-flex items-center gap-2 rounded-full bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary mb-10">
+              <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('heroMicrocopy')}
+            </motion.div>
 
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight mb-6">
-            <span className="block">{t('heroTitle1')}</span>
-            <span className="block text-primary">{t('heroTitle2')}</span>
-          </motion.div>
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
+              id="hero-heading" role="heading" aria-level={2}
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-[1.1] mb-7 tracking-tight">
+              <span className="block">{t('heroTitle1')}</span>
+              <span className="block text-primary mt-1">{t('heroTitle2')}</span>
+            </motion.div>
 
-          <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
-            className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto mb-10 whitespace-pre-line">
-            {t('heroSubtitle')}
-          </motion.p>
+            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
+              className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto mb-12 whitespace-pre-line leading-relaxed">
+              {t('heroSubtitle')}
+            </motion.p>
 
-          <motion.button initial="hidden" animate="visible" variants={fadeUp} custom={3}
-            onClick={() => navigate('/onboarding')}
-            className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
-            {t('heroCta')}
-            <ArrowRight className="h-5 w-5" />
-          </motion.button>
-        </div>
-      </section>
+            <motion.button initial="hidden" animate="visible" variants={fadeUp} custom={3}
+              onClick={() => navigate('/onboarding')}
+              aria-label={t('heroCta')}
+              className="inline-flex items-center gap-2.5 gradient-primary text-primary-foreground font-bold text-lg px-10 py-4.5 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] focus-visible:scale-[1.02]">
+              {t('heroCta')}
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </motion.button>
 
-      {/* ===== H1 SEO ===== */}
-      <section className="px-6 py-12 max-w-4xl mx-auto text-center">
-        <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
-          {t('seoH1')}
-        </h1>
-      </section>
-
-      {/* ===== PROBLEM ===== */}
-      <section className="px-6 py-16 max-w-3xl mx-auto">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-4">{t('problemTitle')}</h2>
-          <p className="text-muted-foreground text-lg mb-8">{t('problemIntro')}</p>
-
-          <div className="space-y-4 mb-8">
-            {[t('problemQ1'), t('problemQ2'), t('problemQ3'), t('problemQ4')].map((q, i) => (
-              <div key={i} className="flex items-start gap-3 bg-warm rounded-xl p-4">
-                <MessageCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                <p className="text-foreground font-medium">{q}</p>
-              </div>
-            ))}
+            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={4}
+              className="text-sm text-muted-foreground mt-5">
+              {t('heroTrust')}
+            </motion.p>
           </div>
+        </section>
 
-          <p className="text-foreground font-semibold text-lg whitespace-pre-line">{t('problemClosing')}</p>
-        </motion.div>
-      </section>
+        {/* ===== H1 SEO ===== */}
+        <section className="px-6 py-16 max-w-4xl mx-auto text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug">
+            {t('seoH1')}
+          </h1>
+        </section>
 
-      {/* ===== SOLUTION ===== */}
-      <section className="px-6 py-16 bg-warm">
-        <div className="max-w-3xl mx-auto">
+        {/* ===== PROBLEM ===== */}
+        <section className="px-6 py-20 max-w-3xl mx-auto" aria-labelledby="problem-heading">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-4">{t('solutionTitle')}</h2>
-            <p className="text-muted-foreground text-lg mb-8">{t('solutionIntro')}</p>
+            <h2 id="problem-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5 leading-tight">
+              {t('problemTitle')}
+            </h2>
+            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('problemIntro')}</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-              {[
-                { icon: Users, text: t('solutionPoint1') },
-                { icon: MessageCircle, text: t('solutionPoint2') },
-                { icon: FileText, text: t('solutionPoint3') },
-              ].map((item, i) => (
-                <div key={i} className="bg-card rounded-xl p-5 border border-border text-center">
-                  <item.icon className="h-8 w-8 text-primary mx-auto mb-3" />
-                  <p className="font-semibold text-foreground text-sm">{item.text}</p>
+            <div className="space-y-4 mb-10" role="list" aria-label={t('problemQuestionsLabel')}>
+              {[t('problemQ1'), t('problemQ2'), t('problemQ3'), t('problemQ4')].map((q, i) => (
+                <div key={i} role="listitem" className="flex items-start gap-4 bg-warm rounded-2xl p-5">
+                  <MessageCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <p className="text-foreground font-medium leading-relaxed">{q}</p>
                 </div>
               ))}
             </div>
-            <p className="text-muted-foreground text-center">{t('solutionDesc')}</p>
+
+            <p className="text-foreground font-semibold text-lg whitespace-pre-line leading-relaxed">{t('problemClosing')}</p>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* ===== HOW IT WORKS ===== */}
-      <section className="px-6 py-20 max-w-3xl mx-auto">
-        <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-2xl sm:text-3xl font-extrabold text-foreground text-center mb-14">
-          {t('howItWorksTitle')}
-        </motion.h2>
+        {/* ===== SOLUTION ===== */}
+        <section className="px-6 py-24 bg-warm" aria-labelledby="solution-heading">
+          <div className="max-w-3xl mx-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+              <h2 id="solution-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5 leading-tight">
+                {t('solutionTitle')}
+              </h2>
+              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionIntro')}</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {[
-            { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc') },
-            { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc') },
-            { num: '3', icon: Settings, title: t('step3Title'), desc: t('step3Desc') },
-            { num: '4', icon: Download, title: t('step4Title'), desc: t('step4Desc') },
-          ].map((s, i) => (
-            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-              className="bg-card rounded-2xl p-6 border border-border">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full gradient-primary text-primary-foreground font-bold flex items-center justify-center text-lg">
-                  {s.num}
-                </div>
-                <s.icon className="h-5 w-5 text-primary" />
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                {[
+                  { icon: Users, text: t('solutionPoint1') },
+                  { icon: MessageCircle, text: t('solutionPoint2') },
+                  { icon: FileText, text: t('solutionPoint3') },
+                ].map((item, i) => (
+                  <div key={i} className="bg-card rounded-2xl p-6 border border-border/60 text-center shadow-sm">
+                    <item.icon className="h-8 w-8 text-primary mx-auto mb-4" aria-hidden="true" />
+                    <p className="font-semibold text-foreground text-sm leading-snug">{item.text}</p>
+                  </div>
+                ))}
               </div>
-              <h3 className="font-bold text-foreground text-lg mb-1">{s.title}</h3>
-              <p className="text-muted-foreground text-sm">{s.desc}</p>
+              <p className="text-muted-foreground text-center leading-relaxed">{t('solutionDesc')}</p>
             </motion.div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* ===== DIFFERENTIATORS ===== */}
-      <section className="px-6 py-16 bg-warm">
-        <div className="max-w-4xl mx-auto">
+        {/* ===== HOW IT WORKS ===== */}
+        <section className="px-6 py-28 max-w-4xl mx-auto" aria-labelledby="how-heading">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="text-2xl sm:text-3xl font-extrabold text-foreground text-center mb-12">
-            {t('diffTitle')}
+            id="how-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-16">
+            {t('howItWorksTitle')}
           </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {[
-              { icon: Settings, title: t('diff1'), desc: t('diff1Desc') },
-              { icon: Heart, title: t('diff2'), desc: t('diff2Desc') },
-              { icon: Shield, title: t('diff3'), desc: t('diff3Desc') },
-              { icon: Users, title: t('diff4'), desc: t('diff4Desc') },
-              { icon: Sparkles, title: t('diff5'), desc: t('diff5Desc') },
-            ].map((d, i) => (
-              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="bg-card rounded-2xl p-6 border border-border">
-                <d.icon className="h-6 w-6 text-primary mb-3" />
-                <h3 className="font-bold text-foreground mb-1">{d.title}</h3>
-                <p className="text-muted-foreground text-sm">{d.desc}</p>
-              </motion.div>
+              { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc') },
+              { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc') },
+              { num: '3', icon: Settings, title: t('step3Title'), desc: t('step3Desc') },
+              { num: '4', icon: Download, title: t('step4Title'), desc: t('step4Desc') },
+            ].map((s, i) => (
+              <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                className="bg-card rounded-2xl p-7 border border-border/60 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full gradient-primary text-primary-foreground font-bold flex items-center justify-center text-lg" aria-hidden="true">
+                    {s.num}
+                  </div>
+                  <s.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                </div>
+                <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+              </motion.article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ===== WHAT'S INCLUDED ===== */}
-      <section className="px-6 py-20 max-w-3xl mx-auto">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground text-center mb-10">
-            {t('includesTitle')}
-          </h2>
+        {/* ===== DIFFERENTIATORS ===== */}
+        <section className="px-6 py-24 bg-warm" aria-labelledby="diff-heading">
+          <div className="max-w-5xl mx-auto">
+            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              id="diff-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-14">
+              {t('diffTitle')}
+            </motion.h2>
 
-          <div className="space-y-3 mb-10">
-            {[t('includes1'), t('includes2'), t('includes3'), t('includes4'), t('includes5'), t('includes6')].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 bg-card rounded-xl p-4 border border-border">
-                <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground font-medium">{item}</span>
-              </div>
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { icon: Settings, title: t('diff1'), desc: t('diff1Desc') },
+                { icon: Heart, title: t('diff2'), desc: t('diff2Desc') },
+                { icon: Shield, title: t('diff3'), desc: t('diff3Desc') },
+                { icon: Users, title: t('diff4'), desc: t('diff4Desc') },
+                { icon: Sparkles, title: t('diff5'), desc: t('diff5Desc') },
+              ].map((d, i) => (
+                <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                  className="bg-card rounded-2xl p-7 border border-border/60 shadow-sm">
+                  <d.icon className="h-6 w-6 text-primary mb-4" aria-hidden="true" />
+                  <h3 className="font-bold text-foreground mb-2">{d.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{d.desc}</p>
+                </motion.article>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <blockquote className="bg-warm rounded-2xl p-6 text-center">
-            <p className="text-foreground italic leading-relaxed whitespace-pre-line">{t('includesQuote')}</p>
-          </blockquote>
-        </motion.div>
-      </section>
-
-      {/* ===== ABOUT ===== */}
-      <section className="px-6 py-16 bg-warm">
-        <div className="max-w-2xl mx-auto">
+        {/* ===== WHAT'S INCLUDED ===== */}
+        <section className="px-6 py-28 max-w-3xl mx-auto" aria-labelledby="includes-heading">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-6">{t('aboutTitle')}</h2>
-            <div className="space-y-4 text-foreground leading-relaxed">
-              <p>{t('aboutP1')}</p>
-              <p>{t('aboutP2')}</p>
-              <p>{t('aboutP3')}</p>
-              <p className="text-muted-foreground text-sm">{t('aboutP4')}</p>
-            </div>
-            <div className="mt-6 flex items-center gap-2">
-              <Coffee className="h-4 w-4 text-accent" />
-              <span className="text-sm text-muted-foreground">{t('aboutSupport')}</span>
-              <a href="#" className="text-sm font-semibold text-primary hover:underline">{t('aboutSupportLink')}</a>
-            </div>
+            <h2 id="includes-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-12">
+              {t('includesTitle')}
+            </h2>
+
+            <ul className="space-y-3 mb-12" role="list">
+              {[t('includes1'), t('includes2'), t('includes3'), t('includes4'), t('includes5'), t('includes6')].map((item, i) => (
+                <li key={i} className="flex items-center gap-4 bg-card rounded-2xl p-5 border border-border/60 shadow-sm">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="text-foreground font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <blockquote className="bg-warm rounded-2xl p-8 text-center border-l-4 border-primary/30">
+              <p className="text-foreground italic leading-relaxed whitespace-pre-line text-lg">{t('includesQuote')}</p>
+            </blockquote>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* ===== SEO GUIDE ===== */}
-      <section className="px-6 py-20 max-w-3xl mx-auto">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-4">{t('guideTitle')}</h2>
-          <p className="text-muted-foreground mb-8">{t('guideIntro')}</p>
-
-          <div className="space-y-3 mb-8">
-            {[
-              { icon: Clock, text: t('guide1') },
-              { icon: Lock, text: t('guide2') },
-              { icon: Shield, text: t('guide3') },
-              { icon: FileText, text: t('guide4') },
-              { icon: Eye, text: t('guide5') },
-            ].map((g, i) => (
-              <div key={i} className="flex items-center gap-3 bg-card rounded-xl p-4 border border-border">
-                <g.icon className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground font-medium">{g.text}</span>
+        {/* ===== ABOUT ===== */}
+        <section className="px-6 py-24 bg-warm" aria-labelledby="about-heading">
+          <div className="max-w-2xl mx-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+              <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-8">
+                {t('aboutTitle')}
+              </h2>
+              <div className="space-y-5 text-foreground leading-relaxed text-[1.05rem]">
+                <p>{t('aboutP1')}</p>
+                <p>{t('aboutP2')}</p>
+                <p>{t('aboutP3')}</p>
+                <p className="text-muted-foreground text-sm">{t('aboutP4')}</p>
               </div>
-            ))}
+            </motion.div>
           </div>
+        </section>
 
-          <div className="bg-warm rounded-2xl p-6 text-center">
-            <p className="font-bold text-foreground mb-2">{t('guideDownload')}</p>
-            <p className="text-sm text-muted-foreground">{t('guideDownloadSoon')}</p>
+        {/* ===== SUPPORT THE PROJECT ===== */}
+        <section className="px-6 py-24 max-w-2xl mx-auto text-center" aria-labelledby="support-heading">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+            <HandHeart className="h-10 w-10 text-accent mx-auto mb-6" aria-hidden="true" />
+            <h2 id="support-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-4">
+              {t('supportTitle')}
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-md mx-auto">
+              {t('supportDesc')}
+            </p>
+            <a
+              href="https://buymeacoffee.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all hover:scale-[1.02] focus-visible:scale-[1.02]"
+              aria-label={t('supportCta')}
+            >
+              <Coffee className="h-5 w-5" aria-hidden="true" />
+              {t('supportCta')}
+            </a>
+            <p className="text-xs text-muted-foreground mt-4">{t('supportNote')}</p>
+          </motion.div>
+        </section>
+
+        {/* ===== SEO GUIDE ===== */}
+        <section className="px-6 py-24 bg-warm" aria-labelledby="guide-heading">
+          <div className="max-w-3xl mx-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+              <h2 id="guide-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5">
+                {t('guideTitle')}
+              </h2>
+              <p className="text-muted-foreground mb-10 leading-relaxed">{t('guideIntro')}</p>
+
+              <ul className="space-y-3 mb-10" role="list">
+                {[
+                  { icon: Clock, text: t('guide1') },
+                  { icon: Lock, text: t('guide2') },
+                  { icon: Shield, text: t('guide3') },
+                  { icon: FileText, text: t('guide4') },
+                  { icon: Eye, text: t('guide5') },
+                ].map((g, i) => (
+                  <li key={i} className="flex items-center gap-4 bg-card rounded-2xl p-5 border border-border/60 shadow-sm">
+                    <g.icon className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
+                    <span className="text-foreground font-medium">{g.text}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="bg-card rounded-2xl p-8 text-center border border-border/60 shadow-sm">
+                <p className="font-bold text-foreground mb-2">{t('guideDownload')}</p>
+                <p className="text-sm text-muted-foreground">{t('guideDownloadSoon')}</p>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
-      </section>
+        </section>
 
-      {/* ===== FAQ ===== */}
-      <section className="px-6 py-16 bg-warm">
-        <div className="max-w-3xl mx-auto">
+        {/* ===== FAQ ===== */}
+        <section className="px-6 py-24 max-w-3xl mx-auto" aria-labelledby="faq-heading">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="text-2xl sm:text-3xl font-extrabold text-foreground text-center mb-10">
+            id="faq-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-14">
             {t('faqTitle')}
           </motion.h2>
 
-          <div className="space-y-3">
+          <div className="space-y-3" role="list">
             {faqs.map((faq, i) => (
               <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="bg-card rounded-xl border border-border overflow-hidden">
+                className="bg-card rounded-2xl border border-border/60 overflow-hidden shadow-sm" role="listitem">
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left"
+                  className="w-full flex items-center justify-between p-6 text-left"
+                  aria-expanded={openFaq === i}
+                  aria-controls={`faq-answer-${i}`}
+                  id={`faq-question-${i}`}
                 >
-                  <span className="font-semibold text-foreground pr-4">{faq.q}</span>
-                  <ChevronDown className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <span className="font-semibold text-foreground pr-4 leading-snug">{faq.q}</span>
+                  <ChevronDown className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </button>
                 {openFaq === i && (
-                  <div className="px-5 pb-5 pt-0">
+                  <div className="px-6 pb-6 pt-0" id={`faq-answer-${i}`} role="region" aria-labelledby={`faq-question-${i}`}>
                     <p className="text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
                   </div>
                 )}
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ===== FINAL CTA ===== */}
-      <section className="px-6 py-20 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-4">{t('heroTitle1')} {t('heroTitle2')}</h2>
-          <p className="text-muted-foreground mb-8">{t('solutionDesc')}</p>
-          <button
-            onClick={() => navigate('/onboarding')}
-            className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
-          >
-            {t('heroCta')}
-            <ArrowRight className="h-5 w-5" />
-          </button>
-          <p className="text-sm text-muted-foreground mt-4">{t('heroMicrocopy')}</p>
-        </div>
-      </section>
+        {/* ===== FINAL CTA ===== */}
+        <section className="px-6 py-28 text-center bg-warm" aria-labelledby="final-cta-heading">
+          <div className="max-w-2xl mx-auto">
+            <h2 id="final-cta-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5">
+              {t('heroTitle1')} {t('heroTitle2')}
+            </h2>
+            <p className="text-muted-foreground mb-10 leading-relaxed">{t('solutionDesc')}</p>
+            <button
+              onClick={() => navigate('/onboarding')}
+              className="inline-flex items-center gap-2.5 gradient-primary text-primary-foreground font-bold text-lg px-10 py-4.5 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] focus-visible:scale-[1.02]"
+              aria-label={t('heroCta')}
+            >
+              {t('heroCta')}
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <p className="text-sm text-muted-foreground mt-5">{t('heroMicrocopy')}</p>
+          </div>
+        </section>
+      </main>
 
       {/* ===== FOOTER ===== */}
-      <footer className="border-t border-border py-8 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Smartphone className="h-4 w-4 text-primary" />
+      <footer className="border-t border-border/60 py-10 px-6" role="contentinfo">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div className="flex items-center gap-2.5">
+            <Smartphone className="h-4 w-4 text-primary" aria-hidden="true" />
             <span className="font-bold text-sm text-foreground">{t('brandName')}</span>
           </div>
           <p className="text-sm text-muted-foreground text-center">{t('footerText')}</p>
-          <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-            <Coffee className="h-3 w-3" /> {t('footerSupport')}
+          <a
+            href="https://buymeacoffee.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+            aria-label={t('footerSupport')}
+          >
+            <Coffee className="h-3.5 w-3.5" aria-hidden="true" /> {t('footerSupport')}
           </a>
         </div>
       </footer>
