@@ -2,32 +2,41 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
 import AccessibilityControls from '@/components/AccessibilityControls';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   Shield, Heart, FileText, ArrowRight, Smartphone, Check,
   Clock, MessageCircle, Users, Sparkles, BookOpen, Coffee,
-  ChevronDown, Lock, Download, Settings, Eye, Star, HandHeart
+  ChevronDown, Lock, Download, Settings, Eye, Star, HandHeart,
+  RefreshCw
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import heroImg from '@/assets/hero-photo.jpg';
 import problemImg from '@/assets/problem-photo.jpg';
 import solutionImg from '@/assets/solution-photo.jpg';
 import agreementImg from '@/assets/agreement-photo.jpg';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' },
-  }),
-};
-
 export default function Landing() {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // WCAG 2.1 AA compliant animations: max 300ms, ease-out, only opacity + transform
+  const fadeUp = useMemo(() => ({
+    hidden: prefersReducedMotion
+      ? { opacity: 0 }
+      : { opacity: 0, y: 10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.08,
+        duration: prefersReducedMotion ? 0.15 : 0.3,
+        ease: 'easeOut',
+      },
+    }),
+  }), [prefersReducedMotion]);
 
   const faqs = [
     { q: t('faq1Q'), a: t('faq1A') },
@@ -36,6 +45,23 @@ export default function Landing() {
     { q: t('faq4Q'), a: t('faq4A') },
     { q: t('faq5Q'), a: t('faq5A') },
   ];
+
+  // Helper to render "Smartphone." with green "Smartphone" and green "."
+  const renderSmartphoneTitle = (text: string) => {
+    const parts = text.split('Smartphone');
+    return parts.map((part, i, arr) =>
+      i < arr.length - 1 ? (
+        <span key={i}>{part}<span className="text-primary">Smartphone</span></span>
+      ) : (
+        // The remaining part (e.g. ".") should also be green
+        <span key={i}><span className="text-primary">{part}</span></span>
+      )
+    );
+  };
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,7 +76,13 @@ export default function Landing() {
             <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
             <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
+            <button onClick={() => scrollTo('about-section')} className="hidden sm:inline-flex text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-secondary">
+              {t('navAbout')}
+            </button>
+            <button onClick={() => scrollTo('guide-section')} className="hidden sm:inline-flex text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-secondary">
+              {t('navGuide')}
+            </button>
             <AccessibilityControls />
             <LanguageSelector />
           </div>
@@ -63,8 +95,8 @@ export default function Landing() {
         <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-16 sm:pb-20" aria-labelledby="hero-heading">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 rounded-full bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary mb-8">
-              <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('heroMicrocopy')}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm font-medium text-muted-foreground mb-8 shadow-sm">
+              {t('heroMicrocopy')}
             </motion.div>
 
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
@@ -72,13 +104,7 @@ export default function Landing() {
               className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-foreground leading-[1.08] mb-8 tracking-tight">
               <span className="block">{t('heroTitle1')}</span>
               <span className="block mt-2">
-                {t('heroTitle2').split('Smartphone').map((part, i, arr) =>
-                  i < arr.length - 1 ? (
-                    <span key={i}>{part}<span className="text-primary">Smartphone</span></span>
-                  ) : (
-                    <span key={i}>{part}</span>
-                  )
-                )}
+                {renderSmartphoneTitle(t('heroTitle2'))}
               </span>
             </motion.div>
 
@@ -91,12 +117,11 @@ export default function Landing() {
               <button
                 onClick={() => navigate('/onboarding')}
                 aria-label={t('heroCta')}
-                className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-lg px-10 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.03] focus-visible:scale-[1.03]"
+                className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-lg px-10 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
               >
                 {t('heroCta')}
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
               </button>
-              <p className="text-sm text-muted-foreground mt-4">{t('heroTrust')}</p>
             </motion.div>
           </div>
 
@@ -112,7 +137,7 @@ export default function Landing() {
           </motion.div>
         </section>
 
-        {/* ===== Narrative bridge — SEO H1 integrated into storytelling ===== */}
+        {/* ===== Narrative bridge — SEO H1 ===== */}
         <section className="px-6 lg:px-10 py-16 sm:py-20">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-relaxed">
@@ -121,17 +146,12 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ===== PROBLEM — Image left, text right ===== */}
+        {/* ===== PROBLEM ===== */}
         <section className="px-6 lg:px-10 py-20 sm:py-28" aria-labelledby="problem-heading">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="flex justify-center lg:justify-start order-2 lg:order-1">
-              <img
-                src={problemImg}
-                alt={t('problemImageAlt')}
-                className="w-full max-w-md rounded-2xl shadow-lg"
-                loading="lazy"
-              />
+              <img src={problemImg} alt={t('problemImageAlt')} className="w-full max-w-md rounded-2xl shadow-lg" loading="lazy" />
             </motion.div>
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
@@ -155,7 +175,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ===== SOLUTION — Text left, image right ===== */}
+        {/* ===== SOLUTION ===== */}
         <section className="px-6 lg:px-10 py-20 sm:py-28 bg-warm" aria-labelledby="solution-heading">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
@@ -183,30 +203,24 @@ export default function Landing() {
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="flex justify-center lg:justify-end">
-              <img
-                src={solutionImg}
-                alt={t('solutionImageAlt')}
-                className="w-full max-w-md rounded-2xl shadow-lg"
-                loading="lazy"
-              />
+              <img src={solutionImg} alt={t('solutionImageAlt')} className="w-full max-w-md rounded-2xl shadow-lg" loading="lazy" />
             </motion.div>
           </div>
         </section>
 
-        {/* ===== HOW IT WORKS ===== */}
+        {/* ===== HOW IT WORKS — 3 steps ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-32" aria-labelledby="how-heading">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               id="how-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground text-center mb-20">
               {t('howItWorksTitle')}
             </motion.h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
               {[
                 { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc') },
                 { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc') },
-                { num: '3', icon: Settings, title: t('step3Title'), desc: t('step3Desc') },
-                { num: '4', icon: Download, title: t('step4Title'), desc: t('step4Desc') },
+                { num: '3', icon: Download, title: t('step3Title'), desc: t('step3Desc') },
               ].map((s, i) => (
                 <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
                   className="text-center">
@@ -235,10 +249,10 @@ export default function Landing() {
                 { icon: Heart, title: t('diff2'), desc: t('diff2Desc') },
                 { icon: Shield, title: t('diff3'), desc: t('diff3Desc') },
                 { icon: Users, title: t('diff4'), desc: t('diff4Desc') },
-                { icon: Sparkles, title: t('diff5'), desc: t('diff5Desc') },
+                { icon: RefreshCw, title: t('diff5'), desc: t('diff5Desc') },
               ].map((d, i) => (
                 <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                  className="bg-card rounded-2xl p-8 border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  className="bg-card rounded-2xl p-8 border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <d.icon className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
                   <h3 className="font-bold text-foreground mb-2 text-lg">{d.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{d.desc}</p>
@@ -253,12 +267,7 @@ export default function Landing() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="flex justify-center lg:justify-start">
-              <img
-                src={agreementImg}
-                alt={t('agreementImageAlt')}
-                className="w-full max-w-sm rounded-2xl shadow-lg"
-                loading="lazy"
-              />
+              <img src={agreementImg} alt={t('agreementImageAlt')} className="w-full max-w-sm rounded-2xl shadow-lg" loading="lazy" />
             </motion.div>
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
@@ -283,7 +292,7 @@ export default function Landing() {
         </section>
 
         {/* ===== ABOUT ===== */}
-        <section className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="about-heading">
+        <section id="about-section" className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="about-heading">
           <div className="max-w-2xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
               <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-8">
@@ -293,7 +302,12 @@ export default function Landing() {
                 <p>{t('aboutP1')}</p>
                 <p>{t('aboutP2')}</p>
                 <p>{t('aboutP3')}</p>
-                <p className="text-muted-foreground text-sm">{t('aboutP4')}</p>
+                <p className="text-muted-foreground text-sm">
+                  {t('aboutP4')}{' '}
+                  <a href="mailto:feedback@kidsmartphone.com" className="underline hover:text-foreground transition-colors duration-200">
+                    {t('feedbackSend')}
+                  </a>
+                </p>
               </div>
             </motion.div>
           </div>
@@ -313,7 +327,7 @@ export default function Landing() {
               href="https://buymeacoffee.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all hover:scale-[1.02] focus-visible:scale-[1.02]"
+              className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
               aria-label={t('supportCta')}
             >
               <Coffee className="h-5 w-5" aria-hidden="true" />
@@ -324,7 +338,7 @@ export default function Landing() {
         </section>
 
         {/* ===== SEO GUIDE ===== */}
-        <section className="px-6 lg:px-10 py-24 bg-warm" aria-labelledby="guide-heading">
+        <section id="guide-section" className="px-6 lg:px-10 py-24 bg-warm" aria-labelledby="guide-heading">
           <div className="max-w-3xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
               <h2 id="guide-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5">
@@ -390,25 +404,19 @@ export default function Landing() {
         <section className="px-6 lg:px-10 py-28 sm:py-36 text-center bg-warm" aria-labelledby="final-cta-heading">
           <div className="max-w-2xl mx-auto">
             <h2 id="final-cta-heading" className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-foreground mb-6 leading-tight">
-              <span>{t('heroTitle1')}</span>{' '}
-              <span>
-                {t('heroTitle2').split('Smartphone').map((part, i, arr) =>
-                  i < arr.length - 1 ? (
-                    <span key={i}>{part}<span className="text-primary">Smartphone</span></span>
-                  ) : (
-                    <span key={i}>{part}</span>
-                  )
-                )}
+              <span className="block">{t('heroTitle1')}</span>
+              <span className="block mt-2">
+                {renderSmartphoneTitle(t('heroTitle2'))}
               </span>
             </h2>
             <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionDesc')}</p>
             <button
               onClick={() => navigate('/onboarding')}
-              className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-xl px-12 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.03] focus-visible:scale-[1.03]"
+              className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-xl px-12 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
               aria-label={t('heroCta')}
             >
               {t('heroCta')}
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
             </button>
             <p className="text-sm text-muted-foreground mt-5">{t('heroMicrocopy')}</p>
           </div>
@@ -427,7 +435,7 @@ export default function Landing() {
             href="https://buymeacoffee.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-1.5"
             aria-label={t('footerSupport')}
           >
             <Coffee className="h-3.5 w-3.5" aria-hidden="true" /> {t('footerSupport')}
