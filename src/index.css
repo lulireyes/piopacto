@@ -167,3 +167,16 @@
     font-family: 'Playfair Display', Georgia, serif;
   }
 }
+
+/* PDF export page break rules */
+@media print {
+  .no-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+.no-break {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}

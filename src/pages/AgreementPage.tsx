@@ -4,8 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Smartphone, Download, Edit3, Plus, Trash2, ArrowLeft, X, Heart, Coffee,
-  Palette, Type, Sparkles, Check, SmilePlus, SmileIcon
+  Smartphone, Download, Edit3, Plus, Trash2, ArrowLeft, X,
+  Palette, Type, Sparkles, SmilePlus
 } from 'lucide-react';
 import { OnboardingData, Agreement, AgreementRule, generateAgreement } from '@/lib/agreement-generator';
 
@@ -34,9 +34,6 @@ export default function AgreementPage() {
   const agreementRef = useRef<HTMLDivElement>(null);
   const [editing, setEditing] = useState(false);
   const [newRule, setNewRule] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [feedbackSent, setFeedbackSent] = useState(false);
-  const [feedback, setFeedback] = useState('');
   const [showCustomize, setShowCustomize] = useState(false);
 
   /* Visual customization state */
@@ -103,22 +100,33 @@ export default function AgreementPage() {
   /* ── PDF export ── */
   const handleDownloadPdf = async () => {
     if (!agreementRef.current) return;
+    const el = agreementRef.current;
+
+    // Temporarily apply PDF-specific styles for clean export
+    el.style.maxWidth = '700px';
+    el.style.width = '700px';
+
     const html2pdf = (await import('html2pdf.js')).default;
     const filename = lang === 'es'
       ? `acuerdo-familiar-${onboardingData.childName.toLowerCase().replace(/\s+/g, '-')}.pdf`
       : `family-agreement-${onboardingData.childName.toLowerCase().replace(/\s+/g, '-')}.pdf`;
     await html2pdf()
       .set({
-        margin: [12, 14, 12, 14],
+        margin: [10, 12, 10, 12],
         filename,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
+        html2canvas: { scale: 2.5, useCORS: true, logging: false, letterRendering: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'], avoid: ['.no-break'] },
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['.no-break'] },
       })
-      .from(agreementRef.current)
+      .from(el)
       .save();
-    setShowModal(true);
+
+    // Restore styles
+    el.style.maxWidth = '';
+    el.style.width = '';
+
+    navigate('/success');
   };
 
   const parents = (onboardingData.parentNames || []).filter(Boolean);
@@ -284,14 +292,21 @@ export default function AgreementPage() {
             <div className="space-y-3">
               {agreement.rules.map((rule, i) => (
                 <div key={rule.id} className="flex items-start gap-3 no-break" style={{ pageBreakInside: 'avoid' }}>
-                  <span className="flex-shrink-0 flex items-center justify-center text-xs font-bold"
-                    style={{
-                      width: 26, height: 26, minWidth: 26,
+                  <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '24px',
+                      height: '24px',
+                      minWidth: '24px',
+                      minHeight: '24px',
                       borderRadius: '50%',
                       background: p.circle,
                       color: p.accent,
-                      lineHeight: '26px',
-                      textAlign: 'center',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      flexShrink: 0,
                     }}>
                     {i + 1}
                   </span>
@@ -434,59 +449,7 @@ export default function AgreementPage() {
         </div>
       </motion.div>
 
-      {/* ── Post-download modal ── */}
-      <AnimatePresence>
-        {showModal && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
-            onClick={() => setShowModal(false)}>
-            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-card rounded-3xl border border-border shadow-2xl max-w-md w-full p-8 space-y-6 text-center"
-              onClick={e2 => e2.stopPropagation()}>
 
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <Heart className="h-8 w-8 text-primary" />
-              </div>
-
-              <h2 className="text-2xl font-extrabold text-foreground">{t('downloadSuccess')}</h2>
-              <p className="text-muted-foreground leading-relaxed">{t('downloadMessage')}</p>
-
-              {/* Feedback */}
-              <div className="pt-4 border-t border-border">
-                <p className="text-sm font-medium text-foreground mb-3">{t('feedbackInvite')}</p>
-                {!feedbackSent ? (
-                  <div className="space-y-3">
-                    <textarea value={feedback} onChange={e2 => setFeedback(e2.target.value)}
-                      placeholder={t('feedbackPlaceholder')} maxLength={500} rows={3}
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
-                    <button onClick={() => { if (feedback.trim()) setFeedbackSent(true); }}
-                      className="w-full px-4 py-2.5 rounded-xl gradient-primary text-primary-foreground text-sm font-bold">
-                      {t('feedbackSend')}
-                    </button>
-                  </div>
-                ) : (
-                  <p className="text-primary font-medium">{t('feedbackThanks')}</p>
-                )}
-              </div>
-
-              {/* Support */}
-              <div className="pt-4">
-                <p className="text-sm text-muted-foreground mb-3">{t('supportProject')}</p>
-                <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-bold px-6 py-2.5 rounded-xl bg-accent text-accent-foreground hover:scale-[1.02] transition-transform">
-                  <Coffee className="h-4 w-4" />
-                  {t('supportCta')}
-                </a>
-              </div>
-
-              <button onClick={() => setShowModal(false)}
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors mt-2">
-                {t('cancel')}
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
