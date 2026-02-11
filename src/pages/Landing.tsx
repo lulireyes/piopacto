@@ -10,12 +10,17 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
+import heroImg from '@/assets/hero-illustration.png';
+import problemImg from '@/assets/problem-illustration.png';
+import solutionImg from '@/assets/solution-illustration.png';
+import agreementImg from '@/assets/agreement-illustration.png';
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.45, ease: 'easeOut' },
+    transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' },
   }),
 };
 
@@ -34,15 +39,14 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Skip link for keyboard navigation */}
       <a href="#main-content" className="skip-link">
         {t('skipToContent')}
       </a>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/60" role="banner">
-        <nav className="flex items-center justify-between px-6 py-3.5 max-w-6xl mx-auto" aria-label={t('mainNavigation')}>
-          <div className="flex items-center gap-2.5">
+      {/* Header — minimal, Notion-style */}
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40" role="banner">
+        <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto" aria-label={t('mainNavigation')}>
+          <div className="flex items-center gap-2">
             <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
             <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
           </div>
@@ -54,129 +58,168 @@ export default function Landing() {
       </header>
 
       <main id="main-content" role="main">
-        {/* ===== HERO ===== */}
-        <section className="gradient-hero px-6 pt-24 pb-28 text-center" aria-labelledby="hero-heading">
-          <div className="max-w-3xl mx-auto">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 rounded-full bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary mb-10">
-              <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('heroMicrocopy')}
+
+        {/* ===== HERO — Asymmetric, portfolio-style ===== */}
+        <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-24 sm:pb-32" aria-labelledby="hero-heading">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
+              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
+                className="inline-flex items-center gap-2 rounded-full bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary mb-8">
+                <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('heroMicrocopy')}
+              </motion.div>
+
+              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
+                id="hero-heading" role="heading" aria-level={2}
+                className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-foreground leading-[1.08] mb-8 tracking-tight">
+                <span className="block">{t('heroTitle1')}</span>
+                <span className="block text-primary mt-2">{t('heroTitle2')}</span>
+              </motion.div>
+
+              <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
+                className="text-lg sm:text-xl text-muted-foreground max-w-md mb-10 whitespace-pre-line leading-relaxed">
+                {t('heroSubtitle')}
+              </motion.p>
+
+              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+                <button
+                  onClick={() => navigate('/onboarding')}
+                  aria-label={t('heroCta')}
+                  className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-lg px-10 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.03] focus-visible:scale-[1.03]"
+                >
+                  {t('heroCta')}
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </button>
+                <p className="text-sm text-muted-foreground mt-4">{t('heroTrust')}</p>
+              </motion.div>
+            </div>
+
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2}
+              className="relative flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-primary/6 rounded-[2rem] -rotate-3" aria-hidden="true" />
+                <img
+                  src={heroImg}
+                  alt={t('heroImageAlt') || 'Parent and child looking at a smartphone together'}
+                  className="relative rounded-2xl shadow-md w-full max-w-lg"
+                  loading="eager"
+                />
+              </div>
             </motion.div>
-
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
-              id="hero-heading" role="heading" aria-level={2}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-[1.1] mb-7 tracking-tight">
-              <span className="block">{t('heroTitle1')}</span>
-              <span className="block text-primary mt-1">{t('heroTitle2')}</span>
-            </motion.div>
-
-            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
-              className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto mb-12 whitespace-pre-line leading-relaxed">
-              {t('heroSubtitle')}
-            </motion.p>
-
-            <motion.button initial="hidden" animate="visible" variants={fadeUp} custom={3}
-              onClick={() => navigate('/onboarding')}
-              aria-label={t('heroCta')}
-              className="inline-flex items-center gap-2.5 gradient-primary text-primary-foreground font-bold text-lg px-10 py-4.5 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] focus-visible:scale-[1.02]">
-              {t('heroCta')}
-              <ArrowRight className="h-5 w-5" aria-hidden="true" />
-            </motion.button>
-
-            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={4}
-              className="text-sm text-muted-foreground mt-5">
-              {t('heroTrust')}
-            </motion.p>
           </div>
         </section>
 
         {/* ===== H1 SEO ===== */}
-        <section className="px-6 py-16 max-w-4xl mx-auto text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug">
+        <section className="px-6 lg:px-10 py-12 max-w-5xl mx-auto">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug text-center">
             {t('seoH1')}
           </h1>
         </section>
 
-        {/* ===== PROBLEM ===== */}
-        <section className="px-6 py-20 max-w-3xl mx-auto" aria-labelledby="problem-heading">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <h2 id="problem-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5 leading-tight">
-              {t('problemTitle')}
-            </h2>
-            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('problemIntro')}</p>
+        {/* ===== PROBLEM — Image left, text right ===== */}
+        <section className="px-6 lg:px-10 py-20 sm:py-28" aria-labelledby="problem-heading">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="flex justify-center lg:justify-start order-2 lg:order-1">
+              <img
+                src={problemImg}
+                alt={t('problemImageAlt') || 'Parent worried about child smartphone use'}
+                className="w-full max-w-sm rounded-2xl"
+                loading="lazy"
+              />
+            </motion.div>
 
-            <div className="space-y-4 mb-10" role="list" aria-label={t('problemQuestionsLabel')}>
-              {[t('problemQ1'), t('problemQ2'), t('problemQ3'), t('problemQ4')].map((q, i) => (
-                <div key={i} role="listitem" className="flex items-start gap-4 bg-warm rounded-2xl p-5">
-                  <MessageCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" aria-hidden="true" />
-                  <p className="text-foreground font-medium leading-relaxed">{q}</p>
-                </div>
-              ))}
-            </div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+              className="order-1 lg:order-2">
+              <h2 id="problem-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-6 leading-tight">
+                {t('problemTitle')}
+              </h2>
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{t('problemIntro')}</p>
 
-            <p className="text-foreground font-semibold text-lg whitespace-pre-line leading-relaxed">{t('problemClosing')}</p>
-          </motion.div>
+              <div className="space-y-3 mb-8" role="list" aria-label={t('problemQuestionsLabel')}>
+                {[t('problemQ1'), t('problemQ2'), t('problemQ3'), t('problemQ4')].map((q, i) => (
+                  <div key={i} role="listitem" className="flex items-start gap-3 bg-warm rounded-xl p-4">
+                    <MessageCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <p className="text-foreground font-medium leading-relaxed text-sm">{q}</p>
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-foreground font-semibold text-lg whitespace-pre-line leading-relaxed">{t('problemClosing')}</p>
+            </motion.div>
+          </div>
         </section>
 
-        {/* ===== SOLUTION ===== */}
-        <section className="px-6 py-24 bg-warm" aria-labelledby="solution-heading">
-          <div className="max-w-3xl mx-auto">
+        {/* ===== SOLUTION — Text left, image right ===== */}
+        <section className="px-6 lg:px-10 py-20 sm:py-28 bg-warm" aria-labelledby="solution-heading">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="solution-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5 leading-tight">
+              <h2 id="solution-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-6 leading-tight">
                 {t('solutionTitle')}
               </h2>
-              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionIntro')}</p>
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{t('solutionIntro')}</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+              <div className="space-y-4 mb-8">
                 {[
                   { icon: Users, text: t('solutionPoint1') },
                   { icon: MessageCircle, text: t('solutionPoint2') },
                   { icon: FileText, text: t('solutionPoint3') },
                 ].map((item, i) => (
-                  <div key={i} className="bg-card rounded-2xl p-6 border border-border/60 text-center shadow-sm">
-                    <item.icon className="h-8 w-8 text-primary mx-auto mb-4" aria-hidden="true" />
-                    <p className="font-semibold text-foreground text-sm leading-snug">{item.text}</p>
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                    </div>
+                    <p className="font-medium text-foreground leading-relaxed pt-2">{item.text}</p>
                   </div>
                 ))}
               </div>
-              <p className="text-muted-foreground text-center leading-relaxed">{t('solutionDesc')}</p>
+              <p className="text-muted-foreground leading-relaxed">{t('solutionDesc')}</p>
+            </motion.div>
+
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+              className="flex justify-center lg:justify-end">
+              <img
+                src={solutionImg}
+                alt={t('solutionImageAlt') || 'Family signing an agreement together'}
+                className="w-full max-w-sm rounded-2xl"
+                loading="lazy"
+              />
             </motion.div>
           </div>
         </section>
 
-        {/* ===== HOW IT WORKS ===== */}
-        <section className="px-6 py-28 max-w-4xl mx-auto" aria-labelledby="how-heading">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            id="how-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-16">
-            {t('howItWorksTitle')}
-          </motion.h2>
+        {/* ===== HOW IT WORKS — Clean numbered steps ===== */}
+        <section className="px-6 lg:px-10 py-24 sm:py-32" aria-labelledby="how-heading">
+          <div className="max-w-5xl mx-auto">
+            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              id="how-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground text-center mb-20">
+              {t('howItWorksTitle')}
+            </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {[
-              { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc') },
-              { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc') },
-              { num: '3', icon: Settings, title: t('step3Title'), desc: t('step3Desc') },
-              { num: '4', icon: Download, title: t('step4Title'), desc: t('step4Desc') },
-            ].map((s, i) => (
-              <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="bg-card rounded-2xl p-7 border border-border/60 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full gradient-primary text-primary-foreground font-bold flex items-center justify-center text-lg" aria-hidden="true">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              {[
+                { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc') },
+                { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc') },
+                { num: '3', icon: Settings, title: t('step3Title'), desc: t('step3Desc') },
+                { num: '4', icon: Download, title: t('step4Title'), desc: t('step4Desc') },
+              ].map((s, i) => (
+                <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                  className="text-center">
+                  <div className="w-14 h-14 rounded-2xl gradient-primary text-primary-foreground font-bold flex items-center justify-center text-xl mx-auto mb-5" aria-hidden="true">
                     {s.num}
                   </div>
-                  <s.icon className="h-5 w-5 text-primary" aria-hidden="true" />
-                </div>
-                <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
-              </motion.article>
-            ))}
+                  <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* ===== DIFFERENTIATORS ===== */}
-        <section className="px-6 py-24 bg-warm" aria-labelledby="diff-heading">
+        <section className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="diff-heading">
           <div className="max-w-5xl mx-auto">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              id="diff-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-14">
+              id="diff-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground text-center mb-16">
               {t('diffTitle')}
             </motion.h2>
 
@@ -189,9 +232,9 @@ export default function Landing() {
                 { icon: Sparkles, title: t('diff5'), desc: t('diff5Desc') },
               ].map((d, i) => (
                 <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                  className="bg-card rounded-2xl p-7 border border-border/60 shadow-sm">
-                  <d.icon className="h-6 w-6 text-primary mb-4" aria-hidden="true" />
-                  <h3 className="font-bold text-foreground mb-2">{d.title}</h3>
+                  className="bg-card rounded-2xl p-8 border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <d.icon className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
+                  <h3 className="font-bold text-foreground mb-2 text-lg">{d.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{d.desc}</p>
                 </motion.article>
               ))}
@@ -199,30 +242,42 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ===== WHAT'S INCLUDED ===== */}
-        <section className="px-6 py-28 max-w-3xl mx-auto" aria-labelledby="includes-heading">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <h2 id="includes-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-12">
-              {t('includesTitle')}
-            </h2>
+        {/* ===== WHAT'S INCLUDED — Image left, checklist right ===== */}
+        <section className="px-6 lg:px-10 py-24 sm:py-28" aria-labelledby="includes-heading">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="flex justify-center lg:justify-start">
+              <img
+                src={agreementImg}
+                alt={t('agreementImageAlt') || 'A checklist document with a smartphone'}
+                className="w-full max-w-xs rounded-2xl"
+                loading="lazy"
+              />
+            </motion.div>
 
-            <ul className="space-y-3 mb-12" role="list">
-              {[t('includes1'), t('includes2'), t('includes3'), t('includes4'), t('includes5'), t('includes6')].map((item, i) => (
-                <li key={i} className="flex items-center gap-4 bg-card rounded-2xl p-5 border border-border/60 shadow-sm">
-                  <Check className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
-                  <span className="text-foreground font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
+              <h2 id="includes-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-10">
+                {t('includesTitle')}
+              </h2>
 
-            <blockquote className="bg-warm rounded-2xl p-8 text-center border-l-4 border-primary/30">
-              <p className="text-foreground italic leading-relaxed whitespace-pre-line text-lg">{t('includesQuote')}</p>
-            </blockquote>
-          </motion.div>
+              <ul className="space-y-3 mb-10" role="list">
+                {[t('includes1'), t('includes2'), t('includes3'), t('includes4'), t('includes5'), t('includes6')].map((item, i) => (
+                  <li key={i} className="flex items-center gap-4 bg-card rounded-xl p-4 border border-border/40 shadow-sm">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
+                    <span className="text-foreground font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <blockquote className="bg-warm rounded-xl p-6 border-l-4 border-primary/30">
+                <p className="text-foreground italic leading-relaxed whitespace-pre-line">{t('includesQuote')}</p>
+              </blockquote>
+            </motion.div>
+          </div>
         </section>
 
         {/* ===== ABOUT ===== */}
-        <section className="px-6 py-24 bg-warm" aria-labelledby="about-heading">
+        <section className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="about-heading">
           <div className="max-w-2xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
               <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-8">
@@ -239,7 +294,7 @@ export default function Landing() {
         </section>
 
         {/* ===== SUPPORT THE PROJECT ===== */}
-        <section className="px-6 py-24 max-w-2xl mx-auto text-center" aria-labelledby="support-heading">
+        <section className="px-6 lg:px-10 py-24 max-w-2xl mx-auto text-center" aria-labelledby="support-heading">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
             <HandHeart className="h-10 w-10 text-accent mx-auto mb-6" aria-hidden="true" />
             <h2 id="support-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-4">
@@ -263,7 +318,7 @@ export default function Landing() {
         </section>
 
         {/* ===== SEO GUIDE ===== */}
-        <section className="px-6 py-24 bg-warm" aria-labelledby="guide-heading">
+        <section className="px-6 lg:px-10 py-24 bg-warm" aria-labelledby="guide-heading">
           <div className="max-w-3xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
               <h2 id="guide-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5">
@@ -279,14 +334,14 @@ export default function Landing() {
                   { icon: FileText, text: t('guide4') },
                   { icon: Eye, text: t('guide5') },
                 ].map((g, i) => (
-                  <li key={i} className="flex items-center gap-4 bg-card rounded-2xl p-5 border border-border/60 shadow-sm">
+                  <li key={i} className="flex items-center gap-4 bg-card rounded-xl p-5 border border-border/40 shadow-sm">
                     <g.icon className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
                     <span className="text-foreground font-medium">{g.text}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="bg-card rounded-2xl p-8 text-center border border-border/60 shadow-sm">
+              <div className="bg-card rounded-xl p-8 text-center border border-border/40 shadow-sm">
                 <p className="font-bold text-foreground mb-2">{t('guideDownload')}</p>
                 <p className="text-sm text-muted-foreground">{t('guideDownloadSoon')}</p>
               </div>
@@ -295,16 +350,16 @@ export default function Landing() {
         </section>
 
         {/* ===== FAQ ===== */}
-        <section className="px-6 py-24 max-w-3xl mx-auto" aria-labelledby="faq-heading">
+        <section className="px-6 lg:px-10 py-24 max-w-3xl mx-auto" aria-labelledby="faq-heading">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            id="faq-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-14">
+            id="faq-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-16">
             {t('faqTitle')}
           </motion.h2>
 
           <div className="space-y-3" role="list">
             {faqs.map((faq, i) => (
               <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="bg-card rounded-2xl border border-border/60 overflow-hidden shadow-sm" role="listitem">
+                className="bg-card rounded-xl border border-border/40 overflow-hidden shadow-sm" role="listitem">
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-6 text-left"
@@ -325,20 +380,20 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ===== FINAL CTA ===== */}
-        <section className="px-6 py-28 text-center bg-warm" aria-labelledby="final-cta-heading">
+        {/* ===== FINAL CTA — Big, prominent ===== */}
+        <section className="px-6 lg:px-10 py-28 sm:py-36 text-center bg-warm" aria-labelledby="final-cta-heading">
           <div className="max-w-2xl mx-auto">
-            <h2 id="final-cta-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5">
+            <h2 id="final-cta-heading" className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-foreground mb-6 leading-tight">
               {t('heroTitle1')} {t('heroTitle2')}
             </h2>
-            <p className="text-muted-foreground mb-10 leading-relaxed">{t('solutionDesc')}</p>
+            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionDesc')}</p>
             <button
               onClick={() => navigate('/onboarding')}
-              className="inline-flex items-center gap-2.5 gradient-primary text-primary-foreground font-bold text-lg px-10 py-4.5 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] focus-visible:scale-[1.02]"
+              className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-xl px-12 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.03] focus-visible:scale-[1.03]"
               aria-label={t('heroCta')}
             >
               {t('heroCta')}
-              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </button>
             <p className="text-sm text-muted-foreground mt-5">{t('heroMicrocopy')}</p>
           </div>
@@ -346,9 +401,9 @@ export default function Landing() {
       </main>
 
       {/* ===== FOOTER ===== */}
-      <footer className="border-t border-border/60 py-10 px-6" role="contentinfo">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div className="flex items-center gap-2.5">
+      <footer className="border-t border-border/40 py-10 px-6 lg:px-10" role="contentinfo">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div className="flex items-center gap-2">
             <Smartphone className="h-4 w-4 text-primary" aria-hidden="true" />
             <span className="font-bold text-sm text-foreground">{t('brandName')}</span>
           </div>
