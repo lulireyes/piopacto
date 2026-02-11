@@ -8,8 +8,10 @@ export interface OnboardingData {
   restrictions: string[];
   dailyMinutes: number;
   weekendMinutes: number;
-  parent1Name: string;
-  parent2Name: string;
+  allowedApps: string[];
+  supervision: string[];
+  parentNames: string[];
+  finalMessage: string;
 }
 
 export interface AgreementRule {
@@ -32,10 +34,24 @@ function generateId() {
   return Math.random().toString(36).substring(2, 9);
 }
 
+export function getRecommendedMinutes(age: number): number {
+  if (age <= 7) return 30;
+  if (age <= 9) return 45;
+  if (age <= 11) return 60;
+  if (age <= 13) return 90;
+  return 120;
+}
+
+export function getSuggestedApps(age: number): string[] {
+  const base = ['WhatsApp', 'YouTube Kids', 'Google Maps'];
+  if (age <= 9) return [...base, 'Duolingo', 'Khan Academy Kids'];
+  if (age <= 12) return ['WhatsApp', 'YouTube', 'Spotify', 'Duolingo', 'Google Maps', 'Khan Academy'];
+  return ['WhatsApp', 'YouTube', 'Spotify', 'Instagram', 'Google Maps', 'Duolingo', 'Notion'];
+}
+
 export function generateAgreement(data: OnboardingData, lang: Language): Agreement {
-  const { childName, age, isFirstPhone, mainUsage, restrictions, dailyMinutes, weekendMinutes } = data;
-  const isYoung = age <= 10;
-  const isTeen = age >= 13;
+  const isYoung = data.age <= 10;
+  const isTeen = data.age >= 13;
 
   if (lang === 'es') {
     return generateSpanish(data, isYoung, isTeen);
@@ -44,11 +60,10 @@ export function generateAgreement(data: OnboardingData, lang: Language): Agreeme
 }
 
 function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean): Agreement {
-  const { childName, age, dailyMinutes, weekendMinutes, restrictions, mainUsage, isFirstPhone } = data;
+  const { childName, age, dailyMinutes, weekendMinutes, restrictions, mainUsage, isFirstPhone, allowedApps, supervision, finalMessage } = data;
 
   const rules: AgreementRule[] = [];
 
-  // Time rules
   rules.push({
     id: generateId(),
     text: `${childName} podrá usar el teléfono un máximo de ${dailyMinutes} minutos al día entre semana.`,
@@ -60,7 +75,6 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     category: 'time',
   });
 
-  // Restriction rules
   if (restrictions.includes('meals')) {
     rules.push({ id: generateId(), text: 'Durante las comidas, el teléfono se queda fuera de la mesa.', category: 'behavior' });
   }
@@ -68,8 +82,8 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     rules.push({
       id: generateId(),
       text: isYoung
-        ? `El teléfono se apaga 1 hora antes de ir a dormir y se carga fuera de la habitación.`
-        : `El teléfono se deja cargando fuera de la habitación al menos 30 minutos antes de dormir.`,
+        ? 'El teléfono se apaga 1 hora antes de ir a dormir y se carga fuera de la habitación.'
+        : 'El teléfono se deja cargando fuera de la habitación al menos 30 minutos antes de dormir.',
       category: 'behavior',
     });
   }
@@ -83,7 +97,14 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     rules.push({ id: generateId(), text: 'En el colegio, el teléfono seguirá las normas del centro.', category: 'behavior' });
   }
 
-  // Safety rules by age
+  if (allowedApps.length > 0) {
+    rules.push({
+      id: generateId(),
+      text: `Las apps permitidas son: ${allowedApps.join(', ')}. Cualquier app nueva se comentará antes de descargar.`,
+      category: 'safety',
+    });
+  }
+
   rules.push({
     id: generateId(),
     text: isYoung
@@ -106,7 +127,24 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     });
   }
 
-  // Trust rules
+  if (supervision.includes('location')) {
+    rules.push({
+      id: generateId(),
+      text: `${childName} compartirá su ubicación con sus padres. Esto es para seguridad, no para control.`,
+      category: 'trust',
+    });
+  }
+
+  if (supervision.includes('chat')) {
+    rules.push({
+      id: generateId(),
+      text: isYoung
+        ? 'Los padres podrán revisar los chats de forma transparente y acordada.'
+        : 'De forma ocasional y transparente, los padres podrán revisar los chats si hay motivo de preocupación.',
+      category: 'trust',
+    });
+  }
+
   rules.push({
     id: generateId(),
     text: isYoung
@@ -131,21 +169,23 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
       : 'Me comprometo a seguir usando el teléfono de forma responsable.',
   ];
 
+  const closingText = finalMessage || `Firmamos este acuerdo porque nos importamos. No se trata de controlar, sino de acompañarnos en esta aventura digital. ${childName}, confiamos en ti.`;
+
   return {
-    title: `Acuerdo Familiar sobre el Smartphone`,
+    title: 'Acuerdo Familiar sobre el Smartphone',
     intro: isYoung
       ? `Este acuerdo es entre ${childName} (${age} años) y su familia. Tener un teléfono es emocionante, y juntos vamos a aprender a usarlo bien. Este pacto nos ayuda a cuidarnos y confiar los unos en los otros.`
       : `Este acuerdo es entre ${childName} (${age} años) y su familia. Un smartphone es una herramienta poderosa que viene con libertad y responsabilidad. Este pacto refleja la confianza que nos tenemos y nuestro compromiso de cuidarnos mutuamente en el mundo digital.`,
     rules,
     parentCommitments,
     childCommitments,
-    closingNote: `Firmamos este acuerdo porque nos importamos. No se trata de controlar, sino de acompañarnos en esta aventura digital. ${childName}, confiamos en ti.`,
-    reviewNote: 'Revisaremos este acuerdo juntos cada 3 meses para ajustarlo a medida que ${childName} crece y cambian las necesidades.'.replace('${childName}', childName),
+    closingNote: closingText,
+    reviewNote: `Revisaremos este acuerdo juntos cada 3 meses para ajustarlo a medida que ${childName} crece y cambian las necesidades.`,
   };
 }
 
 function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean): Agreement {
-  const { childName, age, dailyMinutes, weekendMinutes, restrictions, mainUsage, isFirstPhone } = data;
+  const { childName, age, dailyMinutes, weekendMinutes, restrictions, mainUsage, isFirstPhone, allowedApps, supervision, finalMessage } = data;
 
   const rules: AgreementRule[] = [];
 
@@ -182,6 +222,14 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     rules.push({ id: generateId(), text: 'At school, the phone will follow the school\'s rules.', category: 'behavior' });
   }
 
+  if (allowedApps.length > 0) {
+    rules.push({
+      id: generateId(),
+      text: `Allowed apps are: ${allowedApps.join(', ')}. Any new app will be discussed before downloading.`,
+      category: 'safety',
+    });
+  }
+
   rules.push({
     id: generateId(),
     text: isYoung
@@ -201,6 +249,24 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
       id: generateId(),
       text: 'Social media will be used respectfully. Nothing you wouldn\'t say in person.',
       category: 'safety',
+    });
+  }
+
+  if (supervision.includes('location')) {
+    rules.push({
+      id: generateId(),
+      text: `${childName} will share their location with parents. This is for safety, not control.`,
+      category: 'trust',
+    });
+  }
+
+  if (supervision.includes('chat')) {
+    rules.push({
+      id: generateId(),
+      text: isYoung
+        ? 'Parents may review chats transparently and by agreement.'
+        : 'Occasionally and transparently, parents may review chats if there is cause for concern.',
+      category: 'trust',
     });
   }
 
@@ -228,6 +294,8 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
       : 'I commit to continuing to use the phone responsibly.',
   ];
 
+  const closingText = finalMessage || `We sign this agreement because we care about each other. It's not about control—it's about walking this digital adventure together. ${childName}, we trust you.`;
+
   return {
     title: 'Family Smartphone Agreement',
     intro: isYoung
@@ -236,7 +304,7 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     rules,
     parentCommitments,
     childCommitments,
-    closingNote: `We sign this agreement because we care about each other. It's not about control—it's about walking this digital adventure together. ${childName}, we trust you.`,
+    closingNote: closingText,
     reviewNote: `We will review this agreement together every 3 months to adjust it as ${childName} grows and needs change.`,
   };
 }
