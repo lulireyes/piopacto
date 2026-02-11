@@ -10,10 +10,10 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
-import heroImg from '@/assets/hero-illustration.png';
-import problemImg from '@/assets/problem-illustration.png';
-import solutionImg from '@/assets/solution-illustration.png';
-import agreementImg from '@/assets/agreement-illustration.png';
+import heroImg from '@/assets/hero-photo.jpg';
+import problemImg from '@/assets/problem-photo.jpg';
+import solutionImg from '@/assets/solution-photo.jpg';
+import agreementImg from '@/assets/agreement-photo.jpg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -43,7 +43,7 @@ export default function Landing() {
         {t('skipToContent')}
       </a>
 
-      {/* Header — minimal, Notion-style */}
+      {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40" role="banner">
         <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto" aria-label={t('mainNavigation')}>
           <div className="flex items-center gap-2">
@@ -59,60 +59,66 @@ export default function Landing() {
 
       <main id="main-content" role="main">
 
-        {/* ===== HERO — Asymmetric, portfolio-style ===== */}
-        <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-24 sm:pb-32" aria-labelledby="hero-heading">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
-              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
-                className="inline-flex items-center gap-2 rounded-full bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary mb-8">
-                <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('heroMicrocopy')}
-              </motion.div>
+        {/* ===== HERO — Centered, emotional ===== */}
+        <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-16 sm:pb-20" aria-labelledby="hero-heading">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
+              className="inline-flex items-center gap-2 rounded-full bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary mb-8">
+              <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('heroMicrocopy')}
+            </motion.div>
 
-              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
-                id="hero-heading" role="heading" aria-level={2}
-                className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-foreground leading-[1.08] mb-8 tracking-tight">
-                <span className="block">{t('heroTitle1')}</span>
-                <span className="block text-primary mt-2">{t('heroTitle2')}</span>
-              </motion.div>
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
+              id="hero-heading" role="heading" aria-level={2}
+              className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-foreground leading-[1.08] mb-8 tracking-tight">
+              <span className="block">{t('heroTitle1')}</span>
+              <span className="block mt-2">
+                {t('heroTitle2').split('Smartphone').map((part, i, arr) =>
+                  i < arr.length - 1 ? (
+                    <span key={i}>{part}<span className="text-primary">Smartphone</span></span>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  )
+                )}
+              </span>
+            </motion.div>
 
-              <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
-                className="text-lg sm:text-xl text-muted-foreground max-w-md mb-10 whitespace-pre-line leading-relaxed">
-                {t('heroSubtitle')}
-              </motion.p>
+            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
+              className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto mb-10 whitespace-pre-line leading-relaxed">
+              {t('heroSubtitle')}
+            </motion.p>
 
-              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
-                <button
-                  onClick={() => navigate('/onboarding')}
-                  aria-label={t('heroCta')}
-                  className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-lg px-10 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.03] focus-visible:scale-[1.03]"
-                >
-                  {t('heroCta')}
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                </button>
-                <p className="text-sm text-muted-foreground mt-4">{t('heroTrust')}</p>
-              </motion.div>
-            </div>
-
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2}
-              className="relative flex justify-center lg:justify-end">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-primary/6 rounded-[2rem] -rotate-3" aria-hidden="true" />
-                <img
-                  src={heroImg}
-                  alt={t('heroImageAlt') || 'Parent and child looking at a smartphone together'}
-                  className="relative rounded-2xl shadow-md w-full max-w-lg"
-                  loading="eager"
-                />
-              </div>
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+              <button
+                onClick={() => navigate('/onboarding')}
+                aria-label={t('heroCta')}
+                className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-lg px-10 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.03] focus-visible:scale-[1.03]"
+              >
+                {t('heroCta')}
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </button>
+              <p className="text-sm text-muted-foreground mt-4">{t('heroTrust')}</p>
             </motion.div>
           </div>
+
+          {/* Hero image below CTA */}
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4}
+            className="max-w-4xl mx-auto mt-16">
+            <img
+              src={heroImg}
+              alt={t('heroImageAlt')}
+              className="w-full rounded-3xl shadow-xl"
+              loading="eager"
+            />
+          </motion.div>
         </section>
 
-        {/* ===== H1 SEO ===== */}
-        <section className="px-6 lg:px-10 py-12 max-w-5xl mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug text-center">
-            {t('seoH1')}
-          </h1>
+        {/* ===== Narrative bridge — SEO H1 integrated into storytelling ===== */}
+        <section className="px-6 lg:px-10 py-16 sm:py-20">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-relaxed">
+              {t('seoH1')}
+            </h1>
+          </div>
         </section>
 
         {/* ===== PROBLEM — Image left, text right ===== */}
@@ -122,8 +128,8 @@ export default function Landing() {
               className="flex justify-center lg:justify-start order-2 lg:order-1">
               <img
                 src={problemImg}
-                alt={t('problemImageAlt') || 'Parent worried about child smartphone use'}
-                className="w-full max-w-sm rounded-2xl"
+                alt={t('problemImageAlt')}
+                className="w-full max-w-md rounded-2xl shadow-lg"
                 loading="lazy"
               />
             </motion.div>
@@ -179,15 +185,15 @@ export default function Landing() {
               className="flex justify-center lg:justify-end">
               <img
                 src={solutionImg}
-                alt={t('solutionImageAlt') || 'Family signing an agreement together'}
-                className="w-full max-w-sm rounded-2xl"
+                alt={t('solutionImageAlt')}
+                className="w-full max-w-md rounded-2xl shadow-lg"
                 loading="lazy"
               />
             </motion.div>
           </div>
         </section>
 
-        {/* ===== HOW IT WORKS — Clean numbered steps ===== */}
+        {/* ===== HOW IT WORKS ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-32" aria-labelledby="how-heading">
           <div className="max-w-5xl mx-auto">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
@@ -242,15 +248,15 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ===== WHAT'S INCLUDED — Image left, checklist right ===== */}
+        {/* ===== WHAT'S INCLUDED ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-28" aria-labelledby="includes-heading">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="flex justify-center lg:justify-start">
               <img
                 src={agreementImg}
-                alt={t('agreementImageAlt') || 'A checklist document with a smartphone'}
-                className="w-full max-w-xs rounded-2xl"
+                alt={t('agreementImageAlt')}
+                className="w-full max-w-sm rounded-2xl shadow-lg"
                 loading="lazy"
               />
             </motion.div>
@@ -380,11 +386,20 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ===== FINAL CTA — Big, prominent ===== */}
+        {/* ===== FINAL CTA ===== */}
         <section className="px-6 lg:px-10 py-28 sm:py-36 text-center bg-warm" aria-labelledby="final-cta-heading">
           <div className="max-w-2xl mx-auto">
             <h2 id="final-cta-heading" className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-foreground mb-6 leading-tight">
-              {t('heroTitle1')} {t('heroTitle2')}
+              <span>{t('heroTitle1')}</span>{' '}
+              <span>
+                {t('heroTitle2').split('Smartphone').map((part, i, arr) =>
+                  i < arr.length - 1 ? (
+                    <span key={i}>{part}<span className="text-primary">Smartphone</span></span>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  )
+                )}
+              </span>
             </h2>
             <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionDesc')}</p>
             <button
@@ -400,7 +415,7 @@ export default function Landing() {
         </section>
       </main>
 
-      {/* ===== FOOTER ===== */}
+      {/* Footer */}
       <footer className="border-t border-border/40 py-10 px-6 lg:px-10" role="contentinfo">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-2">
