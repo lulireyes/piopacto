@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 25% 14%;
 
-    --primary: 14 68% 46%;
+    --primary: 228 100% 50%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 40 25% 94%;
@@ -32,7 +32,7 @@
 
     --border: 40 15% 90%;
     --input: 40 15% 88%;
-    --ring: 14 68% 46%;
+    --ring: 228 100% 50%;
 
     --radius: 0.75rem;
 
@@ -60,7 +60,7 @@
     --card-foreground: 40 20% 95%;
     --popover: 220 20% 13%;
     --popover-foreground: 40 20% 95%;
-    --primary: 14 72% 52%;
+    --primary: 228 100% 60%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 15% 18%;
     --secondary-foreground: 40 20% 95%;
@@ -72,7 +72,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 220 15% 22%;
     --input: 220 15% 22%;
-    --ring: 14 72% 52%;
+    --ring: 228 100% 60%;
     --warm: 220 15% 15%;
     --warm-foreground: 40 20% 80%;
     --success: 145 50% 50%;
@@ -85,7 +85,7 @@
     --foreground: 0 0% 0%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 0%;
-    --primary: 14 60% 35%;
+    --primary: 228 100% 40%;
     --primary-foreground: 0 0% 100%;
     --muted-foreground: 0 0% 30%;
     --border: 0 0% 60%;
@@ -97,7 +97,7 @@
     --foreground: 0 0% 100%;
     --card: 0 0% 5%;
     --card-foreground: 0 0% 100%;
-    --primary: 14 70% 55%;
+    --primary: 228 100% 65%;
     --primary-foreground: 0 0% 0%;
     --muted-foreground: 0 0% 75%;
     --border: 0 0% 50%;
@@ -156,7 +156,7 @@
   }
 
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(14 68% 46%) 0%, hsl(14 75% 52%) 100%);
+    background: linear-gradient(135deg, hsl(228 100% 50%) 0%, hsl(228 100% 58%) 100%);
   }
 
   .gradient-hero {
