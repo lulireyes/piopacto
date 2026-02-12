@@ -140,20 +140,34 @@ export default function Landing() {
           </motion.div>
         </section>
 
-        {/* ===== FIRST THINGS FIRST — Infinite marquee ticker ===== */}
-        <div className="overflow-hidden py-6 sm:py-8 select-none" aria-hidden="true">
-          <motion.div
-            className="flex whitespace-nowrap"
-            animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
-            transition={{ duration: 18, ease: 'linear', repeat: Infinity }}
-          >
-            {Array.from({ length: 8 }).map((_, i) => (
-              <span key={i} className="font-display text-5xl sm:text-6xl lg:text-7xl font-black text-primary uppercase tracking-tight mx-4 sm:mx-6 flex items-center gap-4 sm:gap-6">
-                FIRST THINGS FIRST
-                <span className="text-primary/30 text-3xl sm:text-4xl">✦</span>
+        {/* ===== FIRST THINGS FIRST — Wave typography ===== */}
+        <div className="py-8 sm:py-10 select-none flex justify-center" aria-hidden="true">
+          <div className="flex flex-wrap justify-center gap-x-3 sm:gap-x-4 gap-y-1 max-w-md sm:max-w-lg px-6">
+            {['FIRST', 'THINGS', 'FIRST'].map((word, wi) => (
+              <span key={wi} className="flex">
+                {word.split('').map((char, ci) => {
+                  const idx = wi * 6 + ci;
+                  return (
+                    <motion.span
+                      key={ci}
+                      className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.08em] inline-block"
+                      animate={prefersReducedMotion ? {} : {
+                        y: [0, -4, 0, 3, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        ease: 'easeInOut',
+                        repeat: Infinity,
+                        delay: idx * 0.15,
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  );
+                })}
               </span>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* ===== Narrative bridge — SEO H1 ===== */}
