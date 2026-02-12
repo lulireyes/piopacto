@@ -170,6 +170,16 @@ export default function AgreementPage() {
         </button>
       </div>
 
+      {/* Discrete legal consent line */}
+      <div className="max-w-3xl mx-auto px-6 -mt-2 mb-4">
+        <p className="text-xs text-muted-foreground text-right">
+          {t('legalConsent')}{' '}
+          <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
+            {t('legalConsentLink')}
+          </a>.
+        </p>
+      </div>
+
       {/* ── Customization panel ── */}
       <AnimatePresence>
         {showCustomize && (
