@@ -456,7 +456,7 @@ export default function Onboarding() {
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border px-6 py-4 z-30">
+      <div className="fixed left-0 right-0 px-6 py-4 z-30" style={{ top: '60%' }}>
         <div className="max-w-md mx-auto flex items-center justify-between">
           <button onClick={goBack}
             aria-label={t('back')}
