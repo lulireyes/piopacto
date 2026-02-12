@@ -206,7 +206,7 @@ export default function Onboarding() {
         </div>
       </div>
 
-      <main className="flex-1 flex items-start justify-center px-6 pt-6 pb-4" id="onboarding-form" role="main">
+      <main className="flex-1 flex items-start justify-center px-6 pt-6 pb-28" id="onboarding-form" role="main">
         <div className="w-full max-w-md">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -453,22 +453,24 @@ export default function Onboarding() {
               )}
             </motion.div>
           </AnimatePresence>
-
-          <div className="mt-6 flex items-center justify-between">
-            <button onClick={goBack}
-              aria-label={t('back')}
-              className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors font-medium">
-              <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t('back')}
-            </button>
-            <button onClick={goNext} disabled={!canProceed()}
-              aria-label={step === TOTAL_STEPS ? t('generate') : t('next')}
-              className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:shadow-none">
-              {step === TOTAL_STEPS ? t('generate') : t('next')}
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
         </div>
       </main>
+
+      <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border px-6 py-4 z-30">
+        <div className="max-w-md mx-auto flex items-center justify-between">
+          <button onClick={goBack}
+            aria-label={t('back')}
+            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors font-medium">
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t('back')}
+          </button>
+          <button onClick={goNext} disabled={!canProceed()}
+            aria-label={step === TOTAL_STEPS ? t('generate') : t('next')}
+            className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:shadow-none">
+            {step === TOTAL_STEPS ? t('generate') : t('next')}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
