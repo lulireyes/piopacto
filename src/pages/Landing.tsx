@@ -141,39 +141,44 @@ export default function Landing() {
         </section>
 
         {/* ===== FIRST THINGS FIRST — Infinite wave marquee ===== */}
-        <div className="overflow-hidden py-4 sm:py-6 select-none" aria-hidden="true">
+        <div className="overflow-hidden py-6 sm:py-8 select-none" aria-hidden="true">
           <motion.div
             className="flex whitespace-nowrap"
             animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
-            transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
+            transition={{ duration: 40, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
             style={{ willChange: 'transform' }}
           >
-            {Array.from({ length: 12 }).map((_, i) => (
-              <span key={i} className="flex items-baseline mx-2">
-                {'FIRST THINGS FIRST'.split('').map((char, ci) => (
-                  <motion.span
-                    key={`${i}-${ci}`}
-                    className="font-display text-xl sm:text-2xl lg:text-3xl font-medium text-primary/15 uppercase tracking-[0.12em] inline-block"
-                    style={{
-                      WebkitTextStroke: '1px hsl(228 100% 50% / 0.12)',
-                      color: 'transparent',
-                    }}
-                    animate={prefersReducedMotion ? {} : {
-                      y: [0, -3, 0, 3, 0],
-                    }}
-                    transition={{
-                      duration: 5,
-                      ease: 'easeInOut',
-                      repeat: Infinity,
-                      delay: ci * 0.12,
-                    }}
-                  >
-                    {char === ' ' ? '\u00A0\u00A0' : char}
-                  </motion.span>
-                ))}
-                <span className="text-primary/10 text-sm mx-3 sm:mx-4">·</span>
-              </span>
-            ))}
+            {Array.from({ length: 10 }).map((_, i) => {
+              const phrase = 'FIRST THINGS FIRST';
+              const chars = phrase.split('');
+              const totalChars = chars.length;
+              return (
+                <span key={i} className="flex items-baseline mx-1">
+                  {chars.map((char, ci) => {
+                    const globalIndex = i * totalChars + ci;
+                    return (
+                      <motion.span
+                        key={`${i}-${ci}`}
+                        className="text-xl sm:text-2xl lg:text-3xl font-normal text-primary uppercase tracking-[0.18em] inline-block"
+                        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+                        animate={prefersReducedMotion ? {} : {
+                          y: [0, -8, 0, 8, 0],
+                        }}
+                        transition={{
+                          duration: 6,
+                          ease: [0.37, 0, 0.63, 1],
+                          repeat: Infinity,
+                          delay: globalIndex * 0.08,
+                        }}
+                      >
+                        {char === ' ' ? '\u00A0\u00A0' : char}
+                      </motion.span>
+                    );
+                  })}
+                  <span className="text-primary/40 text-xs mx-4 sm:mx-5">✦</span>
+                </span>
+              );
+            })}
           </motion.div>
         </div>
 
