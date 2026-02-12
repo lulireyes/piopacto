@@ -15,6 +15,7 @@ import heroImg from '@/assets/hero-photo.jpg';
 import problemImg from '@/assets/problem-photo.jpg';
 import solutionImg from '@/assets/solution-photo.jpg';
 import agreementImg from '@/assets/agreement-photo.jpg';
+import WaveDivider from '@/components/WaveDivider';
 
 export default function Landing() {
   const { t } = useLanguage();
@@ -140,49 +141,22 @@ export default function Landing() {
           </motion.div>
         </section>
 
-        {/* ===== FIRST THINGS FIRST — Infinite wave marquee ===== */}
-        <div className="overflow-hidden py-6 sm:py-8 select-none" aria-hidden="true">
+        {/* ===== FIRST THINGS FIRST — Smooth infinite marquee ===== */}
+        <div className="overflow-hidden py-8 sm:py-10 select-none" aria-hidden="true">
           <motion.div
             className="flex whitespace-nowrap"
             animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
-            transition={{ duration: 40, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+            transition={{ duration: 18, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
             style={{ willChange: 'transform' }}
           >
-            {Array.from({ length: 10 }).map((_, i) => {
-              const phrase = 'FIRST THINGS FIRST';
-              const chars = phrase.split('');
-              return (
-                <span key={i} className="flex items-baseline mx-1">
-                  {chars.map((char, ci) => {
-                    const phase = (ci / chars.length) * Math.PI * 2;
-                    return (
-                      <motion.span
-                        key={`${i}-${ci}`}
-                        className="text-xl sm:text-2xl lg:text-3xl font-normal text-primary uppercase tracking-[0.18em] inline-block"
-                        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
-                        animate={prefersReducedMotion ? {} : {
-                          y: [
-                            Math.sin(phase) * 12,
-                            Math.sin(phase + Math.PI * 0.5) * 12,
-                            Math.sin(phase + Math.PI) * 12,
-                            Math.sin(phase + Math.PI * 1.5) * 12,
-                            Math.sin(phase + Math.PI * 2) * 12,
-                          ],
-                        }}
-                        transition={{
-                          duration: 4,
-                          ease: 'linear',
-                          repeat: Infinity,
-                        }}
-                      >
-                        {char === ' ' ? '\u00A0\u00A0' : char}
-                      </motion.span>
-                    );
-                  })}
-                  <span className="text-primary/40 text-xs mx-4 sm:mx-5">✦</span>
+            {Array.from({ length: 12 }).map((_, i) => (
+              <span key={i} className="flex items-center">
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.15em] mx-3 sm:mx-4" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+                  FIRST THINGS FIRST
                 </span>
-              );
-            })}
+                <span className="text-primary/50 text-base sm:text-lg mx-3 sm:mx-4">✦</span>
+              </span>
+            ))}
           </motion.div>
         </div>
 
@@ -194,6 +168,9 @@ export default function Landing() {
             </h1>
           </div>
         </section>
+
+        {/* Wave: background → background (before problem) */}
+        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--background))" />
 
         {/* ===== PROBLEM ===== */}
         <section className="px-6 lg:px-10 py-20 sm:py-28" aria-labelledby="problem-heading">
@@ -223,6 +200,9 @@ export default function Landing() {
             </motion.div>
           </div>
         </section>
+
+        {/* Wave: background → warm */}
+        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== SOLUTION ===== */}
         <section className="px-6 lg:px-10 py-20 sm:py-28 bg-warm" aria-labelledby="solution-heading">
@@ -257,6 +237,9 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Wave: warm → background */}
+        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
+
         {/* ===== HOW IT WORKS — 3 steps ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-32" aria-labelledby="how-heading">
           <div className="max-w-4xl mx-auto">
@@ -284,6 +267,9 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Wave: background → warm */}
+        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
+
         {/* ===== DIFFERENTIATORS ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="diff-heading">
           <div className="max-w-5xl mx-auto">
@@ -310,6 +296,9 @@ export default function Landing() {
             </div>
           </div>
         </section>
+
+        {/* Wave: warm → background */}
+        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
 
         {/* ===== WHAT'S INCLUDED ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-28" aria-labelledby="includes-heading">
@@ -340,6 +329,9 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Wave: background → warm */}
+        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
+
         {/* ===== ABOUT ===== */}
         <section id="about-section" className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="about-heading">
           <div className="max-w-2xl mx-auto">
@@ -369,6 +361,9 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Wave: warm → background */}
+        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
+
         {/* ===== SUPPORT THE PROJECT ===== */}
         <section className="px-6 lg:px-10 py-24 max-w-2xl mx-auto text-center" aria-labelledby="support-heading">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
@@ -392,6 +387,9 @@ export default function Landing() {
             <p className="text-xs text-muted-foreground mt-4">{t('supportNote')}</p>
           </motion.div>
         </section>
+
+        {/* Wave: background → warm */}
+        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== SEO GUIDE ===== */}
         <section id="guide-section" className="px-6 lg:px-10 py-24 bg-warm" aria-labelledby="guide-heading">
@@ -457,6 +455,9 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Wave: warm → background */}
+        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
+
         {/* ===== FAQ ===== */}
         <section className="px-6 lg:px-10 py-24 max-w-3xl mx-auto" aria-labelledby="faq-heading">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
@@ -487,6 +488,9 @@ export default function Landing() {
             ))}
           </div>
         </section>
+
+        {/* Wave: background → warm */}
+        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== FINAL CTA ===== */}
         <section className="px-6 lg:px-10 py-28 sm:py-36 text-center bg-warm" aria-labelledby="final-cta-heading">
