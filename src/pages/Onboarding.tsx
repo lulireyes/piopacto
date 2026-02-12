@@ -192,7 +192,7 @@ export default function Onboarding() {
         </div>
       </header>
 
-      <div className="max-w-md mx-auto w-full px-6 mb-2" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS} aria-label={`${t('onboardingTitle')} - ${step} ${t('stepOf')} ${TOTAL_STEPS}`}>
+      <div className="max-w-md mx-auto w-full px-6 mb-1" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS} aria-label={`${t('onboardingTitle')} - ${step} ${t('stepOf')} ${TOTAL_STEPS}`}>
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
           <span>{t('onboardingTitle')}</span>
           <span>{step} {t('stepOf')} {TOTAL_STEPS}</span>
@@ -206,7 +206,7 @@ export default function Onboarding() {
         </div>
       </div>
 
-      <main className="flex-1 flex items-center justify-center px-6 py-4" id="onboarding-form" role="main">
+      <main className="flex-1 flex items-start justify-center px-6 pt-6 pb-4" id="onboarding-form" role="main">
         <div className="w-full max-w-md">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
