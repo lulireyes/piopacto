@@ -206,8 +206,8 @@ export default function Onboarding() {
         </div>
       </div>
 
-      <main className="flex-1 flex items-start justify-center px-6 pt-6 pb-28" id="onboarding-form" role="main">
-        <div className="w-full max-w-md">
+      <main className="flex-1 px-6 pt-6 overflow-y-auto" id="onboarding-form" role="main" style={{ maxHeight: 'calc(60vh - 80px)' }}>
+        <div className="w-full max-w-md mx-auto">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={step}
