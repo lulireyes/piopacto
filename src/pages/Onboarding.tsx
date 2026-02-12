@@ -1,11 +1,11 @@
-import { useState, useMemo, useId } from 'react';
+import { useState, useMemo, useId, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
 import AccessibilityControls from '@/components/AccessibilityControls';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Smartphone, Check, Plus, X } from 'lucide-react';
-import { OnboardingData, getRecommendedMinutes, getSuggestedApps } from '@/lib/agreement-generator';
+import { OnboardingData, getRecommendedMinutes, getRecommendedWeekendMinutes, getSuggestedApps } from '@/lib/agreement-generator';
 
 const TOTAL_STEPS = 10;
 
@@ -49,7 +49,7 @@ export default function Onboarding() {
     age: 10,
     isFirstPhone: true,
     mainUsage: [],
-    restrictions: ['meals', 'bedtime'],
+    restrictions: ['meals', 'bedtime', 'homework'],
     dailyMinutes: 60,
     weekendMinutes: 90,
     allowedApps: [],
@@ -59,7 +59,31 @@ export default function Onboarding() {
   });
 
   const recommendedMinutes = useMemo(() => getRecommendedMinutes(data.age), [data.age]);
+  const recommendedWeekend = useMemo(() => getRecommendedWeekendMinutes(data.age), [data.age]);
   const suggestedApps = useMemo(() => getSuggestedApps(data.age), [data.age]);
+
+  // Dynamic defaults: update time and restrictions when age changes
+  useEffect(() => {
+    setData(prev => {
+      const newDaily = getRecommendedMinutes(prev.age);
+      const newWeekend = getRecommendedWeekendMinutes(prev.age);
+      // Dynamic default restrictions based on age
+      let defaultRestrictions: string[];
+      if (prev.age <= 10) {
+        defaultRestrictions = ['meals', 'bedtime', 'homework', 'family', 'school'];
+      } else if (prev.age <= 13) {
+        defaultRestrictions = ['meals', 'bedtime', 'homework'];
+      } else {
+        defaultRestrictions = ['meals', 'bedtime'];
+      }
+      return {
+        ...prev,
+        dailyMinutes: newDaily,
+        weekendMinutes: newWeekend,
+        restrictions: defaultRestrictions,
+      };
+    });
+  }, [data.age]);
 
   const update = <K extends keyof OnboardingData>(key: K, value: OnboardingData[K]) => {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -99,7 +123,7 @@ export default function Onboarding() {
   const canProceed = () => {
     switch (step) {
       case 1: return data.childName.trim().length > 0;
-      case 2: return data.age >= 6 && data.age <= 17;
+      case 2: return data.age >= 8 && data.age <= 17;
       case 4: return data.mainUsage.length > 0;
       case 5: return data.restrictions.length > 0;
       case 9: return data.parentNames.filter(n => n.trim()).length > 0;
@@ -182,7 +206,7 @@ export default function Onboarding() {
         </div>
       </div>
 
-      <main className="flex-1 flex items-center justify-center px-6 py-8" id="onboarding-form" role="main">
+      <main className="flex-1 flex items-center justify-center px-6 py-4" id="onboarding-form" role="main">
         <div className="w-full max-w-md">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -217,7 +241,7 @@ export default function Onboarding() {
                   <StepLabel>{t('ageLabel')}</StepLabel>
                   <div className="flex items-center gap-8 justify-center" role="group" aria-label={t('ageLabel')}>
                     <button
-                      onClick={() => update('age', Math.max(6, data.age - 1))}
+                      onClick={() => update('age', Math.max(8, data.age - 1))}
                       aria-label={lang === 'es' ? 'Reducir edad' : 'Decrease age'}
                       className="w-12 h-12 rounded-full border border-border bg-card text-foreground text-xl font-bold flex items-center justify-center hover:bg-secondary transition-colors"
                     >−</button>
@@ -450,7 +474,7 @@ export default function Onboarding() {
 }
 
 function StepContainer({ children }: { children: React.ReactNode }) {
-  return <fieldset className="space-y-6 border-0 p-0 m-0"><legend className="sr-only">Step</legend>{children}</fieldset>;
+  return <fieldset className="space-y-4 border-0 p-0 m-0"><legend className="sr-only">Step</legend>{children}</fieldset>;
 }
 
 function StepLabel({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {

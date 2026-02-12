@@ -35,11 +35,19 @@ function generateId() {
 }
 
 export function getRecommendedMinutes(age: number): number {
-  if (age <= 7) return 30;
+  if (age <= 8) return 30;
   if (age <= 9) return 45;
   if (age <= 11) return 60;
   if (age <= 13) return 90;
   return 120;
+}
+
+export function getRecommendedWeekendMinutes(age: number): number {
+  if (age <= 8) return 45;
+  if (age <= 9) return 60;
+  if (age <= 11) return 90;
+  if (age <= 13) return 120;
+  return 150;
 }
 
 export function getSuggestedApps(age: number): string[] {
@@ -129,17 +137,23 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
   if (supervision.includes('location')) {
     rules.push({
       id: generateId(),
-      text: `${childName} compartirá su ubicación con sus padres. Esto es para seguridad, no para control.`,
+      text: `${childName} compartirá su ubicación con nosotros. Podremos hablar de cambiarlo cuando sea mayor.`,
       category: 'trust',
     });
   }
 
   if (supervision.includes('chat')) {
+    let chatText: string;
+    if (age <= 11) {
+      chatText = 'Los padres podrán revisar los chats de vez en cuando. Lo haremos juntos, no a escondidas.';
+    } else if (age <= 14) {
+      chatText = `Respetaremos tu privacidad, pero si notamos algo preocupante (cambio de ánimo, aislamiento), hablaremos y podremos revisar juntos.`;
+    } else {
+      chatText = 'Confiamos en tu privacidad. Solo revisaremos si hay una razón de seguridad específica, y te lo diremos antes.';
+    }
     rules.push({
       id: generateId(),
-      text: isYoung
-        ? 'Los padres podrán revisar los chats de forma transparente y acordada.'
-        : 'De forma ocasional y transparente, los padres podrán revisar los chats si hay motivo de preocupación.',
+      text: chatText,
       category: 'trust',
     });
   }
@@ -153,10 +167,12 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
   });
 
   const parentCommitments = [
-    'Respetaremos los tiempos acordados y daremos ejemplo con nuestro propio uso del teléfono.',
-    `Escucharemos a ${childName} si quiere hablar sobre algo que vio o vivió en el teléfono.`,
+    'Respetaremos los tiempos acordados.',
+    'Durante las comidas y actividades familiares, también guardaremos nuestros móviles.',
+    `Escucharemos a ${childName} si quiere hablar sobre algo que vio o vivió en el teléfono, sin juzgar.`,
     'No revisaremos el teléfono a escondidas. Si necesitamos verificar algo, lo haremos juntos.',
-    'Seremos flexibles si las circunstancias cambian y ajustaremos este acuerdo cuando sea necesario.',
+    'Seremos flexibles. Si algo no funciona o las circunstancias cambian, ajustaremos este acuerdo.',
+    `${childName} nunca perderá el teléfono por ser honesto con nosotros. La sinceridad es más importante que la perfección.`,
   ];
 
   const childCommitments = [
@@ -170,8 +186,13 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
 
   const closingText = finalMessage || `Firmamos este acuerdo porque nos importamos. No se trata de controlar, sino de acompañarnos en esta aventura digital. ${childName}, confiamos en ti.`;
 
+  // Calculate specific review date (3 months from now)
+  const reviewDate = new Date();
+  reviewDate.setMonth(reviewDate.getMonth() + 3);
+  const reviewDateStr = reviewDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+
   return {
-    title: 'Acuerdo Familiar sobre el Smartphone',
+    title: `Acuerdo Familiar sobre el Smartphone de ${childName}`,
     intro: isYoung
       ? `Este acuerdo es entre ${childName} (${age} años) y su familia. Tener un teléfono es emocionante, y juntos vamos a aprender a usarlo bien. Este pacto nos ayuda a cuidarnos y confiar los unos en los otros.`
       : `Este acuerdo es entre ${childName} (${age} años) y su familia. Un smartphone es una herramienta poderosa que viene con libertad y responsabilidad. Este pacto refleja la confianza que nos tenemos y nuestro compromiso de cuidarnos mutuamente en el mundo digital.`,
@@ -179,7 +200,7 @@ function generateSpanish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     parentCommitments,
     childCommitments,
     closingNote: closingText,
-    reviewNote: `Revisaremos este acuerdo juntos cada 3 meses para ajustarlo a medida que ${childName} crece y cambian las necesidades.`,
+    reviewNote: `Revisaremos este acuerdo juntos el ${reviewDateStr} para ajustarlo a medida que ${childName} crece y cambian las necesidades.`,
   };
 }
 
@@ -254,17 +275,23 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
   if (supervision.includes('location')) {
     rules.push({
       id: generateId(),
-      text: `${childName} will share their location with parents. This is for safety, not control.`,
+      text: `${childName} will share their location with us. We can talk about changing this when they\'re older.`,
       category: 'trust',
     });
   }
 
   if (supervision.includes('chat')) {
+    let chatText: string;
+    if (age <= 11) {
+      chatText = 'Parents may review chats from time to time. We\'ll do it together, not behind your back.';
+    } else if (age <= 14) {
+      chatText = 'We\'ll respect your privacy, but if we notice something concerning (mood changes, withdrawal), we\'ll talk and may review together.';
+    } else {
+      chatText = 'We trust your privacy. We\'ll only review if there\'s a specific safety concern, and we\'ll tell you first.';
+    }
     rules.push({
       id: generateId(),
-      text: isYoung
-        ? 'Parents may review chats transparently and by agreement.'
-        : 'Occasionally and transparently, parents may review chats if there is cause for concern.',
+      text: chatText,
       category: 'trust',
     });
   }
@@ -278,10 +305,12 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
   });
 
   const parentCommitments = [
-    'We will respect the agreed times and lead by example with our own phone use.',
-    `We will listen to ${childName} if they want to talk about something they saw or experienced on the phone.`,
+    'We will respect the agreed times.',
+    'During meals and family activities, we will also put our phones away.',
+    `We will listen to ${childName} if they want to talk about something they saw or experienced on the phone, without judging.`,
     'We won\'t check the phone secretly. If we need to verify something, we\'ll do it together.',
-    'We will be flexible if circumstances change and adjust this agreement when needed.',
+    'We will be flexible. If something isn\'t working or circumstances change, we\'ll adjust this agreement.',
+    `${childName} will never lose the phone for being honest with us. Honesty matters more than perfection.`,
   ];
 
   const childCommitments = [
@@ -295,8 +324,12 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
 
   const closingText = finalMessage || `We sign this agreement because we care about each other. It's not about control—it's about walking this digital adventure together. ${childName}, we trust you.`;
 
+  const reviewDate = new Date();
+  reviewDate.setMonth(reviewDate.getMonth() + 3);
+  const reviewDateStr = reviewDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
   return {
-    title: 'Family Smartphone Agreement',
+    title: `Family Smartphone Agreement for ${childName}`,
     intro: isYoung
       ? `This agreement is between ${childName} (age ${age}) and their family. Having a phone is exciting, and together we're going to learn to use it well. This pact helps us care for each other and build trust.`
       : `This agreement is between ${childName} (age ${age}) and their family. A smartphone is a powerful tool that comes with freedom and responsibility. This pact reflects the trust we have in each other and our commitment to looking out for one another in the digital world.`,
@@ -304,6 +337,6 @@ function generateEnglish(data: OnboardingData, isYoung: boolean, isTeen: boolean
     parentCommitments,
     childCommitments,
     closingNote: closingText,
-    reviewNote: `We will review this agreement together every 3 months to adjust it as ${childName} grows and needs change.`,
+    reviewNote: `We will review this agreement together on ${reviewDateStr} to adjust it as ${childName} grows and needs change.`,
   };
 }
