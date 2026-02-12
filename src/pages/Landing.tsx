@@ -141,22 +141,53 @@ export default function Landing() {
           </motion.div>
         </section>
 
-        {/* ===== FIRST THINGS FIRST — Smooth infinite marquee ===== */}
+        {/* ===== FIRST THINGS FIRST — Wave marquee ===== */}
         <div className="overflow-hidden py-8 sm:py-10 select-none" aria-hidden="true">
           <motion.div
-            className="flex whitespace-nowrap"
+            className="flex whitespace-nowrap items-center"
             animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
-            transition={{ duration: 18, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+            transition={{ duration: 8, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
             style={{ willChange: 'transform' }}
           >
-            {Array.from({ length: 12 }).map((_, i) => (
-              <span key={i} className="flex items-center">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.15em] mx-3 sm:mx-4" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-                  FIRST THINGS FIRST
+            {Array.from({ length: 12 }).map((_, i) => {
+              const words = ['FIRST', 'THINGS', 'FIRST'];
+              return (
+                <span key={i} className="flex items-center">
+                  {words.map((word, wi) => (
+                    <motion.span
+                      key={`${i}-${wi}`}
+                      className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.15em] mx-2 sm:mx-3 inline-block"
+                      style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+                      animate={prefersReducedMotion ? {} : {
+                        y: [0, -14, 0, 14, 0],
+                      }}
+                      transition={{
+                        duration: 3,
+                        ease: 'easeInOut',
+                        repeat: Infinity,
+                        delay: (i * words.length + wi) * 0.25,
+                      }}
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                  <motion.span
+                    className="text-primary/50 text-base sm:text-lg mx-3 sm:mx-4 inline-block"
+                    animate={prefersReducedMotion ? {} : {
+                      y: [0, -14, 0, 14, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      ease: 'easeInOut',
+                      repeat: Infinity,
+                      delay: (i * words.length + 3) * 0.25,
+                    }}
+                  >
+                    ✦
+                  </motion.span>
                 </span>
-                <span className="text-primary/50 text-base sm:text-lg mx-3 sm:mx-4">✦</span>
-              </span>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
 
