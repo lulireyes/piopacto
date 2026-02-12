@@ -83,6 +83,9 @@ export default function Landing() {
             <button onClick={() => scrollTo('guide-section')} className="hidden sm:inline-flex text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-secondary">
               {t('navGuide')}
             </button>
+            <button onClick={() => navigate('/tech-guide?platform=iphone')} className="hidden md:inline-flex text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-primary/5">
+              {t('navSetupGuide')}
+            </button>
             <AccessibilityControls />
             <LanguageSelector />
           </div>
@@ -371,29 +374,31 @@ export default function Landing() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   onClick={() => navigate('/tech-guide?platform=iphone')}
-                  className="flex items-center justify-center gap-3 bg-card rounded-xl p-6 border border-border/40 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 group"
+                  aria-label={t('guideIphoneAria')}
+                  className="group flex items-center gap-4 gradient-primary text-primary-foreground rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                    <Smartphone className="h-6 w-6" aria-hidden="true" />
                   </div>
-                  <div className="text-left">
-                    <p className="font-bold text-foreground">{t('guideIphone')}</p>
-                    <p className="text-xs text-muted-foreground">{t('guideDownloadPdf')}</p>
+                  <div className="text-left flex-1">
+                    <p className="font-bold text-lg">{t('guideIphone')}</p>
+                    <p className="text-sm opacity-90">{t('guideIphoneDesc')}</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all ml-auto" aria-hidden="true" />
+                  <ArrowRight className="h-5 w-5 opacity-80 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </button>
                 <button
                   onClick={() => navigate('/tech-guide?platform=android')}
-                  className="flex items-center justify-center gap-3 bg-card rounded-xl p-6 border border-border/40 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 group"
+                  aria-label={t('guideAndroidAria')}
+                  className="group flex items-center gap-4 bg-foreground text-background rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Settings className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <div className="w-12 h-12 rounded-xl bg-background/15 flex items-center justify-center flex-shrink-0">
+                    <Settings className="h-6 w-6" aria-hidden="true" />
                   </div>
-                  <div className="text-left">
-                    <p className="font-bold text-foreground">{t('guideAndroid')}</p>
-                    <p className="text-xs text-muted-foreground">{t('guideDownloadPdf')}</p>
+                  <div className="text-left flex-1">
+                    <p className="font-bold text-lg">{t('guideAndroid')}</p>
+                    <p className="text-sm opacity-80">{t('guideAndroidDesc')}</p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all ml-auto" aria-hidden="true" />
+                  <ArrowRight className="h-5 w-5 opacity-80 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </button>
               </div>
             </motion.div>
