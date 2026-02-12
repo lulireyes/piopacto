@@ -140,34 +140,41 @@ export default function Landing() {
           </motion.div>
         </section>
 
-        {/* ===== FIRST THINGS FIRST — Wave typography ===== */}
-        <div className="py-8 sm:py-10 select-none flex justify-center" aria-hidden="true">
-          <div className="flex flex-wrap justify-center gap-x-3 sm:gap-x-4 gap-y-1 max-w-md sm:max-w-lg px-6">
-            {['FIRST', 'THINGS', 'FIRST'].map((word, wi) => (
-              <span key={wi} className="flex">
-                {word.split('').map((char, ci) => {
-                  const idx = wi * 6 + ci;
-                  return (
-                    <motion.span
-                      key={ci}
-                      className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.08em] inline-block"
-                      animate={prefersReducedMotion ? {} : {
-                        y: [0, -4, 0, 3, 0],
-                      }}
-                      transition={{
-                        duration: 4,
-                        ease: 'easeInOut',
-                        repeat: Infinity,
-                        delay: idx * 0.15,
-                      }}
-                    >
-                      {char}
-                    </motion.span>
-                  );
-                })}
+        {/* ===== FIRST THINGS FIRST — Infinite wave marquee ===== */}
+        <div className="overflow-hidden py-4 sm:py-6 select-none" aria-hidden="true">
+          <motion.div
+            className="flex whitespace-nowrap"
+            animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
+            transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
+            style={{ willChange: 'transform' }}
+          >
+            {Array.from({ length: 12 }).map((_, i) => (
+              <span key={i} className="flex items-baseline mx-2">
+                {'FIRST THINGS FIRST'.split('').map((char, ci) => (
+                  <motion.span
+                    key={`${i}-${ci}`}
+                    className="font-display text-xl sm:text-2xl lg:text-3xl font-medium text-primary/15 uppercase tracking-[0.12em] inline-block"
+                    style={{
+                      WebkitTextStroke: '1px hsl(228 100% 50% / 0.12)',
+                      color: 'transparent',
+                    }}
+                    animate={prefersReducedMotion ? {} : {
+                      y: [0, -3, 0, 3, 0],
+                    }}
+                    transition={{
+                      duration: 5,
+                      ease: 'easeInOut',
+                      repeat: Infinity,
+                      delay: ci * 0.12,
+                    }}
+                  >
+                    {char === ' ' ? '\u00A0\u00A0' : char}
+                  </motion.span>
+                ))}
+                <span className="text-primary/10 text-sm mx-3 sm:mx-4">·</span>
               </span>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* ===== Narrative bridge — SEO H1 ===== */}
