@@ -168,11 +168,27 @@
   }
 }
 
-/* Marquee wave animation */
+/* Marquee animations */
 @keyframes marqueeWave {
   0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-18px); }
-  75% { transform: translateY(18px); }
+  25% { transform: translateY(-20px); }
+  75% { transform: translateY(20px); }
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-scroll {
+  animation: marqueeScroll 12s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-scroll {
+    animation: none;
+  }
 }
 
 /* PDF export page break rules */

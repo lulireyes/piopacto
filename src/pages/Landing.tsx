@@ -143,18 +143,16 @@ export default function Landing() {
 
         {/* ===== FIRST THINGS FIRST — Flowing wave marquee ===== */}
         <div className="overflow-hidden py-10 sm:py-12 select-none" aria-hidden="true">
-          <motion.div
-            className="flex whitespace-nowrap items-center"
-            animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
-            transition={{ duration: 10, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
-            style={{ willChange: 'transform' }}
+          <div
+            className="flex whitespace-nowrap items-center marquee-scroll"
+            style={prefersReducedMotion ? {} : undefined}
           >
-            {Array.from({ length: 12 }).map((_, i) => {
+            {Array.from({ length: 16 }).map((_, i) => {
               const phrase = 'FIRST THINGS FIRST  ✦  ';
               const chars = phrase.split('');
               const totalChars = chars.length;
               return (
-                <span key={i} className="flex items-baseline">
+                <span key={i} className="flex items-baseline shrink-0">
                   {chars.map((char, ci) => {
                     const globalIndex = i * totalChars + ci;
                     return (
@@ -163,8 +161,8 @@ export default function Landing() {
                         className={`inline-block ${char === '✦' ? 'text-primary/50 text-base sm:text-lg' : 'text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.12em]'}`}
                         style={{
                           fontFamily: "'Inter', system-ui, sans-serif",
-                          animation: prefersReducedMotion ? 'none' : 'marqueeWave 2s ease-in-out infinite',
-                          animationDelay: `${-globalIndex * 0.08}s`,
+                          animation: prefersReducedMotion ? 'none' : 'marqueeWave 2.5s ease-in-out infinite',
+                          animationDelay: `${-globalIndex * 0.07}s`,
                         }}
                       >
                         {char === ' ' ? '\u00A0' : char}
@@ -174,7 +172,7 @@ export default function Landing() {
                 </span>
               );
             })}
-          </motion.div>
+          </div>
         </div>
 
         {/* ===== Narrative bridge — SEO H1 ===== */}
