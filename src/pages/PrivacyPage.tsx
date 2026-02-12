@@ -21,7 +21,7 @@ export default function PrivacyPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-6 py-16 sm:py-20">
-        <button onClick={() => navigate(-1)} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
+        <button onClick={() => navigate('/')} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
           <ArrowLeft className="h-4 w-4" /> {t('back')}
         </button>
 
