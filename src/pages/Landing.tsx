@@ -298,24 +298,19 @@ export default function Landing() {
               <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-4">
                 {t('aboutTitle')}
               </h2>
-              <p className="text-primary font-medium text-lg mb-10 italic">{t('aboutMotto')}</p>
+              <p className="text-primary font-medium text-lg mb-10 italic whitespace-pre-line">{t('aboutMotto')}</p>
               <div className="space-y-6 text-foreground leading-[1.8] text-[1.05rem]">
                 <p>{t('aboutP1')}</p>
                 <p>{t('aboutP2')}</p>
                 <p>{t('aboutP3')}</p>
                 <p>{t('aboutP4')}</p>
-                <p>{t('aboutP5')}</p>
-                <p>{t('aboutP6')}</p>
-                <p>{t('aboutP7')}</p>
-                <p>{t('aboutP8')}</p>
-                <p>{t('aboutP9')}</p>
                 <p>
-                  {t('aboutP10')}{' '}
+                  {t('aboutP5')}{' '}
                   <a href="mailto:feedback@kidsmartphone.com" className="underline text-primary hover:text-foreground transition-colors duration-200">
                     {t('aboutFeedbackLink')}
                   </a>
                 </p>
-                <p className="font-medium italic text-primary">{t('aboutClosing')}</p>
+                <p className="font-medium text-muted-foreground">{t('aboutP6')}</p>
                 <div className="pt-4 border-t border-border/40">
                   <p className="font-bold text-foreground">{t('aboutSignName')}</p>
                   <p className="text-muted-foreground text-sm">{t('aboutSignDesc')}</p>
