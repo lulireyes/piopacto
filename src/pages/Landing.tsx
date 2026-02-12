@@ -97,6 +97,17 @@ export default function Landing() {
         {/* ===== HERO — Centered, emotional ===== */}
         <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-16 sm:pb-20" aria-labelledby="hero-heading">
           <div className="max-w-3xl mx-auto text-center">
+            {/* FIRST THINGS FIRST — editorial mantra */}
+            <motion.p
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: prefersReducedMotion ? 0.15 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-primary tracking-tight uppercase mb-6 select-none"
+              aria-hidden="true"
+            >
+              First things first
+            </motion.p>
+
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm font-medium text-muted-foreground mb-8 shadow-sm">
               {t('heroMicrocopy')}
