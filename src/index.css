@@ -168,6 +168,13 @@
   }
 }
 
+/* Marquee wave animation */
+@keyframes marqueeWave {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-18px); }
+  75% { transform: translateY(18px); }
+}
+
 /* PDF export page break rules */
 @media print {
   .no-break {
