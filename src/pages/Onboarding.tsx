@@ -453,22 +453,22 @@ export default function Onboarding() {
               )}
             </motion.div>
           </AnimatePresence>
+
+          <div className="mt-6 flex items-center justify-between">
+            <button onClick={goBack}
+              aria-label={t('back')}
+              className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors font-medium">
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t('back')}
+            </button>
+            <button onClick={goNext} disabled={!canProceed()}
+              aria-label={step === TOTAL_STEPS ? t('generate') : t('next')}
+              className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:shadow-none">
+              {step === TOTAL_STEPS ? t('generate') : t('next')}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </main>
-
-      <div className="px-6 pb-8 max-w-md mx-auto w-full flex items-center justify-between">
-        <button onClick={goBack}
-          aria-label={t('back')}
-          className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors font-medium">
-          <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {t('back')}
-        </button>
-        <button onClick={goNext} disabled={!canProceed()}
-          aria-label={step === TOTAL_STEPS ? t('generate') : t('next')}
-          className="inline-flex items-center gap-2 gradient-primary text-primary-foreground font-bold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-shadow disabled:opacity-40 disabled:shadow-none">
-          {step === TOTAL_STEPS ? t('generate') : t('next')}
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </button>
-      </div>
     </div>
   );
 }
