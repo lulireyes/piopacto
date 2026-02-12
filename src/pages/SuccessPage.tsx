@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
-import { Heart, Coffee, ArrowLeft, Smartphone, Home, CheckCircle2 } from 'lucide-react';
+import { Heart, Coffee, ArrowLeft, Smartphone, Home, CheckCircle2, ArrowRight, Settings } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -75,6 +75,31 @@ export default function SuccessPage() {
                 <p className="text-primary font-semibold">{t('feedbackThanks')}</p>
               </div>
             )}
+          </motion.div>
+
+          {/* Tech Guide CTA */}
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1.5}
+            className="bg-card rounded-2xl border border-border/40 p-8 shadow-sm">
+            <p className="font-semibold text-foreground mb-2">{t('successGuideTitle')}</p>
+            <p className="text-sm text-muted-foreground mb-5">{t('successGuideDesc')}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onClick={() => navigate('/tech-guide?platform=iphone')}
+                className="flex items-center gap-3 rounded-xl border border-border p-4 hover:border-primary/30 hover:shadow-sm transition-all group"
+              >
+                <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium text-foreground text-sm">{t('guideIphone')}</span>
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary ml-auto" aria-hidden="true" />
+              </button>
+              <button
+                onClick={() => navigate('/tech-guide?platform=android')}
+                className="flex items-center gap-3 rounded-xl border border-border p-4 hover:border-primary/30 hover:shadow-sm transition-all group"
+              >
+                <Settings className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium text-foreground text-sm">{t('guideAndroid')}</span>
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary ml-auto" aria-hidden="true" />
+              </button>
+            </div>
           </motion.div>
 
           {/* Support */}

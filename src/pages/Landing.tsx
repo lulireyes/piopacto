@@ -368,9 +368,33 @@ export default function Landing() {
                 ))}
               </ul>
 
-              <div className="bg-card rounded-xl p-8 text-center border border-border/40 shadow-sm">
-                <p className="font-bold text-foreground mb-2">{t('guideDownload')}</p>
-                <p className="text-sm text-muted-foreground">{t('guideDownloadSoon')}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button
+                  onClick={() => navigate('/tech-guide?platform=iphone')}
+                  className="flex items-center justify-center gap-3 bg-card rounded-xl p-6 border border-border/40 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-bold text-foreground">{t('guideIphone')}</p>
+                    <p className="text-xs text-muted-foreground">{t('guideDownloadPdf')}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all ml-auto" aria-hidden="true" />
+                </button>
+                <button
+                  onClick={() => navigate('/tech-guide?platform=android')}
+                  className="flex items-center justify-center gap-3 bg-card rounded-xl p-6 border border-border/40 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-200 group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                    <Settings className="h-5 w-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-bold text-foreground">{t('guideAndroid')}</p>
+                    <p className="text-xs text-muted-foreground">{t('guideDownloadPdf')}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all ml-auto" aria-hidden="true" />
+                </button>
               </div>
             </motion.div>
           </div>
