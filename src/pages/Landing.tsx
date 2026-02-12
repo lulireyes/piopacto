@@ -151,24 +151,28 @@ export default function Landing() {
             {Array.from({ length: 10 }).map((_, i) => {
               const phrase = 'FIRST THINGS FIRST';
               const chars = phrase.split('');
-              const totalChars = chars.length;
               return (
                 <span key={i} className="flex items-baseline mx-1">
                   {chars.map((char, ci) => {
-                    const globalIndex = i * totalChars + ci;
+                    const phase = (ci / chars.length) * Math.PI * 2;
                     return (
                       <motion.span
                         key={`${i}-${ci}`}
                         className="text-xl sm:text-2xl lg:text-3xl font-normal text-primary uppercase tracking-[0.18em] inline-block"
                         style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
                         animate={prefersReducedMotion ? {} : {
-                          y: [0, -8, 0, 8, 0],
+                          y: [
+                            Math.sin(phase) * 12,
+                            Math.sin(phase + Math.PI * 0.5) * 12,
+                            Math.sin(phase + Math.PI) * 12,
+                            Math.sin(phase + Math.PI * 1.5) * 12,
+                            Math.sin(phase + Math.PI * 2) * 12,
+                          ],
                         }}
                         transition={{
-                          duration: 6,
-                          ease: [0.37, 0, 0.63, 1],
+                          duration: 4,
+                          ease: 'linear',
                           repeat: Infinity,
-                          delay: globalIndex * 0.08,
                         }}
                       >
                         {char === ' ' ? '\u00A0\u00A0' : char}
