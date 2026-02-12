@@ -8,6 +8,8 @@ import Landing from "./pages/Landing";
 import Onboarding from "./pages/Onboarding";
 import AgreementPage from "./pages/AgreementPage";
 import SuccessPage from "./pages/SuccessPage";
+import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ const App = () => (
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/agreement" element={<AgreementPage />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -432,21 +432,36 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="border-t border-border/40 py-10 px-6 lg:px-10" role="contentinfo">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div className="flex items-center gap-2">
-            <Smartphone className="h-4 w-4 text-primary" aria-hidden="true" />
-            <span className="font-bold text-sm text-foreground">{t('brandName')}</span>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-5 mb-6">
+            <div className="flex items-center gap-2">
+              <Smartphone className="h-4 w-4 text-primary" aria-hidden="true" />
+              <span className="font-bold text-sm text-foreground">{t('brandName')}</span>
+            </div>
+            <p className="text-sm text-muted-foreground text-center">{t('footerText')}</p>
+            <a
+              href="https://buymeacoffee.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-1.5"
+              aria-label={t('footerSupport')}
+            >
+              <Coffee className="h-3.5 w-3.5" aria-hidden="true" /> {t('footerSupport')}
+            </a>
           </div>
-          <p className="text-sm text-muted-foreground text-center">{t('footerText')}</p>
-          <a
-            href="https://buymeacoffee.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-1.5"
-            aria-label={t('footerSupport')}
-          >
-            <Coffee className="h-3.5 w-3.5" aria-hidden="true" /> {t('footerSupport')}
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+            <a href="/terms" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
+              {t('footerTerms')}
+            </a>
+            <span aria-hidden="true">·</span>
+            <a href="/privacy" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
+              {t('footerPrivacy')}
+            </a>
+            <span aria-hidden="true">·</span>
+            <a href="mailto:legal@kidsmartphone.com" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
+              {t('footerContact')}
+            </a>
+          </div>
         </div>
       </footer>
     </div>

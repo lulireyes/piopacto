@@ -125,6 +125,11 @@ const translations: Record<Language, Record<string, string>> = {
 
     footerText: 'Hecho con cuidado para familias que quieren navegar juntas el mundo digital.',
     footerSupport: 'Apoyar el proyecto',
+    footerTerms: 'Términos de uso',
+    footerPrivacy: 'Política de privacidad',
+    footerContact: 'Contacto',
+    legalConsent: 'Al generar el acuerdo aceptas nuestros',
+    legalConsentLink: 'Términos de uso',
 
     onboardingTitle: 'Vamos a crear vuestro acuerdo',
     stepOf: 'de',
@@ -309,6 +314,11 @@ const translations: Record<Language, Record<string, string>> = {
 
     footerText: 'Made with care for families navigating the digital world together.',
     footerSupport: 'Support the project',
+    footerTerms: 'Terms of use',
+    footerPrivacy: 'Privacy policy',
+    footerContact: 'Contact',
+    legalConsent: 'By generating the agreement you accept our',
+    legalConsentLink: 'Terms of use',
 
     onboardingTitle: 'Let\'s create your agreement',
     stepOf: 'of',
