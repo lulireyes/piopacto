@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageSelector from '@/components/LanguageSelector';
+import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
 import {
   Smartphone, Download, ArrowLeft, Clock, Shield,
@@ -546,16 +546,7 @@ export default function TechGuidePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40" role="banner">
-        <nav className="flex items-center justify-between px-6 py-4 max-w-3xl mx-auto">
-          <div className="flex items-center gap-2">
-            <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span className="font-bold text-foreground">{t('brandName')}</span>
-          </div>
-          <LanguageSelector />
-        </nav>
-      </header>
+      <Navbar maxWidth="max-w-3xl" />
 
       {/* Actions bar */}
       <div className="max-w-3xl mx-auto px-6 py-4 flex flex-wrap items-center gap-3">

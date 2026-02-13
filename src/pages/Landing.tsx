@@ -1,6 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageSelector from '@/components/LanguageSelector';
-import AccessibilityControls from '@/components/AccessibilityControls';
+import Navbar from '@/components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
@@ -70,28 +69,7 @@ export default function Landing() {
         {t('skipToContent')}
       </a>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40" role="banner">
-        <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto" aria-label={t('mainNavigation')}>
-          <div className="flex items-center gap-2">
-            <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
-          </div>
-          <div className="flex items-center gap-1 sm:gap-3">
-            <button onClick={() => scrollTo('about-section')} className="hidden sm:inline-flex text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-secondary">
-              {t('navAbout')}
-            </button>
-            <button onClick={() => scrollTo('guide-section')} className="hidden sm:inline-flex text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-secondary">
-              {t('navGuide')}
-            </button>
-            <button onClick={() => navigate('/tech-guide?platform=iphone')} className="hidden md:inline-flex text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 px-3 py-1.5 rounded-lg hover:bg-primary/5">
-              {t('navSetupGuide')}
-            </button>
-            <AccessibilityControls />
-            <LanguageSelector />
-          </div>
-        </nav>
-      </header>
+      <Navbar onScrollTo={scrollTo} />
 
       <main id="main-content" role="main">
 
