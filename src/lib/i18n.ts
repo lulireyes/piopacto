@@ -30,7 +30,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'Primero el acuerdo.',
     heroTitle2: 'Después el Smartphone.',
-    heroSubtitle: 'Cread juntos un pacto claro, justo y editable.\nNo se trata de controlar. Se trata de acompañar.',
+    heroSubtitle: 'Un pacto familiar adaptado a su edad.\nClaro. Editable. Listo para firmar juntos en minutos.',
     heroCta: 'Crear nuestro acuerdo familiar',
     heroMicrocopy: '✓ Gratis · ✓ Sin registro · ✓ Listo en 5 minutos',
 
@@ -229,7 +229,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'First the agreement.',
     heroTitle2: 'Then the Smartphone.',
-    heroSubtitle: 'Create together a clear, fair and editable pact.\nIt\'s not about controlling. It\'s about guiding.',
+    heroSubtitle: 'A family pact adapted to their age.\nClear. Editable. Ready to sign together in minutes.',
     heroCta: 'Create our family agreement',
     heroMicrocopy: '✓ Free · ✓ No sign-up · ✓ Ready in 5 minutes',
 
@@ -428,7 +428,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'D\'abord l\'accord.',
     heroTitle2: 'Ensuite le Smartphone.',
-    heroSubtitle: 'Créez ensemble un pacte clair, juste et modifiable.\nIl ne s\'agit pas de contrôler. Il s\'agit d\'accompagner.',
+    heroSubtitle: 'Un pacte familial adapté à son âge.\nClair. Modifiable. Prêt à signer ensemble en minutes.',
     heroCta: 'Créer notre accord familial',
     heroMicrocopy: '✓ Gratuit · ✓ Sans inscription · ✓ Prêt en 5 minutes',
 
@@ -622,7 +622,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'Zuerst die Vereinbarung.',
     heroTitle2: 'Dann das Smartphone.',
-    heroSubtitle: 'Erstellt gemeinsam einen klaren, fairen und anpassbaren Pakt.\nEs geht nicht um Kontrolle. Es geht um Begleitung.',
+    heroSubtitle: 'Ein Familienpakt, angepasst an sein Alter.\nKlar. Anpassbar. Bereit zum gemeinsamen Unterschreiben in Minuten.',
     heroCta: 'Unsere Familienvereinbarung erstellen',
     heroMicrocopy: '✓ Kostenlos · ✓ Ohne Anmeldung · ✓ In 5 Minuten fertig',
 
@@ -816,7 +816,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'Primeiro o acordo.',
     heroTitle2: 'Depois o Smartphone.',
-    heroSubtitle: 'Criem juntos um pacto claro, justo e editável.\nNão se trata de controlar. Trata-se de acompanhar.',
+    heroSubtitle: 'Um pacto familiar adaptado à sua idade.\nClaro. Editável. Pronto para assinar juntos em minutos.',
     heroCta: 'Criar o nosso acordo familiar',
     heroMicrocopy: '✓ Grátis · ✓ Sem registo · ✓ Pronto em 5 minutos',
 
@@ -1010,7 +1010,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'Prima l\'accordo.',
     heroTitle2: 'Poi lo Smartphone.',
-    heroSubtitle: 'Create insieme un patto chiaro, giusto e modificabile.\nNon si tratta di controllare. Si tratta di accompagnare.',
+    heroSubtitle: 'Un patto familiare adattato alla sua età.\nChiaro. Modificabile. Pronto da firmare insieme in pochi minuti.',
     heroCta: 'Creare il nostro accordo familiare',
     heroMicrocopy: '✓ Gratuito · ✓ Senza registrazione · ✓ Pronto in 5 minuti',
 
@@ -1204,7 +1204,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     heroTitle1: 'Eerst de afspraak.',
     heroTitle2: 'Dan de Smartphone.',
-    heroSubtitle: 'Maak samen een duidelijk, eerlijk en aanpasbaar pact.\nHet gaat niet om controle. Het gaat om begeleiding.',
+    heroSubtitle: 'Een familiepact aangepast aan hun leeftijd.\nDuidelijk. Aanpasbaar. Klaar om samen te tekenen in minuten.',
     heroCta: 'Onze familieafspraak maken',
     heroMicrocopy: '✓ Gratis · ✓ Zonder registratie · ✓ Klaar in 5 minuten',
 
