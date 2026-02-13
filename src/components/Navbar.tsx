@@ -10,9 +10,11 @@ interface NavbarProps {
   onScrollTo?: (id: string) => void;
   /** Max width class for the inner container */
   maxWidth?: string;
+  /** Hide navigation links (logo-only mode) */
+  hideNavItems?: boolean;
 }
 
-export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl' }: NavbarProps) {
+export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItems = false }: NavbarProps) {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +52,7 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl' }: NavbarPro
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1 sm:gap-3">
-          {navItems.map((item) => (
+          {!hideNavItems && navItems.map((item) => (
             <button
               key={item.label}
               onClick={item.action}
@@ -71,15 +73,17 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl' }: NavbarPro
         <div className="flex md:hidden items-center gap-2">
           <AccessibilityControls />
           <LanguageSelector />
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-nav-menu"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            className="p-2 rounded-lg text-foreground hover:bg-secondary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {!hideNavItems && (
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-menu"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              className="p-2 rounded-lg text-foreground hover:bg-secondary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+            >
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          )}
         </div>
       </nav>
 

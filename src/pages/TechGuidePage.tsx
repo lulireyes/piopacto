@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
@@ -505,6 +505,10 @@ function getContent(platform: Platform, isEs: boolean) {
 export default function TechGuidePage() {
   const { t, lang } = useLanguage();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [searchParams] = useSearchParams();
   const initialPlatform = (searchParams.get('platform') as Platform) || 'iphone';
   const [platform, setPlatform] = useState<Platform>(initialPlatform);
@@ -546,7 +550,7 @@ export default function TechGuidePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar maxWidth="max-w-3xl" />
+      <Navbar maxWidth="max-w-3xl" hideNavItems />
 
       {/* Actions bar */}
       <div className="max-w-3xl mx-auto px-6 py-4 flex flex-wrap items-center gap-3">
