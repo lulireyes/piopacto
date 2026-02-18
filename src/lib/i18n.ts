@@ -31,7 +31,7 @@ const translations: Record<Language, Record<string, string>> = {
     heroTitle1: 'Primero el acuerdo.',
     heroTitle2: 'Después el Smartphone.',
     heroSubtitle: 'Un pacto familiar adaptado a su edad.\nClaro. Editable. Listo para firmar juntos en minutos.',
-    heroCta: 'Crear nuestro acuerdo familiar',
+    heroCta: 'Crear acuerdo',
     heroMicrocopy: '✓ Gratis · ✓ Sin registro · ✓ Listo en 5 minutos',
 
     seoH1: 'Crea un acuerdo familiar sobre el uso del smartphone — personalizado para la edad de tu hijo, con reglas claras y listo para firmar juntos.',
