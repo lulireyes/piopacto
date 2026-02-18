@@ -74,7 +74,7 @@ export default function Landing() {
               <span className="block">{t('heroTitle1')}</span>
               <span className="block mt-2">
                 <span>{t('heroTitle2').replace('Smartphone.', '')}</span>
-                <span className="gradient-vibrant bg-clip-text text-transparent">Smartphone.</span>
+                <span className="text-primary">Smartphone.</span>
               </span>
             </motion.h1>
 
