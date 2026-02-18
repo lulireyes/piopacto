@@ -7,14 +7,17 @@ export default function TermsPage() {
   const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const isEs = lang === 'es';
+  const brand = 'My First Phone Agreement';
 
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40">
         <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto">
-          <button onClick={() => navigate('/')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
+          <button onClick={() => navigate('/')} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+            <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center">
+              <Smartphone className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
+            </div>
+            <span className="font-display font-bold text-lg tracking-tight text-foreground">{t('brandName')}</span>
           </button>
           <LanguageSelector />
         </nav>
@@ -25,7 +28,7 @@ export default function TermsPage() {
           <ArrowLeft className="h-4 w-4" /> {t('back')}
         </button>
 
-        <h1 className="font-display text-3xl sm:text-4xl font-black text-foreground mb-3">
+        <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-3">
           {isEs ? 'Términos de uso' : 'Terms of Use'}
         </h1>
         <p className="text-sm text-muted-foreground mb-12">
@@ -39,8 +42,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-muted-foreground">
               {isEs
-                ? 'KidSmartphone ofrece recomendaciones generales para crear acuerdos familiares sobre el uso del smartphone. El contenido generado es orientativo y está diseñado como punto de partida para el diálogo familiar.'
-                : 'KidSmartphone offers general recommendations for creating family agreements about smartphone use. The generated content is advisory and designed as a starting point for family dialogue.'}
+                ? `${brand} ofrece recomendaciones generales para crear acuerdos familiares sobre el uso del smartphone. El contenido generado es orientativo y está diseñado como punto de partida para el diálogo familiar.`
+                : `${brand} offers general recommendations for creating family agreements about smartphone use. The generated content is advisory and designed as a starting point for family dialogue.`}
             </p>
           </section>
 
@@ -61,8 +64,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-muted-foreground">
               {isEs
-                ? 'Cada familia es responsable de adaptar, revisar y utilizar el acuerdo generado según su situación particular. KidSmartphone proporciona una base, pero la decisión final siempre es de la familia.'
-                : 'Each family is responsible for adapting, reviewing, and using the generated agreement according to their particular situation. KidSmartphone provides a foundation, but the final decision always belongs to the family.'}
+                ? `Cada familia es responsable de adaptar, revisar y utilizar el acuerdo generado según su situación particular. ${brand} proporciona una base, pero la decisión final siempre es de la familia.`
+                : `Each family is responsible for adapting, reviewing, and using the generated agreement according to their particular situation. ${brand} provides a foundation, but the final decision always belongs to the family.`}
             </p>
           </section>
 
@@ -83,8 +86,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-muted-foreground">
               {isEs
-                ? 'KidSmartphone no garantiza resultados específicos derivados del uso del acuerdo generado. La herramienta se ofrece "tal cual", como recurso de apoyo para familias. No nos hacemos responsables de decisiones tomadas en base al contenido generado.'
-                : 'KidSmartphone does not guarantee specific outcomes from using the generated agreement. The tool is offered "as is," as a support resource for families. We are not responsible for decisions made based on the generated content.'}
+                ? `${brand} no garantiza resultados específicos derivados del uso del acuerdo generado. La herramienta se ofrece "tal cual", como recurso de apoyo para familias. No nos hacemos responsables de decisiones tomadas en base al contenido generado.`
+                : `${brand} does not guarantee specific outcomes from using the generated agreement. The tool is offered "as is," as a support resource for families. We are not responsible for decisions made based on the generated content.`}
             </p>
           </section>
 
@@ -96,8 +99,8 @@ export default function TermsPage() {
               {isEs
                 ? 'Si tienes alguna pregunta sobre estos términos, puedes escribirnos a '
                 : 'If you have any questions about these terms, you can reach us at '}
-              <a href="mailto:legal@kidsmartphone.com" className="text-primary underline hover:text-foreground transition-colors">
-                legal@kidsmartphone.com
+              <a href="mailto:legal@myfirstphoneagreement.com" className="text-primary underline hover:text-foreground transition-colors">
+                legal@myfirstphoneagreement.com
               </a>.
             </p>
           </section>

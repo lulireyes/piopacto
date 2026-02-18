@@ -6,7 +6,7 @@ import {
   Shield, Heart, FileText, ArrowRight, Smartphone, Check,
   Clock, MessageCircle, Users, Sparkles, BookOpen, Coffee,
   ChevronDown, Lock, Download, Settings, Eye, Star, HandHeart,
-  RefreshCw
+  RefreshCw, Zap
 } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
@@ -22,7 +22,6 @@ export default function Landing() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // WCAG 2.1 AA compliant animations: max 300ms, ease-out, only opacity + transform
   const fadeUp = useMemo(() => ({
     hidden: prefersReducedMotion
       ? { opacity: 0 }
@@ -46,19 +45,6 @@ export default function Landing() {
     { q: t('faq5Q'), a: t('faq5A') },
   ];
 
-  // Helper to render "Smartphone." with green "Smartphone" and green "."
-  const renderSmartphoneTitle = (text: string) => {
-    const parts = text.split('Smartphone');
-    return parts.map((part, i, arr) =>
-      i < arr.length - 1 ? (
-        <span key={i}>{part}<span className="text-primary">Smartphone</span></span>
-      ) : (
-        // The remaining part (e.g. ".") should also be green
-        <span key={i}><span className="text-primary">{part}</span></span>
-      )
-    );
-  };
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -73,22 +59,24 @@ export default function Landing() {
 
       <main id="main-content" role="main">
 
-        {/* ===== HERO — Centered, emotional ===== */}
+        {/* ===== HERO ===== */}
         <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-0" aria-labelledby="hero-heading">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm font-medium text-muted-foreground mb-8 shadow-sm">
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2 text-sm font-medium text-primary mb-8 shadow-sm">
+              <Zap className="h-3.5 w-3.5" aria-hidden="true" />
               {t('heroMicrocopy')}
             </motion.div>
 
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}
-              id="hero-heading" role="heading" aria-level={2}
-              className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-foreground leading-[1.08] mb-8 tracking-tight">
+            <motion.h1 initial="hidden" animate="visible" variants={fadeUp} custom={1}
+              id="hero-heading"
+              className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold text-foreground leading-[1.08] mb-8 tracking-tight">
               <span className="block">{t('heroTitle1')}</span>
               <span className="block mt-2">
-                {renderSmartphoneTitle(t('heroTitle2'))}
+                <span>{t('heroTitle2').replace('Smartphone.', '')}</span>
+                <span className="gradient-vibrant bg-clip-text text-transparent">Smartphone.</span>
               </span>
-            </motion.div>
+            </motion.h1>
 
             <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
               className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto mb-10 whitespace-pre-line leading-relaxed">
@@ -107,19 +95,21 @@ export default function Landing() {
             </motion.div>
           </div>
 
-          {/* Hero image below CTA */}
+          {/* Hero image */}
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4}
             className="max-w-4xl mx-auto mt-16">
-            <img
-              src={heroImg}
-              alt={t('heroImageAlt')}
-              className="w-full rounded-3xl shadow-xl"
-              loading="eager"
-            />
+            <div className="rounded-3xl overflow-hidden shadow-2xl border border-border/30">
+              <img
+                src={heroImg}
+                alt={t('heroImageAlt')}
+                className="w-full"
+                loading="eager"
+              />
+            </div>
           </motion.div>
         </section>
 
-        {/* ===== FIRST THINGS FIRST — Flowing wave marquee ===== */}
+        {/* ===== MARQUEE ===== */}
         <div className="overflow-hidden py-10 sm:py-12 select-none" aria-hidden="true">
           <div
             className="flex whitespace-nowrap items-center marquee-scroll"
@@ -136,9 +126,9 @@ export default function Landing() {
                     return (
                       <span
                         key={`${i}-${ci}`}
-                        className={`inline-block ${char === '✦' ? 'text-primary/50 text-base sm:text-lg' : 'text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.12em]'}`}
+                        className={`inline-block ${char === '✦' ? 'text-accent text-base sm:text-lg' : 'text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.12em]'}`}
                         style={{
-                          fontFamily: "'Inter', system-ui, sans-serif",
+                          fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
                           animation: prefersReducedMotion ? 'none' : 'marqueeWave 2.5s ease-in-out infinite',
                           animationDelay: `${-globalIndex * 0.07}s`,
                         }}
@@ -153,7 +143,6 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Wave: background → background (before problem) */}
         <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--background))" />
 
         {/* ===== PROBLEM ===== */}
@@ -166,46 +155,43 @@ export default function Landing() {
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="order-1 lg:order-2">
-              <h2 id="problem-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-6 leading-tight">
+              <h2 id="problem-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
                 {t('problemTitle')}
               </h2>
               <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{t('problemIntro')}</p>
 
               <div className="space-y-3 mb-8" role="list" aria-label={t('problemQuestionsLabel')}>
                 {[t('problemQ1'), t('problemQ2'), t('problemQ3'), t('problemQ4')].map((q, i) => (
-                  <div key={i} role="listitem" className="flex items-start gap-3 bg-warm rounded-xl p-4">
-                    <MessageCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <div key={i} role="listitem" className="flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20">
+                    <MessageCircle className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" aria-hidden="true" />
                     <p className="text-foreground font-medium leading-relaxed text-sm">{q}</p>
                   </div>
                 ))}
               </div>
-
-              
             </motion.div>
           </div>
         </section>
 
-        {/* Wave: background → warm */}
         <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== SOLUTION ===== */}
         <section className="px-6 lg:px-10 py-20 sm:py-28 bg-warm" aria-labelledby="solution-heading">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="solution-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-6 leading-tight">
+              <h2 id="solution-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
                 {t('solutionTitle')}
               </h2>
               <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{t('solutionIntro')}</p>
 
               <div className="space-y-4 mb-8">
                 {[
-                  { icon: Users, text: t('solutionPoint1') },
-                  { icon: MessageCircle, text: t('solutionPoint2') },
-                  { icon: FileText, text: t('solutionPoint3') },
+                  { icon: Users, text: t('solutionPoint1'), color: 'text-primary bg-primary/10' },
+                  { icon: MessageCircle, text: t('solutionPoint2'), color: 'text-secondary bg-secondary/10' },
+                  { icon: FileText, text: t('solutionPoint3'), color: 'text-accent bg-accent/10' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${item.color}`}>
+                      <item.icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <p className="font-medium text-foreground leading-relaxed pt-2">{item.text}</p>
                   </div>
@@ -221,29 +207,28 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Wave: warm → background */}
         <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
 
-        {/* ===== HOW IT WORKS — 3 steps ===== */}
+        {/* ===== HOW IT WORKS ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-32" aria-labelledby="how-heading">
           <div className="max-w-4xl mx-auto">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              id="how-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground text-center mb-20">
+              id="how-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground text-center mb-20">
               {t('howItWorksTitle')}
             </motion.h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
               {[
-                { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc') },
-                { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc') },
-                { num: '3', icon: Download, title: t('step3Title'), desc: t('step3Desc') },
+                { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc'), color: 'from-primary to-secondary' },
+                { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc'), color: 'from-secondary to-accent' },
+                { num: '3', icon: Download, title: t('step3Title'), desc: t('step3Desc'), color: 'from-accent to-primary' },
               ].map((s, i) => (
                 <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
                   className="text-center">
-                  <div className="w-14 h-14 rounded-2xl gradient-primary text-primary-foreground font-bold flex items-center justify-center text-xl mx-auto mb-5" aria-hidden="true">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} text-primary-foreground font-bold flex items-center justify-center text-xl mx-auto mb-5 shadow-md`} aria-hidden="true">
                     {s.num}
                   </div>
-                  <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
+                  <h3 className="font-display font-bold text-foreground text-lg mb-2">{s.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
                 </motion.article>
               ))}
@@ -251,29 +236,28 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Wave: background → warm */}
         <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== DIFFERENTIATORS ===== */}
         <section className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="diff-heading">
           <div className="max-w-5xl mx-auto">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              id="diff-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground text-center mb-16">
+              id="diff-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground text-center mb-16">
               {t('diffTitle')}
             </motion.h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { icon: Settings, title: t('diff1'), desc: t('diff1Desc') },
-                { icon: Heart, title: t('diff2'), desc: t('diff2Desc') },
-                { icon: Shield, title: t('diff3'), desc: t('diff3Desc') },
-                { icon: Users, title: t('diff4'), desc: t('diff4Desc') },
-                { icon: RefreshCw, title: t('diff5'), desc: t('diff5Desc') },
+                { icon: Settings, title: t('diff1'), desc: t('diff1Desc'), accent: 'text-primary' },
+                { icon: Heart, title: t('diff2'), desc: t('diff2Desc'), accent: 'text-secondary' },
+                { icon: Shield, title: t('diff3'), desc: t('diff3Desc'), accent: 'text-accent' },
+                { icon: Users, title: t('diff4'), desc: t('diff4Desc'), accent: 'text-primary' },
+                { icon: RefreshCw, title: t('diff5'), desc: t('diff5Desc'), accent: 'text-secondary' },
               ].map((d, i) => (
                 <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                  className="bg-card rounded-2xl p-8 border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-200">
-                  <d.icon className="h-6 w-6 text-primary mb-5" aria-hidden="true" />
-                  <h3 className="font-bold text-foreground mb-2 text-lg">{d.title}</h3>
+                  className="bg-card rounded-2xl p-8 border border-border/40 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300">
+                  <d.icon className={`h-6 w-6 ${d.accent} mb-5`} aria-hidden="true" />
+                  <h3 className="font-display font-bold text-foreground mb-2 text-lg">{d.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{d.desc}</p>
                 </motion.article>
               ))}
@@ -281,7 +265,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Wave: warm → background */}
         <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
 
         {/* ===== WHAT'S INCLUDED ===== */}
@@ -293,34 +276,35 @@ export default function Landing() {
             </motion.div>
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
-              <h2 id="includes-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-10">
+              <h2 id="includes-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-10">
                 {t('includesTitle')}
               </h2>
 
               <ul className="space-y-3 mb-10" role="list">
                 {[t('includes1'), t('includes2'), t('includes3'), t('includes4'), t('includes5'), t('includes6')].map((item, i) => (
                   <li key={i} className="flex items-center gap-4 bg-card rounded-xl p-4 border border-border/40 shadow-sm">
-                    <Check className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
+                    <div className="w-6 h-6 rounded-full bg-highlight/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="h-3.5 w-3.5 text-highlight-foreground" aria-hidden="true" />
+                    </div>
                     <span className="text-foreground font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <blockquote className="bg-warm rounded-xl p-6 border-l-4 border-primary/30">
+              <blockquote className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary/40">
                 <p className="text-foreground italic leading-relaxed whitespace-pre-line">{t('includesQuote')}</p>
               </blockquote>
             </motion.div>
           </div>
         </section>
 
-        {/* Wave: background → warm */}
         <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== ABOUT ===== */}
         <section id="about-section" className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="about-heading">
           <div className="max-w-2xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-4">
+              <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
                 {t('aboutTitle')}
               </h2>
               <p className="text-primary font-medium text-lg mb-10 italic whitespace-pre-line">{t('aboutMotto')}</p>
@@ -331,7 +315,7 @@ export default function Landing() {
                 <p>{t('aboutP4')}</p>
                 <p>
                   {t('aboutP5')}{' '}
-                  <a href="mailto:feedback@kidsmartphone.com" className="underline text-primary hover:text-foreground transition-colors duration-200">
+                  <a href="mailto:feedback@myfirstphoneagreement.com" className="underline text-primary hover:text-foreground transition-colors duration-200">
                     {t('aboutFeedbackLink')}
                   </a>
                 </p>
@@ -345,14 +329,13 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Wave: warm → background */}
         <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
 
-        {/* ===== SUPPORT THE PROJECT ===== */}
+        {/* ===== SUPPORT ===== */}
         <section className="px-6 lg:px-10 py-24 max-w-2xl mx-auto text-center" aria-labelledby="support-heading">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <HandHeart className="h-10 w-10 text-accent mx-auto mb-6" aria-hidden="true" />
-            <h2 id="support-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-4">
+            <HandHeart className="h-10 w-10 text-secondary mx-auto mb-6" aria-hidden="true" />
+            <h2 id="support-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
               {t('supportTitle')}
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-md mx-auto">
@@ -362,7 +345,7 @@ export default function Landing() {
               href="https://buymeacoffee.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 bg-accent text-accent-foreground font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
+              className="inline-flex items-center gap-2.5 bg-foreground text-background font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
               aria-label={t('supportCta')}
             >
               <Coffee className="h-5 w-5" aria-hidden="true" />
@@ -372,14 +355,13 @@ export default function Landing() {
           </motion.div>
         </section>
 
-        {/* Wave: background → warm */}
         <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== SEO GUIDE ===== */}
         <section id="guide-section" className="px-6 lg:px-10 py-24 bg-warm" aria-labelledby="guide-heading">
           <div className="max-w-3xl mx-auto">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="guide-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground mb-5">
+              <h2 id="guide-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-5">
                 {t('guideTitle')}
               </h2>
               <p className="text-muted-foreground mb-10 leading-relaxed">{t('guideIntro')}</p>
@@ -393,7 +375,7 @@ export default function Landing() {
                   { icon: Eye, text: t('guide5') },
                 ].map((g, i) => (
                   <li key={i} className="flex items-center gap-4 bg-card rounded-xl p-5 border border-border/40 shadow-sm">
-                    <g.icon className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
+                    <g.icon className="h-5 w-5 text-accent flex-shrink-0" aria-hidden="true" />
                     <span className="text-foreground font-medium">{g.text}</span>
                   </li>
                 ))}
@@ -429,8 +411,8 @@ export default function Landing() {
                       <p className="font-bold text-background text-base">{g.label}</p>
                       <p className="text-sm text-background/70 leading-snug mt-0.5">{g.desc}</p>
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all">
-                      <ArrowRight className="h-4 w-4 text-background" aria-hidden="true" />
+                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all">
+                      <ArrowRight className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
                     </div>
                   </button>
                 ))}
@@ -439,13 +421,12 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Wave: warm → background */}
         <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
 
         {/* ===== FAQ ===== */}
         <section className="px-6 lg:px-10 py-24 max-w-3xl mx-auto" aria-labelledby="faq-heading">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            id="faq-heading" className="font-display text-2xl sm:text-3xl font-black text-foreground text-center mb-16">
+            id="faq-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground text-center mb-16">
             {t('faqTitle')}
           </motion.h2>
 
@@ -473,16 +454,16 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Wave: background → warm */}
         <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
 
         {/* ===== FINAL CTA ===== */}
         <section className="px-6 lg:px-10 py-28 sm:py-36 text-center bg-warm" aria-labelledby="final-cta-heading">
           <div className="max-w-2xl mx-auto">
-            <h2 id="final-cta-heading" className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-foreground mb-6 leading-tight">
+            <h2 id="final-cta-heading" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
               <span className="block">{t('heroTitle1')}</span>
               <span className="block mt-2">
-                {renderSmartphoneTitle(t('heroTitle2'))}
+                <span>{t('heroTitle2').replace('Smartphone.', '')}</span>
+                <span className="gradient-vibrant bg-clip-text text-transparent">Smartphone.</span>
               </span>
             </h2>
             <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionDesc')}</p>
@@ -503,9 +484,11 @@ export default function Landing() {
       <footer className="border-t border-border/40 py-10 px-6 lg:px-10" role="contentinfo">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-5 mb-6">
-            <div className="flex items-center gap-2">
-              <Smartphone className="h-4 w-4 text-primary" aria-hidden="true" />
-              <span className="font-bold text-sm text-foreground">{t('brandName')}</span>
+            <div className="flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-lg gradient-primary flex items-center justify-center">
+                <Smartphone className="h-3 w-3 text-primary-foreground" aria-hidden="true" />
+              </div>
+              <span className="font-display font-bold text-sm text-foreground">{t('brandName')}</span>
             </div>
             <p className="text-sm text-muted-foreground text-center">{t('footerText')}</p>
             <a
@@ -527,7 +510,7 @@ export default function Landing() {
               {t('footerPrivacy')}
             </a>
             <span aria-hidden="true">·</span>
-            <a href="mailto:legal@kidsmartphone.com" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
+            <a href="mailto:legal@myfirstphoneagreement.com" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
               {t('footerContact')}
             </a>
           </div>
