@@ -83,7 +83,8 @@ export default function Landing() {
               {t('heroSubtitle')}
             </motion.p>
 
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 onClick={() => navigate('/onboarding')}
                 aria-label={t('heroCta')}
@@ -91,6 +92,16 @@ export default function Landing() {
               >
                 {t('heroCta')}
                 <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('setup-guides');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="group inline-flex items-center gap-3 border-2 border-foreground/20 bg-background text-foreground font-bold text-lg px-10 py-5 rounded-2xl hover:border-primary hover:text-primary transition-all duration-200 hover:scale-[1.02]"
+              >
+                <Smartphone className="h-5 w-5" aria-hidden="true" />
+                {t('navSetupGuide')}
               </button>
             </motion.div>
           </div>
