@@ -20,7 +20,7 @@ export function detectLanguage(): Language {
 
 const translations: Record<Language, Record<string, string>> = {
   es: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Ir al contenido principal',
     mainNavigation: 'Navegación principal',
     problemQuestionsLabel: 'Preguntas frecuentes de padres',
@@ -45,7 +45,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'Una herramienta para familias que quieren hacerlo bien',
-    solutionIntro: 'KidSmartphone te ayuda a crear un acuerdo familiar personalizado entre padres e hijo sobre el uso del smartphone.',
+    solutionIntro: 'My First Phone Agreement te ayuda a crear un acuerdo familiar personalizado entre padres e hijo sobre el uso del smartphone.',
     solutionPoint1: 'Se adapta a la edad del niño',
     solutionPoint2: 'Propone límites desde el diálogo',
     solutionPoint3: 'Se firma juntos, como familia',
@@ -59,7 +59,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Personalízalo y descárgalo',
     step3Desc: 'Edita reglas, tiempos y compromisos. Descarga un PDF listo para firmar en familia.',
 
-    diffTitle: 'Qué hace diferente a KidSmartphone',
+    diffTitle: 'Qué nos hace diferentes',
     diff1: 'Totalmente personalizable',
     diff1Desc: 'Cada familia es única. Puedes adaptar cada regla a vuestra realidad.',
     diff2: 'Lenguaje claro y cercano',
@@ -80,12 +80,12 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Espacio para firmas',
     includesQuote: '"Firmamos este acuerdo porque nos importamos.\nNo se trata de controlar, sino de acompañarnos en esta aventura digital."',
 
-    aboutTitle: 'Por qué existe KidSmartphone',
+    aboutTitle: 'Por qué existe este proyecto',
     aboutMotto: '"First things first."\nPrimero la conversación. Después el smartphone.',
     aboutP1: 'Cuando llegó el momento del primer móvil, quisimos hacerlo bien: reglas claras, límites razonables y un acuerdo que todos entendiéramos. Pero no encontramos una guía práctica que nos ayudara a empezar.',
     aboutP2: 'Investigamos, hablamos con profesionales y revisamos recomendaciones sobre crianza digital. Con todo eso, creamos nuestro propio acuerdo familiar. Al compartirlo, otras familias nos pidieron la plantilla.',
     aboutP3: 'Ahí entendimos que no era solo una necesidad nuestra. Muchas familias quieren hacerlo mejor, pero no saben por dónde empezar.',
-    aboutP4: 'Con experiencia en diseño de producto, transformamos ese proceso en una herramienta digital clara, editable y fácil de usar. KidSmartphone está desarrollado con ayuda de IA y sigue evolucionando.',
+    aboutP4: 'Con experiencia en diseño de producto, transformamos ese proceso en una herramienta digital clara, editable y fácil de usar. My First Phone Agreement está desarrollado con ayuda de IA y sigue evolucionando.',
     aboutP5: 'Si lo usas y ves algo que puede mejorar, escríbenos.',
     aboutP6: 'Este proyecto crece con cada familia que lo pone en práctica.',
     aboutP7: '',
@@ -94,11 +94,11 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP10: '',
     aboutFeedbackLink: '→ Enviar feedback',
     aboutClosing: '',
-    aboutSignName: '— Equipo KidSmartphone',
+    aboutSignName: '— Equipo My First Phone Agreement',
     aboutSignDesc: 'Diseño centrado en familias',
 
     supportTitle: 'Apoyar el proyecto',
-    supportDesc: 'KidSmartphone es gratuito y sin publicidad. Si te resulta útil, puedes apoyar su desarrollo con una pequeña contribución.',
+    supportDesc: 'My First Phone Agreement es gratuito y sin publicidad. Si te resulta útil, puedes apoyar su desarrollo con una pequeña contribución.',
     supportCta: 'Invítanos a un café ☕',
     supportNote: '100% voluntario. Sin presión. Con gratitud.',
 
@@ -219,7 +219,7 @@ const translations: Record<Language, Record<string, string>> = {
     agreementImageAlt: 'Manos de padre e hijo sosteniendo un smartphone juntos',
   },
   en: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Skip to main content',
     mainNavigation: 'Main navigation',
     problemQuestionsLabel: 'Common parent questions',
@@ -244,7 +244,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'A tool for families who want to do it right',
-    solutionIntro: 'KidSmartphone helps you create a personalized family agreement between parents and child about smartphone use.',
+    solutionIntro: 'My First Phone Agreement helps you create a personalized family agreement between parents and child about smartphone use.',
     solutionPoint1: 'Adapts to the child\'s age',
     solutionPoint2: 'Proposes limits through dialogue',
     solutionPoint3: 'Signed together, as a family',
@@ -258,7 +258,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Customize & download',
     step3Desc: 'Edit rules, times and commitments. Download a PDF ready to sign as a family.',
 
-    diffTitle: 'What makes KidSmartphone different',
+    diffTitle: 'What makes us different',
     diff1: 'Fully customizable',
     diff1Desc: 'Every family is unique. Adapt every rule to your reality.',
     diff2: 'Clear and approachable language',
@@ -279,12 +279,12 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Space for signatures',
     includesQuote: '"We sign this agreement because we care about each other.\nIt\'s not about controlling, but about walking this digital adventure together."',
 
-    aboutTitle: 'Why KidSmartphone exists',
+    aboutTitle: 'Why this project exists',
     aboutMotto: '"First things first."\nFirst the conversation. Then the smartphone.',
     aboutP1: 'When the time came for the first phone, we wanted to do it right: clear rules, reasonable limits, and an agreement everyone understood. But we couldn\'t find a practical guide to help us get started.',
     aboutP2: 'We researched, talked to professionals, and reviewed recommendations on digital parenting. With all of that, we created our own family agreement. When we shared it, other families asked for the template.',
     aboutP3: 'That\'s when we realized it wasn\'t just our need. Many families want to do better, but don\'t know where to start.',
-    aboutP4: 'With experience in product design, we turned that process into a clear, editable, and easy-to-use digital tool. KidSmartphone is built with the help of AI and continues to evolve.',
+    aboutP4: 'With experience in product design, we turned that process into a clear, editable, and easy-to-use digital tool. My First Phone Agreement is built with the help of AI and continues to evolve.',
     aboutP5: 'If you use it and see something that could be better, write to us.',
     aboutP6: 'This project grows with every family that puts it into practice.',
     aboutP7: '',
@@ -293,11 +293,11 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP10: '',
     aboutFeedbackLink: '→ Send feedback',
     aboutClosing: '',
-    aboutSignName: '— KidSmartphone Team',
+    aboutSignName: '— My First Phone Agreement Team',
     aboutSignDesc: 'Design centered on families',
 
     supportTitle: 'Support the project',
-    supportDesc: 'KidSmartphone is free and ad-free. If you find it useful, you can support its development with a small contribution.',
+    supportDesc: 'My First Phone Agreement is free and ad-free. If you find it useful, you can support its development with a small contribution.',
     supportCta: 'Buy us a coffee ☕',
     supportNote: '100% voluntary. No pressure. With gratitude.',
 
@@ -418,7 +418,7 @@ const translations: Record<Language, Record<string, string>> = {
     agreementImageAlt: 'Parent and child hands holding a smartphone together',
   },
   fr: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Aller au contenu principal',
     mainNavigation: 'Navigation principale',
     problemQuestionsLabel: 'Questions fréquentes des parents',
@@ -443,7 +443,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'Un outil pour les familles qui veulent bien faire',
-    solutionIntro: 'KidSmartphone vous aide à créer un accord familial personnalisé entre parents et enfant sur l\'utilisation du smartphone.',
+    solutionIntro: 'My First Phone Agreement vous aide à créer un accord familial personnalisé entre parents et enfant sur l\'utilisation du smartphone.',
     solutionPoint1: 'S\'adapte à l\'âge de l\'enfant',
     solutionPoint2: 'Propose des limites par le dialogue',
     solutionPoint3: 'Signé ensemble, en famille',
@@ -457,7 +457,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Personnalisez-le et téléchargez-le',
     step3Desc: 'Modifiez les règles, horaires et engagements. Téléchargez un PDF prêt à signer en famille.',
 
-    diffTitle: 'Ce qui rend KidSmartphone différent',
+    diffTitle: 'Ce qui nous rend différents',
     diff1: 'Entièrement personnalisable',
     diff1Desc: 'Chaque famille est unique. Adaptez chaque règle à votre réalité.',
     diff2: 'Langage clair et accessible',
@@ -478,7 +478,7 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Espace pour les signatures',
     includesQuote: '"Nous signons cet accord parce que nous tenons les uns aux autres.\nIl ne s\'agit pas de contrôler, mais de s\'accompagner dans cette aventure numérique."',
 
-    aboutTitle: 'Pourquoi KidSmartphone existe',
+    aboutTitle: 'Pourquoi ce projet existe',
     aboutMotto: '"First things first." Les priorités d\'abord.',
     aboutP1: 'C\'est quelque chose que je dis toujours à mes enfants. Chez nous, c\'est comme une philosophie de vie. D\'abord ce qui compte, ensuite ce qui presse. D\'abord la conversation, ensuite la décision.',
     aboutP2: 'Mais quand est venu le moment de donner son premier smartphone à mon fils aîné, à 12 ans, je me suis rendu compte que je n\'avais aucune idée de par où commencer. Il était le dernier de sa classe à en avoir un. La pression venait de partout : ses amis, le groupe WhatsApp de l\'école, même la prof qui envoyait les devoirs sur Classroom. Il ne me le demandait pas directement, mais je le sentais. Ce sentiment d\'être exclu de quelque chose d\'important pour lui.',
@@ -486,7 +486,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP4: 'Alors j\'ai commencé à rassembler des informations comme j\'ai pu. J\'ai lu des articles, écouté des podcasts sur la parentalité numérique, embêté une amie psychologue avec mille questions. J\'ai pris des notes de conversations avec d\'autres mères. J\'ai bricolé un document avec tout ça, adapté à nos besoins, et je l\'ai transformé en un PDF de deux pages.',
     aboutP5: 'Ce n\'était pas parfait. Les premières semaines, on a dû ajuster plusieurs choses. Il y a eu des négociations, des "ça n\'a aucun sens" de la part de mon fils, et des moments où j\'ai moi-même pensé que j\'avais été trop stricte. Mais quelque chose a fonctionné : on l\'avait fait ensemble. Ce n\'était pas quelque chose que je lui avais imposé un après-midi, c\'était une conversation qu\'on avait eue plusieurs fois.',
     aboutP6: 'Quelques semaines plus tard, lors d\'une réunion d\'école, une mère m\'a demandé comment on avait fait. Je lui ai envoyé le PDF. Elle l\'a fait passer. En un mois, cinq ou six familles m\'avaient écrit pour demander "ce modèle pour le téléphone." C\'est là que j\'ai compris : je n\'étais pas la seule à m\'être sentie perdue.',
-    aboutP7: 'Je travaille comme designer produit depuis 8 ans — je transforme des problèmes complexes en outils plus simples. C\'était exactement ça. C\'est pourquoi j\'ai créé KidSmartphone.',
+    aboutP7: 'Je travaille comme designer produit depuis 8 ans — je transforme des problèmes complexes en outils plus simples. C\'était exactement ça. C\'est pourquoi j\'ai créé My First Phone Agreement.',
     aboutP8: 'Ce n\'est pas une app de contrôle parental qui surveille chaque geste de votre enfant. C\'est ce dont j\'avais besoin il y a quelques mois et que je n\'ai pas trouvé : quelque chose qui pose les bonnes questions, propose des options basées sur les recommandations d\'experts, et génère un point de départ.',
     aboutP9: 'Je l\'ai développé avec l\'aide de l\'IA parce que, honnêtement, seule je ne pourrais pas maintenir un tel outil à jour. La technologie n\'est pas l\'ennemi ici, elle fait partie de la solution. Le projet est encore en construction. J\'ai deux autres enfants qui passeront par là un jour.',
     aboutP10: 'Si vous utilisez l\'outil et que quelque chose ne convient pas à votre famille, dites-le-moi. Chaque commentaire m\'aide à l\'améliorer. Au fond, je veux juste qu\'aucune famille n\'ait à repartir de zéro comme moi.',
@@ -496,7 +496,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutSignDesc: 'Mère de 3 enfants, designer, j\'apprends en chemin',
 
     supportTitle: 'Soutenir le projet',
-    supportDesc: 'KidSmartphone est gratuit et sans publicité. Si vous le trouvez utile, vous pouvez soutenir son développement.',
+    supportDesc: 'My First Phone Agreement est gratuit et sans publicité. Si vous le trouvez utile, vous pouvez soutenir son développement.',
     supportCta: 'Offrez-nous un café ☕',
     supportNote: '100% volontaire. Sans pression. Avec gratitude.',
 
@@ -612,7 +612,7 @@ const translations: Record<Language, Record<string, string>> = {
     agreementImageAlt: 'Mains de parent et enfant tenant un smartphone',
   },
   de: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Zum Hauptinhalt springen',
     mainNavigation: 'Hauptnavigation',
     problemQuestionsLabel: 'Häufige Elternfragen',
@@ -637,7 +637,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'Ein Werkzeug für Familien, die es richtig machen wollen',
-    solutionIntro: 'KidSmartphone hilft Ihnen, eine personalisierte Familienvereinbarung über die Smartphone-Nutzung zu erstellen.',
+    solutionIntro: 'My First Phone Agreement hilft Ihnen, eine personalisierte Familienvereinbarung über die Smartphone-Nutzung zu erstellen.',
     solutionPoint1: 'Passt sich dem Alter des Kindes an',
     solutionPoint2: 'Schlägt Grenzen durch Dialog vor',
     solutionPoint3: 'Gemeinsam unterschrieben, als Familie',
@@ -651,7 +651,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Anpassen & herunterladen',
     step3Desc: 'Regeln, Zeiten und Verpflichtungen bearbeiten. Ein unterschriftsreifes PDF herunterladen.',
 
-    diffTitle: 'Was KidSmartphone anders macht',
+    diffTitle: 'Was uns unterscheidet',
     diff1: 'Vollständig anpassbar',
     diff1Desc: 'Jede Familie ist einzigartig. Passen Sie jede Regel an Ihre Realität an.',
     diff2: 'Klare und zugängliche Sprache',
@@ -672,7 +672,7 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Platz für Unterschriften',
     includesQuote: '"Wir unterschreiben diese Vereinbarung, weil wir füreinander da sind.\nEs geht nicht um Kontrolle, sondern darum, dieses digitale Abenteuer gemeinsam zu gehen."',
 
-    aboutTitle: 'Warum es KidSmartphone gibt',
+    aboutTitle: 'Warum dieses Projekt existiert',
     aboutMotto: '"First things first." Erst das Wichtige.',
     aboutP1: 'Das sage ich meinen Kindern immer. Bei uns zu Hause ist das wie eine Lebensphilosophie. Erst das Wichtige, dann das Dringende. Erst das Gespräch, dann die Entscheidung.',
     aboutP2: 'Aber als es an der Zeit war, meinem ältesten Sohn mit 12 sein erstes Smartphone zu geben, wurde mir klar: Ich hatte keine Ahnung, wo ich anfangen sollte. Er war der Letzte in seiner Klasse mit einem Handy. Der Druck kam von überall — seine Freunde, die WhatsApp-Gruppe der Schule, sogar die Lehrerin, die Hausaufgaben über Classroom schickte.',
@@ -680,7 +680,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP4: 'Also fing ich an, Informationen zusammenzutragen. Ich las Artikel, hörte Podcasts über digitale Erziehung, nervte eine befreundete Psychologin mit tausend Fragen. Ich bastelte ein Dokument zusammen, passte es an unsere Bedürfnisse an und machte daraus ein zweiseitiges PDF.',
     aboutP5: 'Es war nicht perfekt. In den ersten Wochen mussten wir einiges anpassen. Es gab Verhandlungen, Momente wo mein Sohn sagte "das ergibt keinen Sinn", und Momente wo ich selbst dachte, ich wäre zu streng gewesen. Aber etwas hat funktioniert: Wir hatten es zusammen gemacht. Es war kein Diktat, es war ein Gespräch.',
     aboutP6: 'Ein paar Wochen später fragte mich eine Mutter bei einem Schulelternabend, wie wir das gemacht hätten. Ich schickte ihr das PDF. Sie gab es weiter. Innerhalb eines Monats hatten mich fünf oder sechs Familien nach "dieser Handyvorlage" gefragt. Da wurde mir klar: Ich war nicht die Einzige, die sich verloren gefühlt hatte.',
-    aboutP7: 'Ich arbeite seit 8 Jahren als Produktdesignerin — ich verwandle komplizierte Probleme in einfachere Werkzeuge. Genau das war es. Deshalb habe ich KidSmartphone gebaut.',
+    aboutP7: 'Ich arbeite seit 8 Jahren als Produktdesignerin — ich verwandle komplizierte Probleme in einfachere Werkzeuge. Genau das war es. Deshalb habe ich My First Phone Agreement gebaut.',
     aboutP8: 'Es ist keine Überwachungs-App. Es ist das, was ich vor Monaten gebraucht und nicht gefunden habe: etwas, das die wichtigen Fragen stellt, Optionen auf Basis von Expertenempfehlungen bietet und einen Ausgangspunkt generiert. Ein PDF zum Durchsprechen, Anpassen und Ausdrucken.',
     aboutP9: 'Ich habe es mit Hilfe von KI entwickelt, weil ich es ehrlich gesagt alleine nicht aktuell halten könnte. Technologie ist hier nicht der Feind, sie ist Teil der Lösung. Das Projekt ist noch im Aufbau. Ich habe noch zwei weitere Kinder, die irgendwann dasselbe durchmachen werden.',
     aboutP10: 'Wenn du das Tool nutzt und etwas für deine Familie keinen Sinn ergibt, sag es mir. Jeder Kommentar hilft mir, es für die nächste Familie besser zu machen.',
@@ -690,7 +690,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutSignDesc: 'Mutter von 3, Designerin, lerne dabei',
 
     supportTitle: 'Projekt unterstützen',
-    supportDesc: 'KidSmartphone ist kostenlos und werbefrei. Wenn Sie es nützlich finden, können Sie die Entwicklung unterstützen.',
+    supportDesc: 'My First Phone Agreement ist kostenlos und werbefrei. Wenn Sie es nützlich finden, können Sie die Entwicklung unterstützen.',
     supportCta: 'Laden Sie uns auf einen Kaffee ein ☕',
     supportNote: '100% freiwillig. Ohne Druck. Mit Dankbarkeit.',
 
@@ -806,7 +806,7 @@ const translations: Record<Language, Record<string, string>> = {
     agreementImageAlt: 'Eltern- und Kinderhände halten ein Smartphone',
   },
   pt: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Ir para o conteúdo principal',
     mainNavigation: 'Navegação principal',
     problemQuestionsLabel: 'Perguntas comuns dos pais',
@@ -831,7 +831,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'Uma ferramenta para famílias que querem fazer bem',
-    solutionIntro: 'O KidSmartphone ajuda-o a criar um acordo familiar personalizado entre pais e filho sobre o uso do smartphone.',
+    solutionIntro: 'O My First Phone Agreement ajuda-o a criar um acordo familiar personalizado entre pais e filho sobre o uso do smartphone.',
     solutionPoint1: 'Adapta-se à idade da criança',
     solutionPoint2: 'Propõe limites através do diálogo',
     solutionPoint3: 'Assinado juntos, em família',
@@ -845,7 +845,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Personalize e descarregue',
     step3Desc: 'Edite regras, horários e compromissos. Descarregue um PDF pronto para assinar em família.',
 
-    diffTitle: 'O que torna o KidSmartphone diferente',
+    diffTitle: 'O que nos torna diferentes',
     diff1: 'Totalmente personalizável',
     diff1Desc: 'Cada família é única. Adapte cada regra à sua realidade.',
     diff2: 'Linguagem clara e acessível',
@@ -866,7 +866,7 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Espaço para assinaturas',
     includesQuote: '"Assinamos este acordo porque nos importamos uns com os outros.\nNão se trata de controlar, mas de nos acompanharmos nesta aventura digital."',
 
-    aboutTitle: 'Porque existe o KidSmartphone',
+    aboutTitle: 'Porque existe este projeto',
     aboutMotto: '"First things first." Primeiro o mais importante.',
     aboutP1: 'É algo que digo sempre aos meus filhos. Em casa é como uma filosofia de vida. Primeiro o que importa, depois o que é urgente. Primeiro a conversa, depois a decisão.',
     aboutP2: 'Mas quando chegou o momento de dar o primeiro smartphone ao meu filho mais velho, aos 12 anos, percebi uma coisa: não fazia ideia por onde começar. Era o último da turma a ter telemóvel. A pressão vinha de todo o lado — os amigos, o grupo de WhatsApp da escola, até a professora que mandava trabalhos pelo Classroom.',
@@ -874,7 +874,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP4: 'Então comecei a juntar informação como pude. Li artigos, ouvi podcasts sobre parentalidade digital, chateei uma amiga psicóloga com mil perguntas. Juntei tudo, adaptei ao que precisávamos como família, e transformei num PDF de duas páginas.',
     aboutP5: 'Não era perfeito. Nas primeiras semanas tivemos de ajustar várias coisas. Houve negociações, momentos de "isto não faz sentido" do meu filho, e momentos em que eu própria achei que tinha sido demasiado rígida. Mas algo funcionou: tínhamos feito aquilo juntos. Não foi algo imposto, foi uma conversa que tivemos várias vezes.',
     aboutP6: 'Umas semanas depois, numa reunião da escola, uma mãe perguntou-me como tínhamos feito. Enviei-lhe o PDF. Ela passou-o a outra. Num mês, cinco ou seis famílias me tinham pedido "aquele modelo do telemóvel." Percebi que não era a única que se tinha sentido perdida.',
-    aboutP7: 'Trabalho há 8 anos como designer de produto — transformo problemas complicados em coisas mais simples de usar. Era exatamente isso. Por isso criei o KidSmartphone.',
+    aboutP7: 'Trabalho há 8 anos como designer de produto — transformo problemas complicados em coisas mais simples de usar. Era exatamente isso. Por isso criei o My First Phone Agreement.',
     aboutP8: 'Não é uma app de controlo parental. É o que eu precisava há meses e não encontrei: algo que faça as perguntas certas, dê opções baseadas no que os especialistas recomendam, e gere um ponto de partida. Um PDF para rever com o seu filho, ajustar e imprimir.',
     aboutP9: 'Desenvolvi-o com ajuda de IA porque, honestamente, sozinha não conseguiria manter algo assim atualizado. A tecnologia não é o inimigo, faz parte da solução. O projeto ainda está em construção. Tenho mais dois filhos que eventualmente passarão pelo mesmo.',
     aboutP10: 'Se usar a ferramenta e algo não fizer sentido para a sua família, diga-me. Cada comentário ajuda-me a melhorar isto para a próxima pessoa.',
@@ -884,7 +884,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutSignDesc: 'Mãe de 3, designer, a aprender pelo caminho',
 
     supportTitle: 'Apoiar o projeto',
-    supportDesc: 'O KidSmartphone é gratuito e sem publicidade. Se achar útil, pode apoiar o seu desenvolvimento.',
+    supportDesc: 'O My First Phone Agreement é gratuito e sem publicidade. Se achar útil, pode apoiar o seu desenvolvimento.',
     supportCta: 'Ofereça-nos um café ☕',
     supportNote: '100% voluntário. Sem pressão. Com gratidão.',
 
@@ -1000,7 +1000,7 @@ const translations: Record<Language, Record<string, string>> = {
     agreementImageAlt: 'Mãos de pai e filho segurando um smartphone',
   },
   it: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Vai al contenuto principale',
     mainNavigation: 'Navigazione principale',
     problemQuestionsLabel: 'Domande comuni dei genitori',
@@ -1025,7 +1025,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'Uno strumento per famiglie che vogliono fare bene',
-    solutionIntro: 'KidSmartphone ti aiuta a creare un accordo familiare personalizzato sull\'uso dello smartphone.',
+    solutionIntro: 'My First Phone Agreement ti aiuta a creare un accordo familiare personalizzato sull\'uso dello smartphone.',
     solutionPoint1: 'Si adatta all\'età del bambino',
     solutionPoint2: 'Propone limiti attraverso il dialogo',
     solutionPoint3: 'Firmato insieme, come famiglia',
@@ -1039,7 +1039,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Personalizza e scarica',
     step3Desc: 'Modifica regole, orari e impegni. Scarica un PDF pronto da firmare in famiglia.',
 
-    diffTitle: 'Cosa rende diverso KidSmartphone',
+    diffTitle: 'Cosa ci rende diversi',
     diff1: 'Completamente personalizzabile',
     diff1Desc: 'Ogni famiglia è unica. Adatta ogni regola alla tua realtà.',
     diff2: 'Linguaggio chiaro e accessibile',
@@ -1060,7 +1060,7 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Spazio per le firme',
     includesQuote: '"Firmiamo questo accordo perché ci teniamo l\'uno all\'altro.\nNon si tratta di controllare, ma di accompagnarci in questa avventura digitale."',
 
-    aboutTitle: 'Perché esiste KidSmartphone',
+    aboutTitle: 'Perché esiste questo progetto',
     aboutMotto: '"First things first." Prima le cose importanti.',
     aboutP1: 'È qualcosa che dico sempre ai miei figli. A casa è come una filosofia di vita. Prima ciò che conta, poi ciò che è urgente. Prima la conversazione, poi la decisione.',
     aboutP2: 'Ma quando è arrivato il momento di dare il primo smartphone a mio figlio maggiore, a 12 anni, mi sono resa conto di una cosa: non avevo idea da dove cominciare. Era l\'ultimo della classe ad averne uno. La pressione arrivava da tutte le parti — i suoi amici, il gruppo WhatsApp della scuola, persino la professoressa che assegnava compiti su Classroom.',
@@ -1068,7 +1068,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP4: 'Allora ho iniziato a raccogliere informazioni come potevo. Ho letto articoli, ascoltato podcast sulla genitorialità digitale, tormentato un\'amica psicologa con mille domande. Ho messo insieme un documento con tutto ciò che avevo trovato, l\'ho adattato alle nostre esigenze e l\'ho trasformato in un PDF di due pagine.',
     aboutP5: 'Non era perfetto. Nelle prime settimane abbiamo dovuto aggiustare diverse cose. Ci sono state negoziazioni, momenti di "non ha senso" da parte di mio figlio, e momenti in cui io stessa ho pensato di essere stata troppo rigida. Ma qualcosa ha funzionato: l\'avevamo fatto insieme. Non era qualcosa che gli avevo imposto, era una conversazione avuta più volte.',
     aboutP6: 'Un paio di settimane dopo, a una riunione scolastica, una madre mi ha chiesto come avessimo fatto. Le ho mandato il PDF. Lei l\'ha passato ad altre. In un mese, cinque o sei famiglie me l\'avevano chiesto. Lì ho capito: non ero l\'unica a essersi sentita persa.',
-    aboutP7: 'Lavoro come product designer da 8 anni — trasformo problemi complicati in strumenti più semplici. Era esattamente questo. Per questo ho creato KidSmartphone.',
+    aboutP7: 'Lavoro come product designer da 8 anni — trasformo problemi complicati in strumenti più semplici. Era esattamente questo. Per questo ho creato My First Phone Agreement.',
     aboutP8: 'Non è un\'app di controllo parentale. È quello di cui avevo bisogno mesi fa e non ho trovato: qualcosa che faccia le domande giuste, dia opzioni basate sulle raccomandazioni degli esperti e generi un punto di partenza. Un PDF da rivedere con tuo figlio, adattare e stampare.',
     aboutP9: 'L\'ho sviluppato con l\'aiuto dell\'IA perché, onestamente, da sola non potrei mantenere aggiornato uno strumento così. La tecnologia non è il nemico, è parte della soluzione. Il progetto è ancora in costruzione. Ho altri due figli che prima o poi passeranno per lo stesso.',
     aboutP10: 'Se usi lo strumento e qualcosa non ha senso per la tua famiglia, dimmelo. Ogni commento mi aiuta a migliorarlo per la prossima persona.',
@@ -1078,7 +1078,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutSignDesc: 'Mamma di 3, designer, imparo strada facendo',
 
     supportTitle: 'Supporta il progetto',
-    supportDesc: 'KidSmartphone è gratuito e senza pubblicità. Se lo trovi utile, puoi sostenere il suo sviluppo.',
+    supportDesc: 'My First Phone Agreement è gratuito e senza pubblicità. Se lo trovi utile, puoi sostenere il suo sviluppo.',
     supportCta: 'Offrici un caffè ☕',
     supportNote: '100% volontario. Senza pressione. Con gratitudine.',
 
@@ -1194,7 +1194,7 @@ const translations: Record<Language, Record<string, string>> = {
     agreementImageAlt: 'Mani di genitore e figlio che tengono uno smartphone',
   },
   nl: {
-    brandName: 'KidSmartphone',
+    brandName: 'My First Phone Agreement',
     skipToContent: 'Ga naar hoofdinhoud',
     mainNavigation: 'Hoofdnavigatie',
     problemQuestionsLabel: 'Veelgestelde vragen van ouders',
@@ -1219,7 +1219,7 @@ const translations: Record<Language, Record<string, string>> = {
     problemClosing: '',
 
     solutionTitle: 'Een hulpmiddel voor gezinnen die het goed willen doen',
-    solutionIntro: 'KidSmartphone helpt u een gepersonaliseerde familieafspraak te maken over smartphonegebruik.',
+    solutionIntro: 'My First Phone Agreement helpt u een gepersonaliseerde familieafspraak te maken over smartphonegebruik.',
     solutionPoint1: 'Past zich aan de leeftijd van het kind aan',
     solutionPoint2: 'Stelt grenzen voor via dialoog',
     solutionPoint3: 'Samen getekend, als gezin',
@@ -1233,7 +1233,7 @@ const translations: Record<Language, Record<string, string>> = {
     step3Title: 'Pas aan & download',
     step3Desc: 'Wijzig regels, tijden en afspraken. Download een tekenklare PDF.',
 
-    diffTitle: 'Wat KidSmartphone anders maakt',
+    diffTitle: 'Wat ons anders maakt',
     diff1: 'Volledig aanpasbaar',
     diff1Desc: 'Elk gezin is uniek. Pas elke regel aan uw realiteit aan.',
     diff2: 'Duidelijke en toegankelijke taal',
@@ -1254,7 +1254,7 @@ const translations: Record<Language, Record<string, string>> = {
     includes6: 'Ruimte voor handtekeningen',
     includesQuote: '"We tekenen deze afspraak omdat we om elkaar geven.\nHet gaat niet om controle, maar om samen deze digitale reis te maken."',
 
-    aboutTitle: 'Waarom KidSmartphone bestaat',
+    aboutTitle: 'Waarom dit project bestaat',
     aboutMotto: '"First things first." Eerst het belangrijkste.',
     aboutP1: 'Het is iets wat ik mijn kinderen altijd zeg. Thuis is het als een levensfilosofie. Eerst wat ertoe doet, dan wat urgent is. Eerst het gesprek, dan de beslissing.',
     aboutP2: 'Maar toen het moment kwam om mijn oudste zoon op zijn 12e zijn eerste smartphone te geven, realiseerde ik me iets: ik had geen idee waar ik moest beginnen. Hij was de laatste van zijn klas met een telefoon. De druk kwam van alle kanten — zijn vrienden, de WhatsApp-groep van school, zelfs de lerares die huiswerk via Classroom stuurde.',
@@ -1262,7 +1262,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutP4: 'Dus begon ik informatie te verzamelen. Ik las artikelen, luisterde naar podcasts over digitaal opvoeden, lastigviel een bevriende psychologe met duizend vragen. Ik knutselde een document in elkaar, paste het aan onze behoeften aan en maakte er een PDF van twee pagina\'s van.',
     aboutP5: 'Het was niet perfect. De eerste weken moesten we dingen aanpassen. Er waren onderhandelingen, momenten van "dit slaat nergens op" van mijn zoon, en momenten waarop ik zelf dacht dat ik te streng was geweest. Maar iets werkte: we hadden het samen gedaan. Het was geen dictaat, het was een gesprek.',
     aboutP6: 'Een paar weken later, op een ouderavond, vroeg een moeder hoe we het hadden gedaan. Ik stuurde haar de PDF. Zij gaf het door. Binnen een maand hadden vijf of zes gezinnen me gevraagd om "dat telefoonsjabloon." Toen besefte ik: ik was niet de enige die zich verloren had gevoeld.',
-    aboutP7: 'Ik werk al 8 jaar als productdesigner — ik maak ingewikkelde problemen eenvoudiger. Dit was precies dat. Daarom heb ik KidSmartphone gebouwd.',
+    aboutP7: 'Ik werk al 8 jaar als productdesigner — ik maak ingewikkelde problemen eenvoudiger. Dit was precies dat. Daarom heb ik My First Phone Agreement gebouwd.',
     aboutP8: 'Het is geen ouderlijk toezicht-app. Het is wat ik maanden geleden nodig had en niet kon vinden: iets dat de belangrijke vragen stelt, opties biedt op basis van wat experts aanbevelen, en een startpunt genereert. Een PDF om samen door te nemen, aan te passen en af te drukken.',
     aboutP9: 'Ik heb het ontwikkeld met hulp van AI omdat ik het eerlijk gezegd alleen niet bij kon houden. Technologie is hier niet de vijand, het is deel van de oplossing. Het project is nog in opbouw. Ik heb nog twee kinderen die hier ooit doorheen zullen gaan.',
     aboutP10: 'Als je de tool gebruikt en iets niet klopt voor jouw gezin, laat het me weten. Elke opmerking helpt me het beter te maken voor het volgende gezin.',
@@ -1272,7 +1272,7 @@ const translations: Record<Language, Record<string, string>> = {
     aboutSignDesc: 'Moeder van 3, designer, leer het gaandeweg',
 
     supportTitle: 'Steun het project',
-    supportDesc: 'KidSmartphone is gratis en zonder advertenties. Als u het nuttig vindt, kunt u de ontwikkeling steunen.',
+    supportDesc: 'My First Phone Agreement is gratis en zonder advertenties. Als u het nuttig vindt, kunt u de ontwikkeling steunen.',
     supportCta: 'Trakteer ons op een koffie ☕',
     supportNote: '100% vrijwillig. Zonder druk. Met dankbaarheid.',
 

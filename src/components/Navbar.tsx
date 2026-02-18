@@ -43,11 +43,13 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItem
         {/* Logo — always links home */}
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded-lg"
+          className="flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded-lg group"
           aria-label={`${t('brandName')} — ${isLanding ? '' : t('back')}`}
         >
-          <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
-          <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
+          <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+            <Smartphone className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
+          </div>
+          <span className="font-display font-bold text-lg tracking-tight text-foreground">{t('brandName')}</span>
         </button>
 
         {/* Desktop nav */}
@@ -59,7 +61,7 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItem
               className={`text-sm font-medium transition-colors duration-200 px-3 py-1.5 rounded-lg focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                 item.highlight
                   ? 'text-primary hover:text-primary/80 hover:bg-primary/5'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
             >
               {item.label}
@@ -79,7 +81,7 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItem
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-menu"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              className="p-2 rounded-lg text-foreground hover:bg-secondary transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+              className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -102,7 +104,7 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItem
               className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                 item.highlight
                   ? 'text-primary hover:bg-primary/5'
-                  : 'text-foreground hover:bg-secondary'
+                  : 'text-foreground hover:bg-muted'
               }`}
             >
               {item.label}

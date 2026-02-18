@@ -7,14 +7,17 @@ export default function PrivacyPage() {
   const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const isEs = lang === 'es';
+  const brand = 'My First Phone Agreement';
 
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40">
         <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto">
-          <button onClick={() => navigate('/')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Smartphone className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span className="font-extrabold text-lg tracking-tight text-foreground">{t('brandName')}</span>
+          <button onClick={() => navigate('/')} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+            <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center">
+              <Smartphone className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
+            </div>
+            <span className="font-display font-bold text-lg tracking-tight text-foreground">{t('brandName')}</span>
           </button>
           <LanguageSelector />
         </nav>
@@ -25,20 +28,19 @@ export default function PrivacyPage() {
           <ArrowLeft className="h-4 w-4" /> {t('back')}
         </button>
 
-        <h1 className="font-display text-3xl sm:text-4xl font-black text-foreground mb-3">
+        <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-3">
           {isEs ? 'Política de privacidad' : 'Privacy Policy'}
         </h1>
         <p className="text-sm text-muted-foreground mb-12">
           {isEs ? 'Última actualización: febrero 2026' : 'Last updated: February 2026'}
         </p>
 
-        {/* Privacy highlight */}
         <div className="flex items-start gap-4 bg-primary/5 border border-primary/20 rounded-2xl p-6 mb-12">
           <ShieldCheck className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
           <p className="text-foreground font-medium leading-relaxed">
             {isEs
-              ? 'KidSmartphone no almacena ningún dato personal. Todo el proceso ocurre en tu navegador. No guardamos nombres, edades ni el contenido del acuerdo.'
-              : 'KidSmartphone does not store any personal data. The entire process happens in your browser. We do not save names, ages, or agreement content.'}
+              ? `${brand} no almacena ningún dato personal. Todo el proceso ocurre en tu navegador. No guardamos nombres, edades ni el contenido del acuerdo.`
+              : `${brand} does not store any personal data. The entire process happens in your browser. We do not save names, ages, or agreement content.`}
           </p>
         </div>
 
@@ -99,8 +101,8 @@ export default function PrivacyPage() {
             </h2>
             <p className="text-muted-foreground">
               {isEs
-                ? 'Si decides apoyar el proyecto mediante una donación, serás redirigido a un servicio de pago externo. KidSmartphone no procesa ni almacena datos de pago.'
-                : 'If you choose to support the project through a donation, you will be redirected to an external payment service. KidSmartphone does not process or store payment data.'}
+                ? `Si decides apoyar el proyecto mediante una donación, serás redirigido a un servicio de pago externo. ${brand} no procesa ni almacena datos de pago.`
+                : `If you choose to support the project through a donation, you will be redirected to an external payment service. ${brand} does not process or store payment data.`}
             </p>
           </section>
 
@@ -135,8 +137,8 @@ export default function PrivacyPage() {
               {isEs
                 ? 'Para cualquier consulta relacionada con la privacidad, puedes escribirnos a '
                 : 'For any privacy-related inquiries, you can reach us at '}
-              <a href="mailto:privacy@kidsmartphone.com" className="text-primary underline hover:text-foreground transition-colors">
-                privacy@kidsmartphone.com
+              <a href="mailto:privacy@myfirstphoneagreement.com" className="text-primary underline hover:text-foreground transition-colors">
+                privacy@myfirstphoneagreement.com
               </a>.
             </p>
           </section>
