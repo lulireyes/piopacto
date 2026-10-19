@@ -27,7 +27,7 @@ function githubPagesSpa(): Plugin {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/kidsmartphone/",
+  base: "/piopacto/",
   server: {
     host: "::",
     port: 8080,
