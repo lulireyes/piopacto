@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Onboarding con Pío</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&amp;family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFDF8}
+a{color:#A8432D}a:hover{color:#7E2F1E}
+.serif{font-family:'Fraunces',serif;font-variation-settings:'SOFT' 100}
+.a-bob{animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.a-q1{animation:q1 .5s cubic-bezier(.2,.8,.2,1) both}.a-q2{animation:q2 .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes q1{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes q2{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.a-o1{animation:o1 .45s cubic-bezier(.2,.8,.2,1) both}.a-o2{animation:o2 .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes o1{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes o2{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.a-hop1{animation:hop1 .55s ease-out}.a-hop2{animation:hop2 .55s ease-out}
+@keyframes hop1{0%,100%{transform:translateY(0)}35%{transform:translateY(-10px) rotate(-4deg)}65%{transform:translateY(0) rotate(2deg)}}
+@keyframes hop2{0%,100%{transform:translateY(0)}35%{transform:translateY(-10px) rotate(4deg)}65%{transform:translateY(0) rotate(-2deg)}}
+.a-b1{animation:b1 .4s cubic-bezier(.2,1.2,.4,1) both}.a-b2{animation:b2 .4s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes b1{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes b2{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.a-pop{animation:pop .4s cubic-bezier(.3,1.5,.5,1);transform-origin:50% 90%}
+@keyframes pop{0%{transform:scale(.92)}55%{transform:scale(1.07)}100%{transform:scale(1)}}
+.a-dot{animation:dot .25s cubic-bezier(.3,1.6,.6,1)}
+@keyframes dot{from{transform:scale(0)}to{transform:scale(1)}}
+.row{transition:background .2s, transform .15s}.row:hover{background:#EFE7DA !important}.row:active{transform:scale(.99)}
+.card svg{transition:color .25s, transform .25s}.card:hover svg{transform:translateY(-4px)}
+.inp{transition:border-color .2s}.inp:focus{border-color:#C8553D !important}
+.inp::placeholder{text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:#BDB3A6;font-size:15px}
+.next{transition:background .2s, box-shadow .2s, transform .15s}.next:hover{transform:translateY(-1px)}
+input[type=range]{accent-color:#C8553D}
+.shell{height:100vh;height:100dvh;min-height:520px;overflow:hidden}
+.scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.h1q{font-size:clamp(25px,3.6vw,42px)!important}
+.card{width:clamp(96px,17vw,156px)!important}
+.card svg{width:clamp(84px,11vw,124px);height:auto}
+.g1{grid-template-columns:1fr}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bignum{font-size:clamp(60px,9vw,92px)!important}
+.avrow{height:96px}.av{width:96px!important;height:96px!important;margin-left:-48px!important}.avline{top:47px!important}
+@media (max-width:640px){
+.g2{grid-template-columns:1fr}
+.card{width:calc(33.3% - 10px)!important}
+.card svg{width:76px}
+.cardlbl{font-size:12px!important;min-height:30px!important}
+.row{min-height:52px!important;padding:12px 14px!important;font-size:14px!important}
+.bubtxt{font-size:15px!important;padding:12px 16px!important}
+.mainpad{padding:16px 16px 20px!important;gap:18px!important}
+.avrow{height:72px}.av{width:72px!important;height:72px!important;margin-left:-36px!important}.av svg{width:52px;height:52px}.avline{top:35px!important}
+.backtxt{display:none}
+.hideM{display:none!important}
+}
+@media (max-height:780px) and (min-width:641px){
+.mainpad{padding-top:18px!important;gap:20px!important}
+.card svg{width:96px}
+.avrow{height:80px}.av{width:80px!important;height:80px!important;margin-left:-40px!important}.av svg{width:58px;height:58px}.avline{top:39px!important}
+}
+@media (prefers-reduced-motion: reduce){.a-bob,.a-q1,.a-q2,.a-o1,.a-o2,.a-hop1,.a-hop2,.a-b1,.a-b2,.a-pop,.a-dot{animation:none !important}}
+</style>
+</helmet>
+<div class="shell" style="font-family: 'Figtree', sans-serif; color: #1E1A16; background: #FFFDF8; display: flex; flex-direction: column">
+
+<header style="flex: none; width: 100%; max-width: 1240px; margin: 0 auto; padding: 14px 20px 0; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; align-items: center; gap: 6px">
+<button type="button" aria-label="Pregunta anterior" onClick="{{back}}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: {{backOpacity}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E1A16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<a href="Landing4.dc.html" class="serif" style="font-weight: 600; font-size: 20px; color: #1E1A16; text-decoration: none">Movilnido</a>
+</div>
+<div style="display: flex; align-items: center; gap: 6px">
+<sc-if value="{{inFlow}}" hint-placeholder-val="{{true}}"><span style="font-size: 14px; color: #8A8178; font-weight: 600">{{stepNum}} de {{stepTotal}}</span></sc-if>
+<button type="button" aria-label="Empezar de nuevo" onClick="{{restart}}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5F574E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.3-5.6"></path><path d="M4 4v4h4"></path></svg></button>
+</div>
+</header>
+
+<sc-if value="{{inFlow}}" hint-placeholder-val="{{true}}">
+<div class="avrow" style="flex: none; position: relative; margin-top: 2px">
+<div class="avline" style="position: absolute; left: 0; right: 0; top: 47px; height: 2px; background: #EDE6DB"><div style="width: {{progress}}; height: 2px; background: #C8553D; transition: width .5s ease"></div></div>
+<div class="av {{hopCls}}" style="position: absolute; left: 50%; top: 0; border-radius: 50%; background: #F6F1E9; border: 5px solid #FFFDF8; box-sizing: border-box; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px -16px rgba(30,26,22,0.5)">
+<div class="a-bob" style="display: flex">
+<sc-if value="{{exNormal}}" hint-placeholder-val="{{true}}"><svg role="img" aria-label="Pío" width="72" height="72" viewBox="0 0 64 64"><path d="M28 13 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="34" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="41" rx="11" ry="9" fill="#F1E3C8"></ellipse><circle cx="26" cy="28" r="2.8" fill="#1E1A16"></circle><circle cx="38" cy="28" r="2.8" fill="#1E1A16"></circle><circle cx="26.9" cy="27.1" r="0.9" fill="#FFFDF8"></circle><circle cx="38.9" cy="27.1" r="0.9" fill="#FFFDF8"></circle><path d="M29.5 32.5 L32 37 L34.5 32.5 Z" fill="#E9A23B"></path></svg></sc-if>
+<sc-if value="{{exAdvice}}" hint-placeholder-val="{{false}}"><svg role="img" aria-label="Pío aconseja" width="72" height="72" viewBox="0 0 64 64"><path d="M28 13 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="34" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="41" rx="11" ry="9" fill="#F1E3C8"></ellipse><path d="M48 36 C 56 34, 62 32, 62 29 C 58 29, 52 30, 47 31 Z" fill="#A8432D"></path><circle cx="26" cy="28" r="4.6" fill="none" stroke="#1E1A16" stroke-width="1.2"></circle><circle cx="38" cy="28" r="4.6" fill="none" stroke="#1E1A16" stroke-width="1.2"></circle><path d="M30.6 28 H33.4" stroke="#1E1A16" stroke-width="1.2"></path><circle cx="26" cy="28" r="2.4" fill="#1E1A16"></circle><circle cx="38" cy="28" r="2.4" fill="#1E1A16"></circle><path d="M29.5 33 L32 37.5 L34.5 33 Z" fill="#E9A23B"></path></svg></sc-if>
+<sc-if value="{{exWorried}}" hint-placeholder-val="{{false}}"><svg role="img" aria-label="Pío preocupado" width="72" height="72" viewBox="0 0 64 64"><path d="M28 13 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="34" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="41" rx="11" ry="9" fill="#F1E3C8"></ellipse><path d="M22 44 C 24 49, 29 50, 31 46 C 28 45, 25 44, 22 44 Z M42 44 C 40 49, 35 50, 33 46 C 36 45, 39 44, 42 44 Z" fill="#A8432D"></path><path d="M22 22 L29 24 M42 22 L35 24" stroke="#1E1A16" stroke-width="1.4" stroke-linecap="round"></path><circle cx="26" cy="29" r="3.4" fill="#1E1A16"></circle><circle cx="38" cy="29" r="3.4" fill="#1E1A16"></circle><circle cx="27" cy="28" r="1.1" fill="#FFFDF8"></circle><circle cx="39" cy="28" r="1.1" fill="#FFFDF8"></circle><path d="M30 34 L32 37.5 L34 34 Z" fill="#E9A23B"></path></svg></sc-if>
+<sc-if value="{{exKid}}" hint-placeholder-val="{{false}}"><svg role="img" aria-label="Pío habla con el niño" width="72" height="72" viewBox="0 0 64 64"><path d="M28 21 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><ellipse cx="32" cy="40" rx="20" ry="17" fill="#C8553D"></ellipse><ellipse cx="32" cy="46" rx="11" ry="8" fill="#F1E3C8"></ellipse><circle cx="21" cy="40" r="2.6" fill="#E9A23B" opacity="0.45"></circle><circle cx="43" cy="40" r="2.6" fill="#E9A23B" opacity="0.45"></circle><circle cx="26" cy="36" r="2.6" fill="#1E1A16"></circle><circle cx="38" cy="36" r="2.6" fill="#1E1A16"></circle><path d="M29.5 40 L32 44 L34.5 40 Z" fill="#E9A23B"></path></svg></sc-if>
+</div>
+</div>
+</div>
+
+<div class="scroll" style="display: flex; flex-direction: column">
+<main class="mainpad" style="width: 100%; max-width: 1000px; margin: auto; padding: 28px 20px 28px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 28px">
+<div class="{{qCls}}" style="max-width: 820px; text-align: center; display: flex; flex-direction: column; gap: 14px">
+<h1 class="serif h1q" style="margin: 0; font-weight: 400; font-size: 42px; line-height: 1.2; color: #3B3530; text-wrap: balance">{{headline}}</h1>
+<sc-if value="{{hasHelper}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 17px; color: #5F574E">{{helper}}</p></sc-if>
+</div>
+
+<sc-for list="{{parts}}" as="p" hint-placeholder-count="1">
+<div style="width: 100%; max-width: {{p.maxW}}; display: flex; flex-direction: column; align-items: stretch; gap: 16px">
+<sc-if value="{{p.hasLabel}}" hint-placeholder-val="{{false}}"><div class="serif" style="font-size: 24px; font-weight: 500; color: #3B3530; text-align: center">{{p.label}}</div></sc-if>
+
+<sc-if value="{{p.isCards}}" hint-placeholder-val="{{true}}">
+<div role="group" aria-label="{{p.label}}" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 12px">
+<sc-for list="{{p.options}}" as="o" hint-placeholder-count="4">
+<button type="button" class="card {{o.inCls}}" onClick="{{o.onPick}}" aria-pressed="{{o.pressed}}" style="border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 4px 2px 8px; cursor: pointer; font-family: inherit; color: #3B3530; animation-delay: {{o.delay}}">
+<svg class="{{o.popCls}}" aria-hidden="true" viewBox="0 0 120 100" style="color: {{o.accentFill}}"><g stroke="#4A433C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{o.white}}" fill="#FFFFFF"></path><path d="{{o.accent}}" fill="currentColor"></path><path d="{{o.lines}}" fill="none"></path></g></svg>
+<span class="cardlbl" style="font-size: 13px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; text-align: center; line-height: 1.25; min-height: 34px; display: flex; align-items: center">{{o.label}}</span>
+<span style="width: 32px; height: 32px; box-sizing: border-box; border-radius: {{o.markRadius}}; border: 2px solid {{o.markBorder}}; background: {{o.markBg}}; display: flex; align-items: center; justify-content: center; transition: all .2s">
+<sc-if value="{{o.showDot}}" hint-placeholder-val="{{false}}"><span class="a-dot" style="width: 16px; height: 16px; border-radius: 50%; background: #C8553D"></span></sc-if>
+<sc-if value="{{o.showCheck}}" hint-placeholder-val="{{false}}"><svg class="a-dot" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{p.isRows}}" hint-placeholder-val="{{false}}">
+<div role="group" class="{{p.cols}}" aria-label="{{p.label}}" style="width: 100%; display: grid; gap: 10px">
+<sc-for list="{{p.options}}" as="o" hint-placeholder-count="3">
+<button type="button" class="row {{o.inCls}}" onClick="{{o.onPick}}" aria-pressed="{{o.pressed}}" style="width: 100%; min-height: 58px; display: flex; align-items: center; gap: 14px; text-align: left; padding: 12px 16px; border-radius: 6px; border: 0; background: #F6F1E9; font-family: inherit; font-size: {{o.fs}}; font-weight: 700; letter-spacing: {{o.ls}}; text-transform: {{o.tt}}; color: #3B3530; cursor: pointer; box-sizing: border-box; animation-delay: {{o.delay}}">
+<span style="flex: none; width: 32px; height: 32px; box-sizing: border-box; border-radius: {{o.markRadius}}; border: 2px solid {{o.markBorder}}; background: {{o.markBg}}; display: flex; align-items: center; justify-content: center; transition: all .2s">
+<sc-if value="{{o.showDot}}" hint-placeholder-val="{{false}}"><span class="a-dot" style="width: 16px; height: 16px; border-radius: 50%; background: #C8553D"></span></sc-if>
+<sc-if value="{{o.showCheck}}" hint-placeholder-val="{{false}}"><svg class="a-dot" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+</span>
+<span style="flex: 1; line-height: 1.3">{{o.label}}</span>
+<sc-if value="{{o.hasTag}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0; text-transform: none; color: {{o.tagColor}}; text-align: right">{{o.tag}}</span></sc-if>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{p.isText}}" hint-placeholder-val="{{false}}">
+<input type="text" class="inp" aria-label="{{p.aria}}" value="{{p.val}}" onChange="{{p.onText}}" placeholder="{{p.ph}}" style="width: 100%; box-sizing: border-box; border: 2px solid #E5DCCD; border-radius: 6px; background: #FFFFFF; padding: 20px 22px; font-family: inherit; font-size: 19px; font-weight: 600; color: #1E1A16; outline: none">
+</sc-if>
+
+<sc-if value="{{p.isAdd}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; gap: 10px">
+<input type="text" class="inp" aria-label="Añadir otra app" value="{{p.val}}" onChange="{{p.onText}}" placeholder="¿Otra app? Escríbela" style="flex: 1; min-width: 0; box-sizing: border-box; border: 2px dashed #D6CCBD; border-radius: 6px; background: #FFFFFF; padding: 18px; font-family: inherit; font-size: 17px; font-weight: 600; color: #1E1A16; outline: none">
+<button type="button" onClick="{{p.onAdd}}" style="flex: none; border: 2px solid #C8553D; background: transparent; color: #B4472F; border-radius: 6px; padding: 0 22px; font-family: inherit; font-size: 14px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer">+ Añadir</button>
+</div>
+</sc-if>
+
+<sc-if value="{{p.isStepper}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; align-items: center; justify-content: center; gap: 32px; padding: 4px 0">
+<button type="button" class="row" aria-label="Menos" onClick="{{p.dec}}" style="width: 64px; height: 64px; border-radius: 50%; border: 0; background: #F6F1E9; font-size: 30px; color: #1E1A16; cursor: pointer">−</button>
+<div style="display: flex; flex-direction: column; align-items: center; min-width: 120px"><span class="serif bignum {{p.numCls}}" style="font-weight: 600; font-size: 92px; line-height: 1; color: #3B3530">{{p.val}}</span><span style="font-size: 14px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8178">años</span></div>
+<button type="button" class="row" aria-label="Más" onClick="{{p.inc}}" style="width: 64px; height: 64px; border-radius: 50%; border: 0; background: #F6F1E9; font-size: 30px; color: #1E1A16; cursor: pointer">+</button>
+</div>
+</sc-if>
+
+<sc-if value="{{p.isSlider}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: center; gap: 12px"><span class="serif bignum" style="font-weight: 600; font-size: 72px; line-height: 1; color: #3B3530">{{p.val}}</span><span style="font-size: 14px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8178">min al día</span></div>
+<input type="range" min="15" max="180" step="15" value="{{p.val}}" onChange="{{p.onText}}" aria-label="{{p.aria}}" style="width: 100%; height: 28px; cursor: pointer">
+<div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #8A8178"><span>15</span><span>60</span><span>120</span><span>180</span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{p.hasTip}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; gap: 8px; align-items: flex-start; justify-content: center; font-size: 16px; line-height: 1.45; color: #9A3B26; font-weight: 600; text-align: left">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="#F1E3C8" stroke="#B4472F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px"><path d="M9 18h6M10 21h4"></path><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"></path></svg>
+<span>{{p.tip}}</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+
+<sc-if value="{{hasBubble}}" hint-placeholder-val="{{true}}">
+<div class="{{bubbleCls}}" style="width: 100%; max-width: 620px; display: flex; align-items: flex-end; gap: 12px">
+<div style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: #F6F1E9; display: flex; align-items: center; justify-content: center">
+<svg aria-hidden="true" width="38" height="38" viewBox="0 0 64 64"><path d="M28 13 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="34" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="41" rx="11" ry="9" fill="#F1E3C8"></ellipse><circle cx="26" cy="28" r="2.8" fill="#1E1A16"></circle><circle cx="38" cy="28" r="2.8" fill="#1E1A16"></circle><path d="M29.5 32.5 L32 37 L34.5 32.5 Z" fill="#E9A23B"></path></svg>
+</div>
+<div class="bubtxt" style="flex: 1; background: {{bubbleBg}}; border-radius: 22px 22px 22px 6px; padding: 14px 20px; font-size: 17px; line-height: 1.45; color: {{bubbleFg}}">{{bubble}}</div>
+</div>
+</sc-if>
+
+</main>
+</div>
+<footer style="flex: none; border-top: 1px solid rgba(30,26,22,0.08); background: #FFFDF8; padding: 14px 16px calc(14px + env(safe-area-inset-bottom)); box-shadow: 0 -12px 24px -20px rgba(30,26,22,0.35)">
+<div style="max-width: 520px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px">
+<sc-if value="{{showBack}}" hint-placeholder-val="{{true}}"><button type="button" class="row" onClick="{{back}}" aria-label="Pregunta anterior" style="flex: none; height: 62px; min-width: 62px; border: 0; border-radius: 6px; background: #F6F1E9; color: #3B3530; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; padding: 0 18px; display: flex; align-items: center; justify-content: center; gap: 6px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B3530" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg><span class="backtxt">Anterior</span></button></sc-if>
+<button type="button" class="next" onClick="{{next}}" aria-disabled="{{nextDisabled}}" style="flex: 1; max-width: 320px; height: 62px; border: 0; border-radius: 6px; font-family: inherit; font-size: 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: {{nextBg}}; color: {{nextFg}}; box-shadow: {{nextShadow}}; cursor: pointer">{{nextLabel}}</button>
+</div>
+</footer>
+</sc-if>
+
+<sc-if value="{{isStop}}" hint-placeholder-val="{{false}}">
+<main class="a-in" style="width: 100%; max-width: 560px; margin: 0 auto; padding: 56px 20px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center">
+<svg role="img" aria-label="Pío preocupado" width="96" height="96" viewBox="0 0 64 64"><path d="M28 13 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="34" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="41" rx="11" ry="9" fill="#F1E3C8"></ellipse><path d="M22 44 C 24 49, 29 50, 31 46 C 28 45, 25 44, 22 44 Z M42 44 C 40 49, 35 50, 33 46 C 36 45, 39 44, 42 44 Z" fill="#A8432D"></path><path d="M22 22 L29 24 M42 22 L35 24" stroke="#1E1A16" stroke-width="1.4" stroke-linecap="round"></path><circle cx="26" cy="29" r="3.4" fill="#1E1A16"></circle><circle cx="38" cy="29" r="3.4" fill="#1E1A16"></circle><path d="M30 34 L32 37.5 L34 34 Z" fill="#E9A23B"></path></svg>
+<h1 class="serif" style="margin: 0; font-weight: 500; font-size: 30px; line-height: 1.2">Para su edad, todavía es pronto.</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5F574E">La Asociación Española de Pediatría recomienda no usar pantallas antes de los 7 años, salvo un contacto breve y acompañado, como una videollamada con la familia. Os espero aquí cuando llegue el momento.</p>
+<button type="button" onClick="{{backFromStop}}" style="border: 2px solid #B4472F; background: transparent; color: #B4472F; border-radius: 10px; padding: 14px 24px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Cambiar la edad</button>
+</main>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{false}}">
+<main class="a-in" style="width: 100%; max-width: 860px; margin: 0 auto; padding: 40px 20px 72px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 24px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+<svg role="img" aria-label="Pío celebra" width="88" height="88" viewBox="0 0 64 64"><path d="M28 7 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="28" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="35" rx="11" ry="9" fill="#F1E3C8"></ellipse><path d="M14 24 C 6 18, 6 8, 12 8 C 13 14, 15 19, 18 22 Z M50 24 C 58 18, 58 8, 52 8 C 51 14, 49 19, 46 22 Z" fill="#A8432D"></path><path d="M23 23 q3 -3.5 6 0 M35 23 q3 -3.5 6 0" fill="none" stroke="#1E1A16" stroke-width="1.8" stroke-linecap="round"></path><path d="M29.5 27 L32 31.5 L34.5 27 Z" fill="#E9A23B"></path></svg>
+<h1 class="serif" style="margin: 0; font-weight: 500; font-size: 34px">¡El pacto de {{name}} está listo!</h1>
+<p style="margin: 0; font-size: 17px; color: #5F574E">Habéis hablado de algo importante. Revisadlo, descargadlo y firmadlo juntos.</p>
+</div>
+<div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center">
+<button type="button" style="border: 0; background: #B4472F; color: #FFF8EF; border-radius: 10px; padding: 16px 28px; font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer">Descargar PDF</button>
+<button type="button" onClick="{{edit}}" style="border: 2px solid #B4472F; background: transparent; color: #B4472F; border-radius: 10px; padding: 14px 24px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Cambiar respuestas</button>
+</div>
+
+<article style="width: 100%; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E5DCCD; padding: 56px 60px; box-shadow: 0 30px 60px -40px rgba(30,26,22,0.4); display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.18em; color: #6B635A">{{pdfKicker}}</div>
+<div class="serif" style="font-weight: 700; font-size: 60px; line-height: 0.95">{{name}}</div>
+</div>
+<svg aria-hidden="true" width="56" height="56" viewBox="0 0 64 64"><path d="M28 13 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><circle cx="32" cy="34" r="20" fill="#C8553D"></circle><ellipse cx="32" cy="41" rx="11" ry="9" fill="#F1E3C8"></ellipse><circle cx="26" cy="28" r="2.8" fill="#1E1A16"></circle><circle cx="38" cy="28" r="2.8" fill="#1E1A16"></circle><path d="M29.5 32.5 L32 37 L34.5 32.5 Z" fill="#E9A23B"></path></svg>
+</div>
+<div style="height: 1.5px; background: #1E1A16"></div>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3B3530">{{pdfIntro}}</p>
+
+<sc-for list="{{sections}}" as="s" hint-placeholder-count="5">
+<section style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="serif" style="margin: 0; font-weight: 600; font-size: 21px">{{s.title}}</h2>
+<sc-if value="{{s.isBox}}" hint-placeholder-val="{{false}}">
+<div style="background: #F7EEDC; border-radius: 6px; padding: 14px 18px; font-size: 15px; line-height: 1.55; color: #3B2C10">{{s.text}}</div>
+</sc-if>
+<sc-if value="{{s.isList}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{s.items}}" as="it" hint-placeholder-count="3">
+<div style="display: flex; gap: 14px; font-size: 15px; line-height: 1.5"><span class="serif" style="flex: none; width: 22px; font-weight: 700; color: #B4472F">{{it.mark}}</span><span>{{it.text}}</span></div>
+</sc-for>
+</div>
+</sc-if>
+</section>
+</sc-for>
+
+<div style="display: flex; gap: 24px; align-items: stretch; flex-wrap: wrap">
+<div style="flex: 1 1 260px; font-size: 15px; line-height: 1.6; font-style: italic; color: #3B3530; border-left: 3px solid #C8553D; padding-left: 16px">{{finalMsg}}</div>
+</div>
+<div style="background: #F7EEDC; border-radius: 6px; padding: 12px 16px; font-size: 14px; color: #5C4113">{{reviewText}}</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 28px; margin-top: 18px">
+<sc-for list="{{signers}}" as="sg" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="height: 44px"></div><div style="border-top: 1.5px solid #1E1A16; padding-top: 6px; font-size: 14px; font-weight: 600">{{sg.name}}</div><div style="font-size: 12px; color: #6B635A">{{sg.role}}</div></div>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid #E5DCCD; padding-top: 12px; font-size: 11px; color: #6B635A"><span>{{footNote}}</span><span>movilnido.com</span></div>
+</article>
+</main>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = this.fresh();
+}
+fresh() {
+return { step: 0, mode: 'flow', picks: 0, a: {
+first: '', name: '', gender: '', age: 10, signers: [], signerNames: '',
+weekday: 60, weekend: 90, timeTouched: false, moments: ['comidas', 'deberes'], off: '', sleep: '',
+apps: [], customApps: [], appDraft: '', newApps: '', social: '',
+safety: ['datos', 'desconocidos', 'malestar'], supervision: [], breaks: '',
+parentsC: ['tiempos', 'mesa', 'escuchar', 'escondidas', 'flexibles', 'honestidad'],
+kidC: ['respetar', 'cuidar', 'ayuda', 'responsabilidad'], review: '', finalMsg: ''
+} };
+}
+setA(patch, pick) { const ns = { a: Object.assign({}, this.state.a, patch) }; if (pick) ns.picks = (this.state.picks || 0) + 1; this.setState(ns); }
+C(cx, cy, r) { return 'M' + (cx - r) + ' ' + cy + ' a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0 a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0 Z '; }
+R(x, y, w, h, r) { return 'M' + (x + r) + ' ' + y + ' h' + (w - 2 * r) + ' a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + r + ' v' + (h - 2 * r) + ' a' + r + ' ' + r + ' 0 0 1 ' + (-r) + ' ' + r + ' h' + (-(w - 2 * r)) + ' a' + r + ' ' + r + ' 0 0 1 ' + (-r) + ' ' + (-r) + ' v' + (-(h - 2 * r)) + ' a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + (-r) + ' Z '; }
+torso(cx, w) { return 'M' + (cx - w) + ' 94 c0 -20 ' + (w * 0.45) + ' -30 ' + w + ' -30 c' + (w * 0.55) + ' 0 ' + w + ' 10 ' + w + ' 30 Z '; }
+ill(k) {
+const C = this.C.bind(this), R = this.R.bind(this), T = this.torso.bind(this);
+const I = {
+first: { w: R(41, 12, 38, 74, 8), a: R(47, 22, 26, 50, 3) + 'M60 12 c-6 -11 -18 -6 -9 1 Z M60 12 c6 -11 18 -6 9 1 Z', l: 'M56 79 h8 M22 30 v10 M17 35 h10 M96 56 v10 M91 61 h10 M53 46 l5 5 9 -10' },
+renew: { w: R(41, 12, 38, 74, 8), a: R(47, 22, 26, 50, 3), l: 'M56 79 h8 M53 45 a7 7 0 0 1 12 -5 M67 49 a7 7 0 0 1 -12 5 M65 36 v5 h-5 M55 58 v-5 h5 M20 40 a40 40 0 0 1 14 -20 M100 60 a40 40 0 0 1 -14 20' },
+mama: { w: C(60, 40, 14), a: T(60, 24), l: 'M46 40 c-3 14 0 22 -6 27 M74 40 c3 14 0 22 6 27 M46 38 c2 -16 26 -16 28 0 M55 41 h0 M65 41 h0 M56 47 c2 2 6 2 8 0' },
+papa: { w: C(60, 40, 14), a: T(60, 24), l: 'M47 34 c4 -12 22 -12 26 0 M50 44 c2 11 18 11 20 0 M55 40 h0 M65 40 h0' },
+otro: { w: C(60, 40, 14), a: T(60, 24), l: 'M46 33 h28 M48 32 c0 -14 24 -14 24 0 M74 33 h10 M55 41 h0 M65 41 h0 M56 47 c2 2 6 2 8 0' },
+abuelos: { w: C(40, 44, 12) + C(80, 44, 12), a: T(40, 18) + T(80, 18), l: C(35, 44, 3.5) + C(45, 44, 3.5) + C(75, 44, 3.5) + C(85, 44, 3.5) + 'M38.5 44 h3 M78.5 44 h3 M30 36 c3 -8 17 -8 20 0 M70 36 c3 -8 17 -8 20 0' },
+cocina: { w: R(12, 62, 96, 30, 2) + R(22, 46, 14, 16, 2), a: R(54, 30, 18, 30, 3), l: 'M12 72 h96 M44 72 v20 M80 72 v20 M36 50 c6 0 6 8 0 8 M63 60 v2 M63 62 c0 6 18 2 22 0 M60 54 h6' },
+salon: { w: R(24, 36, 72, 24, 8) + R(14, 54, 92, 28, 6), a: R(46, 46, 28, 10, 3), l: 'M22 82 v8 M98 82 v8 M60 38 v8 M14 62 h92' },
+padres: { w: R(8, 40, 10, 44, 2) + R(8, 60, 76, 20, 2) + R(22, 50, 22, 10, 5) + R(88, 58, 24, 22, 2), a: R(93, 42, 14, 16, 3), l: 'M8 84 v6 M84 80 v10 M88 69 h24 M50 60 c10 -6 24 -6 34 0' },
+ubicacion: { w: R(16, 32, 88, 56, 4), a: 'M60 16 c-12 0 -19 9 -19 18 c0 13 19 30 19 30 c0 0 19 -17 19 -30 c0 -9 -7 -18 -19 -18 Z', l: C(60, 34, 6) + 'M44 32 v-0 M40 88 v-56 M80 88 v-56 M16 70 h24 M80 66 h24' },
+control: { w: R(40, 10, 40, 80, 8), a: R(47, 26, 26, 14, 7) + R(47, 50, 26, 14, 7), l: C(66, 33, 4) + C(54, 57, 4) + 'M55 81 h10' },
+juntos: { w: C(38, 40, 13) + C(82, 40, 13), a: R(49, 56, 22, 34, 4), l: 'M14 94 c0 -18 9 -28 24 -28 M106 94 c0 -18 -9 -28 -24 -28 M56 84 h8 M34 40 h0 M42 40 h0 M78 40 h0 M86 40 h0' },
+confianza: { w: '', a: 'M60 86 C 18 60, 20 22, 46 24 C 53 25, 58 30, 60 35 C 62 30, 67 25, 74 24 C 100 22, 102 60, 60 86 Z', l: 'M20 22 v10 M15 27 h10 M100 70 v10 M95 75 h10 M44 38 c-4 2 -6 6 -6 10' },
+comidas: { w: C(60, 54, 28), a: C(60, 54, 16), l: 'M20 30 v52 M15 30 v12 c0 5 10 5 10 0 v-12 M100 30 c-8 8 -8 22 0 24 v28' },
+deberes: { w: 'M16 34 c15 -7 30 -7 44 2 c14 -9 29 -9 44 -2 v50 c-15 -7 -30 -7 -44 2 c-14 -9 -29 -9 -44 -2 Z', a: 'M86 10 l9 9 -32 32 -12 3 3 -12 Z', l: 'M60 36 v50 M24 48 h24 M24 58 h24 M24 68 h18 M70 64 h22 M70 74 h18' },
+familia: { w: 'M22 50 L60 20 L98 50 V90 H22 Z', a: R(52, 62, 16, 28, 2) + 'M60 46 c-3 -5 -11 -2 -7 4 l7 6 l7 -6 c4 -6 -4 -9 -7 -4 Z', l: 'M30 60 h14 v12 h-14 Z M76 60 h14 v12 h-14 Z M14 56 L60 18 L106 56' },
+cole: { w: R(32, 28, 56, 62, 14), a: R(40, 58, 40, 24, 6), l: 'M48 28 c0 -16 24 -16 24 0 M40 68 h40 M56 64 v8' },
+coche: { w: 'M12 72 v-12 c0 -5 5 -7 10 -8 l12 -18 h48 l14 18 c7 1 12 3 12 8 v12 Z' + C(34, 74, 10) + C(86, 74, 10), a: 'M38 38 h18 v13 h-28 Z M62 38 h17 l10 13 h-27 Z', l: C(34, 74, 3) + C(86, 74, 3) + 'M104 62 h4 M12 62 h4' },
+visitas: { w: 'M22 48 h30 v24 c0 9 -6 14 -15 14 c-9 0 -15 -5 -15 -14 Z M68 48 h30 v24 c0 9 -6 14 -15 14 c-9 0 -15 -5 -15 -14 Z', a: 'M60 34 c-4 -7 -14 -3 -9 5 l9 8 l9 -8 c5 -8 -5 -12 -9 -5 Z', l: 'M52 54 c9 0 9 14 0 14 M98 54 c9 0 9 14 0 14 M32 40 c-4 -6 4 -8 0 -14 M80 40 c-4 -6 4 -8 0 -14 M12 92 h96' }
+};
+return I[k] || { w: '', a: '', l: '' };
+}
+
+fmt(m) {
+m = Number(m);
+if (m < 60) return m + ' minutos';
+const h = Math.floor(m / 60), r = m % 60;
+const hs = h === 1 ? '1 hora' : h + ' horas';
+return r ? hs + ' y ' + r + ' minutos' : hs;
+}
+appList() {
+return [['whatsapp', 'WhatsApp', 13], ['ytkids', 'YouTube Kids', 0], ['youtube', 'YouTube (cuenta propia)', 14], ['spotify', 'Spotify', 0], ['maps', 'Google Maps', 0], ['classroom', 'Google Classroom', 0], ['duolingo', 'Duolingo', 0], ['netflix', 'Netflix o Disney+ (perfil infantil)', 0], ['instagram', 'Instagram', 13], ['tiktok', 'TikTok', 13], ['snapchat', 'Snapchat', 13]];
+}
+steps(a) {
+const n = a.name || 'tu peque';
+const kid = a.age <= 12;
+const tipAge = 'Recomendación para ' + a.age + ' años: ' + (kid ? 'menos de 60 min al día' : 'menos de 2 horas al día') + ', contando cole y deberes (AEP).';
+const limit = kid ? 60 : 120;
+const young = this.appList().filter(o => o[2] && o[2] > a.age && a.apps.indexOf(o[0]) >= 0).map(o => o[1] + ' (desde ' + o[2] + ')');
+return [
+{ id: 'first', reply: a.first === 'first' ? '¡Qué ilusión! Lo vamos a preparar bien 🙂' : a.first === 'renew' ? 'Genial. Revisar el pacto también es parte del pacto 🙂' : '', echo: '¡Hola! Soy Pío.', q: '¿Es su primer smartphone?', parts: [{ id: 'first', type: 'choice', cards: true, opts: [['first', 'Sí, su primer móvil'], ['renew', 'Ya tiene: renovamos el pacto']] }] },
+{ id: 'name', reply: a.name && a.gender ? '¡Hola, ' + a.name + '! 👋 Encantado de conocerte.' : '', echo: a.first === 'renew' ? 'Buena idea revisarlo juntos.' : 'Qué momento tan especial.', q: '¿Cómo se llama tu peque?', parts: [
+{ id: 'name', type: 'text', ph: 'Ej.: Sofía', label: '' },
+{ id: 'gender', type: 'choice', label: 'Para escribir bien el pacto, es…', cols: 3, opts: [['nina', 'Niña'], ['nino', 'Niño'], ['neutro', 'Prefiero no decirlo']] }] },
+{ id: 'age', advice: true, echo: '', q: '¿Cuántos años tiene ' + n + '?', parts: [{ id: 'age', type: 'stepper', tip: a.age >= 7 ? tipAge : '' }] },
+{ id: 'signers', reply: a.signers.length ? 'Perfecto: lo firmaréis entre ' + (a.signers.length + 1) + ', con ' + n + ' 🙂' : '', echo: 'Un pacto se firma entre todos.', q: '¿Quién firma el pacto con ' + n + '?', parts: [
+{ id: 'signers', type: 'multi', cards: true, opts: [['mama', 'Mamá'], ['papa', 'Papá'], ['otro', 'Otro adulto'], ['abuelos', 'Abuelos']] },
+{ id: 'signerNames', type: 'text', optional: true, label: 'Vuestros nombres (opcional)', ph: 'Ej.: Luli y Víctor' }] },
+{ id: 'time', reply: Number(a.weekday) <= limit ? '¡Bien! Está dentro de lo que recomiendan los pediatras 🙂' : '', advice: true, echo: 'Ahora, el tiempo.', q: '¿Cuánto tiempo de pantalla al día?', parts: [
+{ id: 'weekday', type: 'slider', label: 'Entre semana', tip: tipAge, warn: Number(a.weekday) > limit ? 'Es más de lo que recomiendan los pediatras para su edad. ¿Lo probáis así y lo revisáis en un mes?' : '' },
+{ id: 'weekend', type: 'slider', label: '¿Y los fines de semana?' }] },
+{ id: 'moments', reply: a.moments.length >= 3 ? '¡Muy buena idea! Menos pantallas, más conversación 🙂' : '', echo: 'Hay momentos que son para estar juntos.', q: '¿Cuándo descansa el móvil?', parts: [
+{ id: 'moments', type: 'multi', cards: true, opts: [['comidas', 'Comidas'], ['deberes', 'Deberes'], ['familia', 'Planes en familia'], ['cole', 'Colegio'], ['coche', 'En el coche'], ['visitas', 'Visitas']], tip: 'Las comidas sin pantallas funcionan mejor si los adultos también lo cumplen.' }] },
+{ id: 'night', reply: a.sleep ? 'Así descansa todo el mundo 🌙' : '', advice: true, echo: 'Dormir bien es lo primero.', q: '¿Y por la noche?', parts: [
+{ id: 'off', type: 'choice', label: '¿A qué hora se apaga?', cols: 3, opts: [['20:00', '20:00'], ['20:30', '20:30'], ['21:00', '21:00'], ['21:30', '21:30'], ['22:00', '22:00'], ['22:30', '22:30']], tip: 'Apagarlo al menos 1 hora antes de dormir ayuda a descansar mejor.' },
+{ id: 'sleep', type: 'choice', cards: true, label: '¿Dónde duerme el móvil?', opts: [['cocina', 'En la cocina'], ['salon', 'En el salón'], ['padres', 'Cuarto de adultos']], tip: 'La AEP aconseja que los dispositivos duerman fuera del dormitorio.' }] },
+{ id: 'apps', reply: (a.apps.length + a.customApps.length) ? '¡Anotado! Siempre podéis cambiarlo más adelante.' : '', echo: '', q: '¿Qué apps podrá usar ' + n + '?', helper: 'Elige todas las que quieras o añade otras.', parts: [
+{ id: 'apps', type: 'multi', cols: 2, opts: this.appList(), custom: true, tip: 'Mejor sin juegos en su primer móvil: suelen ser lo que más tiempo engancha. Si queréis jugar, mejor en un dispositivo compartido de casa y con tiempo pactado.', warn: young.length ? 'Ojo: ' + young.join(', ') + ' tiene una edad mínima oficial mayor que la de ' + n + '. Vosotros decidís, pero conviene saberlo.' : '' },
+{ id: 'appDraft', type: 'add', optional: true }] },
+{ id: 'rules', reply: a.newApps === 'hablar' ? '¡Perfecto! Hablarlo antes es la mejor costumbre 🙂' : '', advice: true, echo: '', q: '¿Y las apps nuevas y las compras?', parts: [
+{ id: 'newApps', type: 'choice', opts: [['hablar', 'Cualquier app nueva la hablamos antes'], ['gratis', 'Apps gratis con permiso; compras, nunca sin preguntar'], ['nocompras', 'Nada de compras dentro de las apps']], tip: 'En España, la cuenta propia en redes es desde los 14 años. Hay una ley en debate para subirlo a 16.' }] },
+{ id: 'safety', reply: a.safety.indexOf('malestar') >= 0 ? 'Lo más importante: que os lo cuente sin miedo 💛' : '', echo: 'Ahora, cuidarse en internet.', q: '¿Qué acordáis sobre seguridad?', parts: [
+{ id: 'safety', type: 'multi', opts: [['datos', 'No compartir dirección, colegio ni fotos privadas'], ['desconocidos', 'No hablar con desconocidos'], ['fotos', 'Pedir permiso antes de subir fotos de otras personas'], ['claves', 'Las contraseñas las conocemos en casa'], ['malestar', 'Si algo le hace sentir mal, lo cuenta sin miedo']] }] },
+{ id: 'support', echo: '', q: '¿Cómo vais a acompañar a ' + n + '?', parts: [
+{ id: 'supervision', type: 'multi', cards: true, opts: [['ubicacion', 'Ubicación compartida'], ['control', 'Control parental'], ['juntos', 'Lo revisamos juntos'], ['confianza', 'Confianza']], tip: 'Funciona mejor si es transparente y lo acordáis con ' + n + '.' },
+{ id: 'breaks', type: 'choice', label: 'Si una norma no se cumple…', opts: [['hablar', 'Lo hablamos y ajustamos el pacto'], ['menos', 'Al día siguiente, menos tiempo de móvil'], ['pausa', 'Un día de descanso sin móvil']] }] },
+{ id: 'parentsC', reply: a.parentsC.length >= 4 ? '¡Dar ejemplo es lo que mejor funciona! 🙂' : '', echo: 'Los adultos también nos comprometemos.', q: '¿A qué os comprometéis vosotros?', parts: [
+{ id: 'parentsC', type: 'multi', opts: [['tiempos', 'Respetaremos los tiempos acordados'], ['mesa', 'En comidas y planes en familia, también guardamos el móvil'], ['escuchar', 'Escucharemos sin juzgar si nos cuenta algo que vio'], ['escondidas', 'No revisaremos su móvil a escondidas'], ['flexibles', 'Seremos flexibles y ajustaremos el pacto si hace falta'], ['honestidad', 'Nunca perderá el móvil por contarnos la verdad']] }] },
+{ id: 'kidC', reply: a.kidC.length ? '¡Genial, ' + n + '! 🙂' : '', kidTurn: true, echo: n + ', ahora te toca a ti.', q: '¿A qué te comprometes?', parts: [
+{ id: 'kidC', type: 'multi', opts: [['respetar', 'Respetaré los tiempos y lugares acordados'], ['cuidar', 'Cuidaré el móvil como algo valioso'], ['ayuda', 'Pediré ayuda si algo me preocupa o no lo entiendo'], ['responsabilidad', 'Entiendo que tener móvil es una responsabilidad']] }] },
+{ id: 'close', echo: '¡Ya casi está!', q: 'Para terminar', parts: [
+{ id: 'review', type: 'choice', label: '¿Cuándo revisaréis el pacto?', cols: 3, opts: [['1m', 'En un mes'], ['3m', 'En 3 meses'], ['cumple', 'A los ' + (a.age + 1) + ' años']] },
+{ id: 'finalMsg', type: 'text', optional: true, label: 'Un mensaje final (opcional)', ph: 'Firmamos este pacto porque nos queremos y nos cuidamos.' }] }
+];
+}
+buildPdf(a) {
+const n = a.name || 'Nuestro peque';
+const rules = [];
+rules.push('Usaré el móvil como máximo ' + this.fmt(a.weekday) + ' al día entre semana.');
+rules.push(Number(a.weekend) === Number(a.weekday) ? 'Los fines de semana, el mismo tiempo que entre semana.' : 'Los fines de semana, como máximo ' + this.fmt(a.weekend) + ' al día.');
+const mom = { comidas: 'En las comidas, el móvil se queda fuera de la mesa. También el de los adultos.', deberes: 'Mientras hago los deberes, el móvil está en silencio y fuera de la vista.', familia: 'En los planes en familia, todos guardamos el móvil.', cole: 'En el colegio, el móvil sigue las normas del colegio.', coche: 'En los trayectos en coche, hablamos o escuchamos música juntos.', visitas: 'Cuando hay visitas, el móvil se guarda.' };
+a.moments.forEach(m => rules.push(mom[m]));
+const where = { cocina: 'cargando en la cocina', salon: 'en el salón', padres: 'en la habitación de los adultos' };
+if (a.off || a.sleep) rules.push('Por la noche' + (a.off ? ', a las ' + a.off + ',' : '') + ' el móvil se apaga y duerme ' + (where[a.sleep] || 'fuera de mi habitación') + '.');
+const names = {}; this.appList().forEach(o => { names[o[0]] = o[1]; });
+const appLabels = a.apps.map(x => names[x]).concat(a.customApps);
+if (appLabels.length) rules.push('Apps permitidas: ' + appLabels.join(', ') + '.');
+const na = { hablar: 'Cualquier app nueva la hablamos antes de descargarla.', gratis: 'Puedo descargar apps gratis con permiso; las compras, nunca sin preguntar.', nocompras: 'No haré compras dentro de las apps.' };
+if (a.newApps) rules.push(na[a.newApps]);
+const so = { no: 'Todavía no tendré redes sociales.', '14': 'Hablaremos de las redes sociales cuando cumpla 14 años.', si: 'Si uso redes sociales, será con cuenta privada y acompañamiento.' };
+if (a.social) rules.push(so[a.social]);
+const sf = { datos: 'No compartiré mi dirección, mi colegio ni fotos privadas.', desconocidos: 'No hablaré con personas que no conozco.', fotos: 'Pediré permiso antes de subir fotos de otras personas.', claves: 'Mis contraseñas las conocen en casa.', malestar: 'Si algo en el móvil me hace sentir mal, se lo contaré a mis padres sin miedo.' };
+a.safety.forEach(s => rules.push(sf[s]));
+const sections = [{ title: 'Nuestras normas', isList: true, isBox: false, items: rules.map((t, i) => ({ mark: String(i + 1), text: t })) }];
+const sup = { ubicacion: 'Compartimos la ubicación para estar tranquilos.', control: 'Usamos el control parental del móvil, y sabemos cómo está configurado.', juntos: 'De vez en cuando revisamos el móvil juntos, nunca a escondidas.', confianza: 'Nos basamos en la confianza: sin revisiones.' };
+if (a.supervision.length) sections.push({ title: 'Cómo nos acompañamos', isList: true, isBox: false, items: a.supervision.map(s => ({ mark: '—', text: sup[s] })) });
+const br = { hablar: 'Si una norma no se cumple, lo hablamos con calma y ajustamos el pacto.', menos: 'Si una norma no se cumple, al día siguiente habrá menos tiempo de móvil.', pausa: 'Si una norma no se cumple, el móvil descansa un día.' };
+if (a.breaks) sections.push({ title: 'Si algo no sale bien', isList: false, isBox: true, text: br[a.breaks] });
+const pc = { tiempos: 'Respetaremos los tiempos acordados.', mesa: 'En las comidas y en los planes en familia, también guardaremos el móvil.', escuchar: 'Te escucharemos sin juzgar si nos cuentas algo que viste o viviste en el móvil.', escondidas: 'No revisaremos tu móvil a escondidas. Si hace falta, lo haremos juntos.', flexibles: 'Seremos flexibles: si algo no funciona, ajustaremos el pacto.', honestidad: 'Nunca perderás el móvil por contarnos la verdad. La honestidad importa más que la perfección.' };
+if (a.parentsC.length) sections.push({ title: 'Nos comprometemos', isList: true, isBox: false, items: a.parentsC.map(c => ({ mark: '✓', text: pc[c] })) });
+const kc = { respetar: 'Respetaré los tiempos y lugares acordados.', cuidar: 'Cuidaré el móvil como algo valioso.', ayuda: 'Pediré ayuda si algo me preocupa o no lo entiendo.', responsabilidad: 'Entiendo que tener móvil es una responsabilidad y un paso importante.' };
+if (a.kidC.length) sections.push({ title: 'Me comprometo', isList: true, isBox: false, items: a.kidC.map(c => ({ mark: '★', text: kc[c] })) });
+const roles = { mama: 'Mamá', papa: 'Papá', otro: 'Persona adulta', abuelos: 'Abuela o abuelo' };
+const typed = a.signerNames ? a.signerNames.split(/,| y /).map(x => x.trim()).filter(Boolean) : [];
+const signers = (a.signers.length ? a.signers : ['mama', 'papa']).map((r, i) => ({ name: typed[i] || roles[r], role: 'Firma de ' + roles[r].toLowerCase() }));
+signers.push({ name: n, role: 'Firma de ' + n });
+const rv = { '1m': 'Revisaremos este pacto juntos dentro de un mes, para ajustarlo a lo que vayamos aprendiendo.', '3m': 'Revisaremos este pacto juntos dentro de tres meses, para ajustarlo a lo que vayamos aprendiendo.', cumple: 'Revisaremos este pacto juntos cuando ' + n + ' cumpla ' + (a.age + 1) + ' años.' };
+const adults = signers.slice(0, -1).map(s => s.name).join(' y ');
+return {
+kicker: a.first === 'renew' ? 'RENOVAMOS NUESTRO PACTO DEL MÓVIL' : 'PACTO FAMILIAR DEL PRIMER MÓVIL',
+intro: 'Este pacto es entre ' + n + ' (' + a.age + ' años) y ' + adults + '. ' + (a.first === 'renew' ? 'Ya tenemos experiencia con el móvil, y queremos que siga siendo algo bueno para todos.' : 'Tener un móvil es emocionante, y juntos vamos a aprender a usarlo bien.') + ' Este pacto nos ayuda a cuidarnos y a confiar.',
+sections: sections, signers: signers,
+finalMsg: a.finalMsg || ('Firmamos este pacto porque nos queremos y nos cuidamos. No se trata de controlar, sino de acompañarnos. ' + n + ', confiamos en ti.'),
+review: rv[a.review] || rv['3m'],
+foot: 'Recomendaciones basadas en la Asociación Española de Pediatría. Herramienta orientativa: no sustituye el consejo profesional.'
+};
+}
+partVals(p, a, st) {
+const val = a[p.id];
+const multi = p.type === 'multi';
+const isOpts = p.type === 'choice' || multi;
+const odd = st.step % 2 === 1;
+let options = [];
+if (isOpts) {
+options = p.opts.map((o, i) => {
+const on = multi ? val.indexOf(o[0]) >= 0 : val === o[0];
+const tooYoung = o[2] && o[2] > a.age;
+const tag = tooYoung ? 'Desde ' + o[2] + ' años' : (o[3] || '');
+return this.opt(o[0], o[1], on, multi, tag, tooYoung ? '#A8432D' : '#8A8178', i, odd, () => {
+if (multi) { const cur = a[p.id]; this.setA({ [p.id]: on ? cur.filter(x => x !== o[0]) : cur.concat([o[0]]) }, true); }
+else this.setA({ [p.id]: o[0] }, true);
+});
+});
+if (p.custom) a.customApps.forEach((c, i) => options.push(this.opt('', c, true, true, 'Añadida', '#8A8178', options.length + i, odd, () => this.setA({ customApps: a.customApps.filter(x => x !== c) }, true))));
+}
+const cards = !!p.cards;
+const maxW = cards ? '940px' : p.type === 'slider' ? '600px' : p.cols ? '620px' : '500px';
+return {
+label: p.label || '', aria: p.label || p.ph || 'Respuesta', hasLabel: !!p.label, cols: 'g' + (p.cols || 1), maxW: maxW,
+isCards: isOpts && cards, isRows: isOpts && !cards, options: options,
+isText: p.type === 'text', isAdd: p.type === 'add', isStepper: p.type === 'stepper', isSlider: p.type === 'slider',
+val: val, ph: p.ph || '', numCls: (a.age % 2) ? 'a-pop' : 'a-dot',
+onText: (e) => {
+const v = e.target.value;
+if (p.type === 'slider') { this.setA({ [p.id]: Number(v), timeTouched: true }); return; }
+this.setA({ [p.id]: v });
+},
+onAdd: () => {
+const v = (a.appDraft || '').trim();
+if (!v || a.customApps.indexOf(v) >= 0) { this.setA({ appDraft: '' }); return; }
+this.setA({ customApps: a.customApps.concat([v]), appDraft: '' }, true);
+},
+dec: () => { const age = Math.max(4, a.age - 1); this.setA(this.ageTime(a, age)); },
+inc: () => { const age = Math.min(17, a.age + 1); this.setA(this.ageTime(a, age)); },
+hasTip: !!p.tip, tip: p.tip || ''
+};
+}
+ageTime(a, age) {
+const patch = { age: age };
+if (!a.timeTouched) { const r = age <= 12 ? 60 : 120; patch.weekday = r; patch.weekend = r + 30; }
+return patch;
+}
+opt(key, label, on, multi, tag, tagColor, i, odd, pick) {
+const art = this.ill(key);
+const short = label.length <= 30;
+return {
+label: label, pressed: on ? 'true' : 'false', hasTag: !!tag, tag: tag, tagColor: tagColor,
+markRadius: multi ? '8px' : '50%', markBorder: on ? '#C8553D' : '#E0D7CA', markBg: on && multi ? '#C8553D' : '#FFFFFF',
+showDot: on && !multi, showCheck: on && multi,
+fs: short ? '15px' : '16px', tt: short ? 'uppercase' : 'none', ls: short ? '0.05em' : '0',
+white: art.w, accent: art.a, lines: art.l, accentFill: on ? '#C8553D' : '#EFE8DD', popCls: on ? 'a-pop' : '',
+inCls: odd ? 'a-o1' : 'a-o2', delay: (120 + i * 60) + 'ms',
+onPick: pick
+};
+}
+filledPart(p, a) {
+const v = a[p.id];
+if (p.optional || p.type === 'stepper' || p.type === 'slider') return true;
+if (p.type === 'text') return !!(v && v.trim().length);
+if (p.type === 'multi') return v.length > 0 || (p.custom && a.customApps.length > 0);
+return !!v;
+}
+renderVals() {
+const st = this.state, a = st.a;
+const steps = this.steps(a);
+const s = steps[st.step];
+const filled = s.parts.every(p => this.filledPart(p, a));
+const warns = s.parts.filter(p => p.warn).map(p => p.warn);
+const anyWarn = warns.length > 0;
+const bubble = anyWarn ? warns[0] : (s.reply || '');
+const ageIdx = steps.findIndex(x => x.id === 'age');
+const goNext = () => {
+if (!filled) return;
+if (s.id === 'age' && a.age < 7) { this.setState({ mode: 'stop' }); return; }
+if (st.step >= steps.length - 1) { this.setState({ mode: 'done' }); return; }
+this.setState({ step: st.step + 1 });
+};
+const goBack = () => { if (st.mode !== 'flow') { this.setState({ mode: 'flow' }); return; } if (st.step > 0) this.setState({ step: st.step - 1 }); };
+const pdf = this.buildPdf(a);
+return {
+inFlow: st.mode === 'flow', isStop: st.mode === 'stop', isDone: st.mode === 'done',
+progress: st.mode === 'done' ? '100%' : Math.round(((st.step + 1) / steps.length) * 100) + '%',
+backOpacity: st.step === 0 && st.mode === 'flow' ? 0.3 : 1,
+back: goBack, showBack: st.step > 0,
+restart: () => this.setState(this.fresh()),
+backFromStop: () => this.setState({ mode: 'flow', step: ageIdx }),
+edit: () => this.setState({ mode: 'flow', step: 0 }),
+exNormal: !s.advice && !s.kidTurn && !anyWarn, exAdvice: !!s.advice && !anyWarn, exWorried: anyWarn, exKid: !!s.kidTurn && !anyWarn,
+headline: (s.echo ? s.echo + ' ' : '') + s.q, qCls: st.step % 2 ? 'a-q1' : 'a-q2', hopCls: st.step % 2 ? 'a-hop1' : 'a-hop2',
+hasBubble: !!bubble, bubble: bubble, bubbleCls: (st.picks || 0) % 2 ? 'a-b1' : 'a-b2', bubbleBg: anyWarn ? '#FBEDE8' : '#F6F1E9', bubbleFg: anyWarn ? '#6E2A1B' : '#3B3530', hasHelper: !!s.helper, helper: s.helper || '',
+parts: s.parts.map(p => this.partVals(p, a, st)),
+next: goNext, nextDisabled: filled ? 'false' : 'true', nextBg: filled ? '#C8553D' : '#EDE6DB', nextFg: filled ? '#FFFFFF' : '#FFFFFF', nextShadow: filled ? '0 16px 34px -12px rgba(200,85,61,0.6)' : 'none',
+nextLabel: st.step === steps.length - 1 ? 'Crear el pacto' : 'Siguiente',
+stepNum: st.step + 1, stepTotal: steps.length,
+name: a.name || 'vuestro peque', pdfKicker: pdf.kicker, pdfIntro: pdf.intro, sections: pdf.sections, signers: pdf.signers,
+finalMsg: pdf.finalMsg, reviewText: pdf.review, footNote: pdf.foot
+};
+}
+}
+</script>
+</body>
+</html>

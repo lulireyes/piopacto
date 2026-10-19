@@ -3,18 +3,23 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
 import AccessibilityControls from '@/components/AccessibilityControls';
-import { Smartphone, Menu, X } from 'lucide-react';
+import BrandMark from '@/components/BrandMark';
+import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
 
 interface NavbarProps {
-  /** Optional scroll-to handler for in-page sections (used on Landing) */
   onScrollTo?: (id: string) => void;
-  /** Max width class for the inner container */
   maxWidth?: string;
-  /** Hide navigation links (logo-only mode) */
   hideNavItems?: boolean;
 }
 
-export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItems = false }: NavbarProps) {
+const NAV_LINKS = [
+  { key: 'navHowItWorks', id: 'como' },
+  { key: 'navPhoneGuide', id: 'guia' },
+  { key: 'navFaq', id: 'faq' },
+] as const;
+
+export default function Navbar({ onScrollTo, maxWidth = 'max-w-[1180px]', hideNavItems = false }: NavbarProps) {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,86 +36,76 @@ export default function Navbar({ onScrollTo, maxWidth = 'max-w-7xl', hideNavItem
     }
   };
 
-  const navItems = [
-    { label: t('navAbout'), action: () => handleScrollOrNavigate('about-section') },
-    { label: t('navGuide'), action: () => handleScrollOrNavigate('guide-section') },
-    { label: t('navSetupGuide'), action: () => { setMobileOpen(false); navigate('/tech-guide?platform=iphone'); }, highlight: true },
-  ];
-
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40" role="banner">
-      <nav className={`flex items-center justify-between px-6 lg:px-10 py-4 ${maxWidth} mx-auto`} aria-label={t('mainNavigation')}>
-        {/* Logo — always links home */}
+    <header className="sticky top-0 z-50 bg-paper border-b border-border" role="banner">
+      <div className={`flex items-center gap-6 flex-wrap px-8 py-[14px] ${maxWidth} mx-auto`}>
         <button
+          type="button"
           onClick={() => navigate('/')}
-          className="flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded-lg group"
-          aria-label={`${t('brandName')} — ${isLanding ? '' : t('back')}`}
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-paper rounded-md"
+          aria-label={`${t('brandName')}${isLanding ? '' : ` — ${t('back')}`}`}
         >
-          <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-            <Smartphone className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
-          </div>
-          <span className="font-display font-bold text-lg tracking-tight text-foreground">{t('brandName')}</span>
+          <BrandMark name={t('brandName')} />
         </button>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-1 sm:gap-3">
-          {!hideNavItems && navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={item.action}
-              className={`text-sm font-medium transition-colors duration-200 px-3 py-1.5 rounded-lg focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
-                item.highlight
-                  ? 'text-primary hover:text-primary/80 hover:bg-primary/5'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-          <AccessibilityControls />
-          <LanguageSelector />
-        </div>
+        {!hideNavItems && (
+          <nav
+            className="hidden md:flex flex-1 items-center justify-center gap-[26px] text-[15px] flex-wrap"
+            aria-label={t('mainNavigation')}
+          >
+            {NAV_LINKS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleScrollOrNavigate(item.id)}
+                className="text-ink no-underline transition-colors duration-180 hover:text-link"
+              >
+                {t(item.key)}
+              </button>
+            ))}
+          </nav>
+        )}
 
-        {/* Mobile: controls + hamburger */}
-        <div className="flex md:hidden items-center gap-2">
+        {hideNavItems && <div className="hidden md:block flex-1" />}
+
+        <div className="flex items-center gap-2.5 ml-auto md:ml-0">
           <AccessibilityControls />
           <LanguageSelector />
+          <Button type="button" onClick={() => { setMobileOpen(false); navigate('/crear'); }}>
+            {t('navCreatePact')}
+          </Button>
           {!hideNavItems && (
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-menu"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              className="p-2 rounded-lg text-foreground hover:bg-muted transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-[rgba(30,26,22,0.2)] text-ink hover:bg-[rgba(30,26,22,0.04)] transition-colors duration-180"
             >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileOpen ? <X className="h-5 w-5" strokeWidth={1.75} /> : <Menu className="h-5 w-5" strokeWidth={1.75} />}
             </button>
           )}
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile dropdown */}
-      {mobileOpen && (
-        <div
+      {mobileOpen && !hideNavItems && (
+        <nav
           id="mobile-nav-menu"
-          className="md:hidden border-t border-border/40 bg-background/98 backdrop-blur-md px-6 py-4 space-y-1 animate-in slide-in-from-top-2 duration-200"
-          role="menu"
+          className="md:hidden border-t border-border bg-paper px-8 py-4 space-y-1"
+          aria-label={t('mainNavigation')}
         >
-          {navItems.map((item) => (
+          {NAV_LINKS.map((item) => (
             <button
-              key={item.label}
-              onClick={item.action}
-              role="menuitem"
-              className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
-                item.highlight
-                  ? 'text-primary hover:bg-primary/5'
-                  : 'text-foreground hover:bg-muted'
-              }`}
+              key={item.id}
+              type="button"
+              onClick={() => handleScrollOrNavigate(item.id)}
+              className="block w-full text-left px-1 py-3 text-[15px] text-ink transition-colors duration-180 hover:text-link"
             >
-              {item.label}
+              {t(item.key)}
             </button>
           ))}
-        </div>
+        </nav>
       )}
     </header>
   );

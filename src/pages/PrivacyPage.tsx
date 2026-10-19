@@ -1,23 +1,21 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
-import { Smartphone, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
+import BrandMark from '@/components/BrandMark';
 
 export default function PrivacyPage() {
   const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const isEs = lang === 'es';
-  const brand = 'My First Phone Agreement';
+  const brand = 'PioPacto';
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40">
-        <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto">
-          <button onClick={() => navigate('/')} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center">
-              <Smartphone className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
-            </div>
-            <span className="font-display font-bold text-lg tracking-tight text-foreground">{t('brandName')}</span>
+    <div className="min-h-screen bg-paper">
+      <header className="sticky top-0 z-50 bg-paper border-b border-border">
+        <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-content mx-auto">
+          <button onClick={() => navigate('/')}>
+            <BrandMark name={t('brandName')} />
           </button>
           <LanguageSelector />
         </nav>
@@ -35,8 +33,8 @@ export default function PrivacyPage() {
           {isEs ? 'Última actualización: febrero 2026' : 'Last updated: February 2026'}
         </p>
 
-        <div className="flex items-start gap-4 bg-primary/5 border border-primary/20 rounded-2xl p-6 mb-12">
-          <ShieldCheck className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
+        <div className="flex items-start gap-4 bg-ochre rounded-md p-6 mb-12">
+          <ShieldCheck className="h-6 w-6 text-ochre-ink flex-shrink-0 mt-0.5" aria-hidden="true" />
           <p className="text-foreground font-medium leading-relaxed">
             {isEs
               ? `${brand} no almacena ningún dato personal. Todo el proceso ocurre en tu navegador. No guardamos nombres, edades ni el contenido del acuerdo.`

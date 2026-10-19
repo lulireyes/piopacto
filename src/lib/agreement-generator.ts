@@ -1,3 +1,4 @@
+import { leisureDefaultMinutes } from '@/data/recommendations';
 import { Language } from './i18n';
 
 export interface OnboardingData {
@@ -34,20 +35,14 @@ function generateId() {
   return Math.random().toString(36).substring(2, 9);
 }
 
+/** Minutos de ocio con los que arranca el contador. Sale de la tabla de la AEP. */
 export function getRecommendedMinutes(age: number): number {
-  if (age <= 8) return 30;
-  if (age <= 9) return 45;
-  if (age <= 11) return 60;
-  if (age <= 13) return 90;
-  return 120;
+  return leisureDefaultMinutes(age);
 }
 
+/** El tope de la AEP es al día, también en fin de semana. Mismo punto de partida. */
 export function getRecommendedWeekendMinutes(age: number): number {
-  if (age <= 8) return 45;
-  if (age <= 9) return 60;
-  if (age <= 11) return 90;
-  if (age <= 13) return 120;
-  return 150;
+  return leisureDefaultMinutes(age);
 }
 
 export function getSuggestedApps(age: number): string[] {

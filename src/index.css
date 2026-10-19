@@ -1,137 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Caveat:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
+    /* ESTILO.md tokens (HSL channels for shadcn) */
+    --paper: 37 42% 94%;
+    --sheet: 43 100% 99%;
+    --ink: 30 15% 10%;
+    --ink-soft: 32 10% 34%;
+    --muted-text: 32 9% 39%;
+    --line: 30 15% 10%;
+    --track: 37 33% 86%;
+    --terracotta: 10 56% 51%;
+    --terracotta-strong: 11 59% 45%;
+    --terracotta-hover: 11 60% 37%;
+    --link: 11 58% 42%;
+    --link-hover: 11 61% 31%;
+    --ochre: 40 59% 86%;
+    --ochre-ink: 38 65% 28%;
+    --ochre-line: 37 50% 48%;
+    --cream: 34 100% 97%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --background: 37 42% 94%;
+    --foreground: 30 15% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --card: 43 100% 99%;
+    --card-foreground: 30 15% 10%;
 
-    --primary: 248 100% 65%;
-    --primary-foreground: 0 0% 100%;
+    --popover: 43 100% 99%;
+    --popover-foreground: 30 15% 10%;
 
-    --secondary: 264 100% 71%;
-    --secondary-foreground: 0 0% 100%;
+    --primary: 11 59% 45%;
+    --primary-foreground: 34 100% 97%;
 
-    --muted: 248 30% 96%;
-    --muted-foreground: 0 0% 45%;
+    --secondary: 37 33% 86%;
+    --secondary-foreground: 30 15% 10%;
 
-    --accent: 190 100% 50%;
-    --accent-foreground: 0 0% 10%;
+    --muted: 37 33% 86%;
+    --muted-foreground: 32 9% 39%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --accent: 40 59% 86%;
+    --accent-foreground: 38 65% 28%;
 
-    --border: 248 20% 92%;
-    --input: 248 20% 90%;
-    --ring: 248 100% 65%;
+    --destructive: 11 60% 37%;
+    --destructive-foreground: 34 100% 97%;
 
-    --radius: 0.75rem;
+    --border: 30 15% 10%;
+    --input: 30 15% 10%;
+    --ring: 10 56% 51%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 248 100% 65%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 248 30% 96%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 248 20% 92%;
-    --sidebar-ring: 248 100% 65%;
+    --radius: 8px;
+    --radius-control: 6px;
 
-    --warm: 248 30% 97%;
-    --warm-foreground: 0 0% 20%;
-    --success: 145 50% 45%;
-    --success-foreground: 0 0% 100%;
-    --highlight: 48 100% 50%;
-    --highlight-foreground: 0 0% 10%;
+    --sidebar-background: 37 42% 94%;
+    --sidebar-foreground: 30 15% 10%;
+    --sidebar-primary: 11 59% 45%;
+    --sidebar-primary-foreground: 34 100% 97%;
+    --sidebar-accent: 40 59% 86%;
+    --sidebar-accent-foreground: 38 65% 28%;
+    --sidebar-border: 30 15% 10%;
+    --sidebar-ring: 10 56% 51%;
 
     font-size: var(--base-font-size, 100%);
   }
 
-  .dark {
-    --background: 240 15% 8%;
-    --foreground: 0 0% 95%;
-    --card: 240 15% 11%;
-    --card-foreground: 0 0% 95%;
-    --popover: 240 15% 11%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 248 100% 70%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 264 100% 75%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 240 15% 16%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 190 100% 55%;
-    --accent-foreground: 0 0% 10%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 240 15% 20%;
-    --input: 240 15% 20%;
-    --ring: 248 100% 70%;
-    --warm: 240 15% 12%;
-    --warm-foreground: 0 0% 85%;
-    --success: 145 50% 50%;
-    --success-foreground: 0 0% 100%;
-    --highlight: 48 100% 55%;
-    --highlight-foreground: 0 0% 10%;
-  }
-
-  /* High contrast mode */
   .high-contrast {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --paper: 40 30% 98%;
+    --sheet: 0 0% 100%;
+    --ink: 30 15% 4%;
+    --ink-soft: 30 12% 18%;
+    --muted-text: 30 10% 22%;
+    --background: 40 30% 98%;
+    --foreground: 30 15% 4%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --primary: 248 100% 45%;
-    --primary-foreground: 0 0% 100%;
-    --muted-foreground: 0 0% 30%;
-    --border: 0 0% 60%;
-    --input: 0 0% 60%;
-  }
-
-  .high-contrast.dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
-    --primary: 248 100% 70%;
-    --primary-foreground: 0 0% 0%;
-    --muted-foreground: 0 0% 75%;
-    --border: 0 0% 50%;
-    --input: 0 0% 50%;
+    --card-foreground: 30 15% 4%;
+    --primary: 11 70% 32%;
+    --primary-foreground: 34 100% 97%;
+    --muted-foreground: 30 10% 22%;
+    --terracotta-strong: 11 70% 32%;
+    --terracotta-hover: 11 72% 24%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    border-color: hsl(var(--line) / 0.14);
+  }
+
+  html {
+    font-family: Figtree, system-ui, sans-serif;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: Figtree, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
   }
 
-  /* Accessible focus styles - WCAG 2.1 AA */
+  .font-display,
+  h1, h2, h3 {
+    font-family: Fraunces, ui-serif, Georgia, serif;
+    font-variation-settings: "SOFT" 100;
+  }
+
+  .lucide {
+    stroke-width: 1.75;
+  }
+
+  a.text-link,
+  .prose-links a {
+    color: hsl(var(--link));
+    text-underline-offset: 2px;
+  }
+
+  a.text-link:hover,
+  .prose-links a:hover {
+    color: hsl(var(--link-hover));
+  }
+
   :focus-visible {
-    outline: 3px solid hsl(var(--ring));
+    outline: 2px solid hsl(var(--terracotta));
     outline-offset: 2px;
-    border-radius: 4px;
   }
 
-  /* Remove focus outline for mouse users */
   :focus:not(:focus-visible) {
     outline: none;
   }
 
-  /* Respect prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -141,11 +140,22 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+
+    .sources-marquee-track,
+    .sources-marquee-track * {
+      animation: none !important;
+    }
+
+    [class*="a-"] {
+      animation: none !important;
+      opacity: 1 !important;
+      stroke-dashoffset: 0 !important;
+    }
   }
 
-  /* Skip to content link for keyboard users */
   .skip-link {
-    @apply absolute -top-12 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold;
+    @apply absolute -top-12 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 font-semibold;
+    border-radius: 6px;
     transition: top 0.2s ease;
   }
 
@@ -154,52 +164,86 @@
   }
 }
 
-@layer utilities {
-  .gradient-warm {
-    background: linear-gradient(135deg, hsl(248 30% 97%) 0%, hsl(264 40% 96%) 100%);
+@layer components {
+  .eyebrow {
+    font-family: Figtree, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-text));
   }
 
-  .gradient-primary {
-    background: linear-gradient(135deg, hsl(248 100% 65%) 0%, hsl(264 100% 71%) 100%);
+  .hand-underline {
+    position: relative;
+    display: inline-block;
   }
 
-  .gradient-hero {
-    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(248 30% 97%) 50%, hsl(264 30% 96%) 100%);
+  .hand-underline svg {
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: -0.18em;
+    width: 104%;
+    height: 0.28em;
+    overflow: visible;
+    pointer-events: none;
   }
 
-  .gradient-vibrant {
-    background: linear-gradient(135deg, hsl(248 100% 65%) 0%, hsl(264 100% 71%) 50%, hsl(190 100% 50%) 100%);
+  .sheet-shadow {
+    box-shadow: 0 2px 0 rgba(30, 26, 22, 0.06);
   }
 
-  .font-display {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  .input-paper {
+    background: hsl(var(--sheet));
+    border: 1px solid hsl(var(--line) / 0.14);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: Figtree, system-ui, sans-serif;
+    font-size: 17px;
+    color: hsl(var(--ink));
+  }
+
+  .input-paper:focus,
+  .input-paper:focus-visible {
+    outline: none;
+    border-color: hsl(var(--terracotta));
+    box-shadow: 0 0 0 3px rgba(200, 85, 61, 0.18);
+  }
+
+  .slider-paper {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: hsl(var(--track));
+    border-radius: 2px;
+    outline: none;
+  }
+
+  .slider-paper::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: hsl(var(--terracotta-strong));
+    border: 3px solid hsl(var(--sheet));
+    cursor: pointer;
+    margin-top: 0;
+  }
+
+  .slider-paper::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: hsl(var(--terracotta-strong));
+    border: 3px solid hsl(var(--sheet));
+    cursor: pointer;
   }
 }
 
-/* Marquee animations */
-@keyframes marqueeWave {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-20px); }
-  75% { transform: translateY(20px); }
-}
-
-@keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.marquee-scroll {
-  animation: marqueeScroll 12s linear infinite;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-scroll {
-    animation: none;
-  }
-}
-
-/* PDF export page break rules */
 @media print {
   .no-break {
     page-break-inside: avoid !important;
@@ -210,4 +254,262 @@
 .no-break {
   page-break-inside: avoid;
   break-inside: avoid;
+}
+
+/* Única animación permitida: la cinta de fuentes, lenta, pausable y desactivada con reduced-motion */
+@keyframes sources-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.sources-marquee-track {
+  animation: sources-marquee 40s linear infinite;
+}
+
+.sources-marquee:hover .sources-marquee-track,
+.sources-marquee:focus-within .sources-marquee-track {
+  animation-play-state: paused;
+}
+
+.sources-marquee-static {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sources-marquee-motion {
+    display: none;
+  }
+
+  .sources-marquee-static {
+    display: flex;
+  }
+}
+
+/* Landing v4 — ilustraciones */
+.a-drift { animation: drift 16s ease-in-out infinite alternate; }
+.a-drift2 { animation: drift 22s ease-in-out infinite alternate-reverse; }
+.a-bob { animation: bob 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.a-flap { animation: flap 0.45s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 15% 85%; }
+.a-sway { animation: sway 4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 0%; }
+.a-glow { animation: glow 2.6s ease-in-out infinite; }
+.a-blink { animation: blink 5s infinite; transform-box: fill-box; transform-origin: center; }
+.a-spin { animation: spin 6s linear infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.a-toggle { animation: toggle 2.4s ease-in-out infinite alternate; }
+.a-toggle2 { animation: toggle 2.4s ease-in-out infinite alternate-reverse; }
+.a-write { stroke-dasharray: 160; stroke-dashoffset: 160; animation: write 4s ease-in-out infinite; }
+.a-pop1 { animation: pop 6s ease-in-out infinite; }
+.a-pop2 { animation: pop 6s ease-in-out infinite 1.2s; opacity: 0; }
+.a-pop3 { animation: pop 6s ease-in-out infinite 2.4s; opacity: 0; }
+.a-steam { animation: steam 3s ease-in-out infinite; }
+.a-hop { animation: hop 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(60px); } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes flap { from { transform: rotate(-14deg); } to { transform: rotate(18deg); } }
+@keyframes sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+@keyframes glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes toggle { from { transform: translateX(0); } to { transform: translateX(14px); } }
+@keyframes write { 0% { stroke-dashoffset: 160; } 55%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 160; } }
+@keyframes pop { 0%, 8% { opacity: 0; transform: translateY(8px); } 16%, 80% { opacity: 1; transform: translateY(0); } 92%, 100% { opacity: 0; transform: translateY(0); } }
+@keyframes steam { 0% { opacity: 0; transform: translateY(4px); } 40% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-10px); } }
+@keyframes hop { 0%, 60%, 100% { transform: translateY(0); } 75% { transform: translateY(-12px); } }
+
+/* Landing v4 — ilustraciones animadas (Landing4.dc.html) */
+.fb {
+  transform-box: fill-box;
+}
+.a-drift {
+  animation: drift 16s ease-in-out infinite alternate;
+}
+.a-drift2 {
+  animation: drift 22s ease-in-out infinite alternate-reverse;
+}
+.a-bob {
+  animation: bob 2.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.a-flap {
+  animation: flap 0.45s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: 15% 85%;
+}
+.a-sway {
+  animation: sway 4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+.a-glow {
+  animation: glow 2.6s ease-in-out infinite;
+}
+.a-blink {
+  animation: blink 5s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.a-spin {
+  animation: spin 6s linear infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.a-toggle {
+  animation: toggle 2.4s ease-in-out infinite alternate;
+}
+.a-toggle2 {
+  animation: toggle 2.4s ease-in-out infinite alternate-reverse;
+}
+.a-write {
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  animation: write 4s ease-in-out infinite;
+}
+.a-pop1 {
+  animation: pop 6s ease-in-out infinite;
+}
+.a-pop2 {
+  animation: pop 6s ease-in-out infinite 1.2s;
+  opacity: 0;
+}
+.a-pop3 {
+  animation: pop 6s ease-in-out infinite 2.4s;
+  opacity: 0;
+}
+.a-steam {
+  animation: steam 3s ease-in-out infinite;
+}
+.a-hop {
+  animation: hop 1.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(60px);
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes flap {
+  from {
+    transform: rotate(-14deg);
+  }
+  to {
+    transform: rotate(18deg);
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+@keyframes blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes toggle {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(14px);
+  }
+}
+@keyframes write {
+  0% {
+    stroke-dashoffset: 160;
+  }
+  55%,
+  85% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 160;
+  }
+}
+@keyframes pop {
+  0%,
+  8% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  16%,
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  92%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+@keyframes hop {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*="a-"] {
+    animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
 }

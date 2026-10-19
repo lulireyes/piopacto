@@ -1,23 +1,21 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
-import { Smartphone, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import LanguageSelector from '@/components/LanguageSelector';
+import BrandMark from '@/components/BrandMark';
 
 export default function TermsPage() {
   const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const isEs = lang === 'es';
-  const brand = 'My First Phone Agreement';
+  const brand = 'PioPacto';
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40">
-        <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto">
-          <button onClick={() => navigate('/')} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 rounded-xl gradient-primary flex items-center justify-center">
-              <Smartphone className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
-            </div>
-            <span className="font-display font-bold text-lg tracking-tight text-foreground">{t('brandName')}</span>
+    <div className="min-h-screen bg-paper">
+      <header className="sticky top-0 z-50 bg-paper border-b border-border">
+        <nav className="flex items-center justify-between px-6 lg:px-10 py-4 max-w-content mx-auto">
+          <button onClick={() => navigate('/')}>
+            <BrandMark name={t('brandName')} />
           </button>
           <LanguageSelector />
         </nav>

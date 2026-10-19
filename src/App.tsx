@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Landing from "./pages/Landing";
-import Onboarding from "./pages/Onboarding";
+import CrearPacto from "./onboarding/Onboarding";
 import AgreementPage from "./pages/AgreementPage";
 import SuccessPage from "./pages/SuccessPage";
 import TermsPage from "./pages/TermsPage";
@@ -22,11 +22,11 @@ const App = () => (
       <LanguageProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/crear" element={<CrearPacto />} />
             <Route path="/agreement" element={<AgreementPage />} />
             <Route path="/success" element={<SuccessPage />} />
             <Route path="/terms" element={<TermsPage />} />

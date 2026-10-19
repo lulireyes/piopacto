@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Landing v4 · Movilnido</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFDF8}
+a{color:#A8432D}a:hover{color:#7E2F1E}
+.serif{font-family:'Fraunces',serif;font-variation-settings:'SOFT' 100}
+.fb{transform-box:fill-box}
+.a-drift{animation:drift 16s ease-in-out infinite alternate}
+.a-drift2{animation:drift 22s ease-in-out infinite alternate-reverse}
+.a-bob{animation:bob 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.a-flap{animation:flap .45s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:15% 85%}
+.a-sway{animation:sway 4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0%}
+.a-glow{animation:glow 2.6s ease-in-out infinite}
+.a-blink{animation:blink 5s infinite;transform-box:fill-box;transform-origin:center}
+.a-spin{animation:spin 6s linear infinite;transform-box:fill-box;transform-origin:50% 100%}
+.a-toggle{animation:toggle 2.4s ease-in-out infinite alternate}
+.a-toggle2{animation:toggle 2.4s ease-in-out infinite alternate-reverse}
+.a-write{stroke-dasharray:160;stroke-dashoffset:160;animation:write 4s ease-in-out infinite}
+.a-pop1{animation:pop 6s ease-in-out infinite}
+.a-pop2{animation:pop 6s ease-in-out infinite 1.2s;opacity:0}
+.a-pop3{animation:pop 6s ease-in-out infinite 2.4s;opacity:0}
+.a-steam{animation:steam 3s ease-in-out infinite}
+.a-hop{animation:hop 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(60px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes flap{from{transform:rotate(-14deg)}to{transform:rotate(18deg)}}
+@keyframes sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes toggle{from{transform:translateX(0)}to{transform:translateX(14px)}}
+@keyframes write{0%{stroke-dashoffset:160}55%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:160}}
+@keyframes pop{0%,8%{opacity:0;transform:translateY(8px)}16%,80%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+@keyframes steam{0%{opacity:0;transform:translateY(4px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes hop{0%,60%,100%{transform:translateY(0)}75%{transform:translateY(-12px)}}
+@media (prefers-reduced-motion: reduce){[class*="a-"]{animation:none !important;opacity:1 !important;stroke-dashoffset:0 !important}}
+</style>
+</helmet>
+<div style="font-family: 'Figtree', sans-serif; color: #1E1A16; background: #FFFDF8; min-width: 0; overflow: hidden">
+
+<header style="max-width: 1180px; margin: 0 auto; padding: 22px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<button type="button" aria-label="Abrir menú" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A16" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+<a href="#" class="serif" style="font-weight: 600; font-size: 28px; color: #1E1A16; text-decoration: none; letter-spacing: -0.01em">Movilnido</a>
+<button type="button" style="border: 1px solid rgba(30,26,22,0.2); background: transparent; border-radius: 999px; padding: 9px 14px; font-family: inherit; font-size: 14px; color: #1E1A16; cursor: pointer">ES</button>
+</header>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 40px 32px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px">
+<h1 class="serif" style="margin: 0; font-weight: 500; font-size: 58px; line-height: 1.08; letter-spacing: -0.02em; max-width: 860px">Antes del primer móvil, un buen pacto.</h1>
+<p style="margin: 0; font-size: 21px; line-height: 1.5; color: #5F574E; max-width: 680px">Respondéis unas preguntas sencillas y descargáis un pacto familiar listo para firmar, con lo que recomiendan los pediatras para su edad.</p>
+<a href="Onboarding4.dc.html" style="margin-top: 8px; background: #B4472F; color: #FFF8EF; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; padding: 20px 44px; border-radius: 8px; box-shadow: 0 10px 24px -12px rgba(180,71,47,0.7)">Crear nuestro pacto gratis</a>
+<div style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: #5F574E">
+<svg aria-hidden="true" width="30" height="30" viewBox="0 0 48 48" class="a-bob"><circle cx="24" cy="26" r="18" fill="#C8553D"></circle><ellipse cx="24" cy="32" rx="10" ry="8" fill="#F1E3C8"></ellipse><circle cx="18.5" cy="21" r="2.6" fill="#1E1A16"></circle><circle cx="29.5" cy="21" r="2.6" fill="#1E1A16"></circle><path d="M21.5 25 L24 29 L26.5 25 Z" fill="#E9A23B"></path></svg>
+<span>Os guía Pío, nuestro ayudante · 5 minutos · sin registro</span>
+</div>
+</section>
+
+<div style="max-width: 1180px; margin: 24px auto 0; padding: 0 32px">
+<svg role="img" aria-label="Ilustración: madre e hija en el sofá con el primer móvil; Pío vuela hacia la nevera, donde está pegado el pacto" viewBox="0 0 1100 440" style="width: 100%; height: auto; display: block">
+<g fill="#FFFDF8" stroke="#5A524A" stroke-width="2" stroke-linejoin="round">
+<path class="a-drift" d="M120 70 c0 -16 22 -22 32 -10 c6 -14 30 -12 32 4 c14 0 18 18 4 20 h-62 c-14 0 -16 -14 -6 -14 z"></path>
+<path class="a-drift2" d="M600 48 c0 -12 18 -16 26 -7 c5 -11 24 -9 26 3 c11 0 14 14 3 16 h-50 c-11 0 -13 -11 -5 -12 z"></path>
+</g>
+<g fill="none" stroke="#5A524A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M30 400 H1070"></path>
+<rect x="90" y="110" width="170" height="150" rx="6" fill="#FFFDF8"></rect><path d="M175 110 V260 M90 185 H260"></path>
+<path d="M80 270 H270"></path>
+<path d="M300 400 L295 352 H345 L340 400 Z" fill="#EDE6DB"></path>
+<path d="M320 352 C 312 322, 292 314, 282 300 M320 352 C 322 320, 338 306, 352 296 M320 352 C 318 330, 316 310, 320 288"></path>
+<path d="M282 300 c-8 -6 -6 -16 4 -14 c4 6 2 12 -4 14 z M352 296 c8 -6 18 -2 14 8 c-6 2 -12 0 -14 -8 z M320 288 c-6 -8 -2 -18 6 -16 c2 8 0 14 -6 16 z" fill="#C8E0C4"></path>
+</g>
+<ellipse cx="575" cy="404" rx="270" ry="13" fill="#F1E3C8"></ellipse>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round">
+<rect x="430" y="236" width="300" height="104" rx="26" fill="#EDE6DB"></rect>
+<rect x="396" y="282" width="46" height="96" rx="20" fill="#EDE6DB"></rect>
+<rect x="718" y="282" width="46" height="96" rx="20" fill="#EDE6DB"></rect>
+<rect x="420" y="318" width="320" height="52" rx="16" fill="#FFFDF8"></rect>
+<path d="M430 378 v12 M730 378 v12" fill="none" stroke-linecap="round"></path>
+</g>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<path d="M486 334 L480 396 M524 334 L530 396" fill="none"></path>
+<ellipse cx="476" cy="398" rx="10" ry="4" fill="#5A524A"></ellipse><ellipse cx="535" cy="398" rx="10" ry="4" fill="#5A524A"></ellipse>
+<path d="M470 330 C 470 262, 482 232, 505 232 C 528 232, 540 262, 540 330 Z" fill="#F1E3C8"></path>
+<circle cx="505" cy="200" r="24" fill="#FFFDF8"></circle>
+<path d="M481 198 C 478 172, 532 168, 529 198 C 520 186, 494 184, 481 198 Z" fill="#5A524A"></path>
+<circle cx="505" cy="170" r="9" fill="#5A524A"></circle>
+<g class="a-blink"><circle cx="497" cy="204" r="2.2" fill="#1E1A16" stroke="none"></circle><circle cx="513" cy="204" r="2.2" fill="#1E1A16" stroke="none"></circle></g>
+<path d="M498 213 q7 6 14 0" fill="none"></path>
+<path d="M535 262 C 560 258, 585 268, 598 288" fill="none"></path>
+<path d="M602 334 L598 396 M628 334 L632 396" fill="none"></path>
+<ellipse cx="594" cy="398" rx="9" ry="4" fill="#5A524A"></ellipse><ellipse cx="637" cy="398" rx="9" ry="4" fill="#5A524A"></ellipse>
+<path d="M590 334 C 590 288, 598 262, 615 262 C 632 262, 640 288, 640 334 Z" fill="#C8553D"></path>
+<circle cx="615" cy="236" r="19" fill="#FFFDF8"></circle>
+<path d="M596 234 C 594 210, 636 208, 634 234 C 626 222, 604 222, 596 234 Z" fill="#5A524A"></path>
+<g class="a-blink"><circle cx="609" cy="241" r="2" fill="#1E1A16" stroke="none"></circle><circle cx="621" cy="241" r="2" fill="#1E1A16" stroke="none"></circle></g>
+<path d="M610 248 q5 4 10 0" fill="none"></path>
+<rect x="604" y="282" width="22" height="34" rx="4" fill="#1E1A16"></rect>
+<rect class="a-glow" x="607" y="286" width="16" height="26" rx="2" fill="#F1E3C8" stroke="none"></rect>
+<circle cx="602" cy="304" r="5" fill="#FFFDF8"></circle><circle cx="628" cy="304" r="5" fill="#FFFDF8"></circle>
+</g>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<rect x="470" y="366" width="220" height="10" rx="4" fill="#FFFDF8"></rect>
+<path d="M486 376 v22 M674 376 v22" fill="none"></path>
+<g transform="rotate(-6 560 360)"><rect x="530" y="348" width="56" height="18" rx="1" fill="#FFFDF8"></rect></g>
+<path d="M640 366 v-14 h22 v14" fill="#FFFDF8"></path><path d="M662 356 c8 0 8 8 0 8" fill="none"></path>
+<path class="a-steam" d="M646 346 c-4 -6 4 -8 0 -14 M656 346 c-4 -6 4 -8 0 -14" fill="none" stroke="#BDB3A6"></path>
+</g>
+<g fill="none" stroke="#5A524A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M800 400 V196"></path><path d="M786 400 h28"></path>
+<path d="M776 196 L824 196 L812 166 L788 166 Z" fill="#F1E3C8"></path>
+</g>
+<path class="a-glow" d="M780 198 L760 260 H840 L820 198 Z" fill="#F1E3C8" opacity="0.5"></path>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round">
+<rect x="870" y="130" width="140" height="270" rx="12" fill="#FFFDF8"></rect>
+<path d="M870 212 H1010 M886 150 v40 M886 226 v60" fill="none" stroke-linecap="round"></path>
+<g class="a-sway">
+<rect x="900" y="232" width="86" height="108" fill="#FFFDF8"></rect>
+<path d="M912 252 h52 M912 264 h60 M912 276 h46 M912 288 h56" stroke="#BDB3A6" fill="none" stroke-linecap="round"></path>
+<path d="M912 318 c8 -10 14 6 22 -4 s14 -4 20 4" fill="none" stroke="#C8553D" stroke-linecap="round"></path>
+<circle cx="943" cy="232" r="7" fill="#C8553D"></circle>
+</g>
+</g>
+<g class="a-bob">
+<path d="M842 92 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.8" stroke-linecap="round"></path>
+<circle cx="846" cy="114" r="20" fill="#C8553D"></circle>
+<ellipse cx="846" cy="121" rx="11" ry="9" fill="#F1E3C8"></ellipse>
+<path class="a-flap" d="M830 112 C 818 98, 812 90, 818 86 C 826 92, 832 100, 836 108 Z" fill="#A8432D"></path>
+<circle cx="840" cy="108" r="2.6" fill="#1E1A16"></circle><circle cx="852" cy="108" r="2.6" fill="#1E1A16"></circle>
+<path d="M843.5 113 L846 117.5 L848.5 113 Z" fill="#E9A23B"></path>
+</g>
+</svg>
+</div>
+
+<section style="background: #F6F1E9">
+<div style="max-width: 1180px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<svg aria-hidden="true" width="190" height="150" viewBox="0 0 190 150">
+<path d="M20 126 C 50 152, 140 152, 170 126 C 150 140, 40 140, 20 126 Z" fill="#E8DFD1" stroke="#5A524A" stroke-width="2" stroke-linejoin="round"></path>
+<path d="M28 128 C 60 116, 130 116, 162 128 M38 134 C 70 124, 120 124, 152 134" fill="none" stroke="#5A524A" stroke-width="1.5" stroke-linecap="round"></path>
+<g class="a-hop">
+<path d="M90 30 q3 -8 8 -3" fill="none" stroke="#1E1A16" stroke-width="2" stroke-linecap="round"></path>
+<circle cx="95" cy="72" r="40" fill="#C8553D"></circle>
+<ellipse cx="95" cy="86" rx="22" ry="18" fill="#F1E3C8"></ellipse>
+<path class="a-flap" d="M58 76 C 44 64, 42 52, 50 50 C 56 58, 62 66, 66 72 Z" fill="#A8432D"></path>
+<g class="a-blink"><circle cx="83" cy="62" r="5" fill="#1E1A16"></circle><circle cx="107" cy="62" r="5" fill="#1E1A16"></circle></g>
+<circle cx="85" cy="60" r="1.6" fill="#FFFDF8"></circle><circle cx="109" cy="60" r="1.6" fill="#FFFDF8"></circle>
+<path d="M90 70 L95 79 L100 70 Z" fill="#E9A23B"></path>
+</g>
+</svg>
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 46px; line-height: 1.08">Conoce a Pío</h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #5F574E">Pío vive en el nido de cada familia. Os hace las preguntas importantes, os cuenta qué recomiendan los pediatras para su edad y escribe el pacto con vosotros. Sin juicios, sin prisas y sin guardar nada de lo que le contéis.</p>
+<a href="Onboarding4.dc.html" style="align-self: flex-start; font-weight: 600; font-size: 17px">Hablar con Pío →</a>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; background: #FFFDF8; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 30px 60px -40px rgba(30,26,22,0.45)">
+<div class="a-pop1" style="display: flex; gap: 10px; align-items: flex-end">
+<svg aria-hidden="true" width="34" height="34" viewBox="0 0 48 48" style="flex: none"><circle cx="24" cy="26" r="18" fill="#C8553D"></circle><ellipse cx="24" cy="32" rx="10" ry="8" fill="#F1E3C8"></ellipse><circle cx="18.5" cy="21" r="2.6" fill="#1E1A16"></circle><circle cx="29.5" cy="21" r="2.6" fill="#1E1A16"></circle><path d="M21.5 25 L24 29 L26.5 25 Z" fill="#E9A23B"></path></svg>
+<div style="background: #F6F1E9; border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 16px; line-height: 1.45; max-width: 80%">¿Cuándo os gustaría que el móvil descanse?</div>
+</div>
+<div class="a-pop2" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; padding-left: 44px">
+<span style="background: #B4472F; color: #FFF8EF; border-radius: 999px; padding: 9px 14px; font-size: 15px; font-weight: 600">En las comidas</span>
+<span style="background: #B4472F; color: #FFF8EF; border-radius: 999px; padding: 9px 14px; font-size: 15px; font-weight: 600">Antes de dormir</span>
+<span style="border: 1.5px solid rgba(30,26,22,0.2); border-radius: 999px; padding: 8px 13px; font-size: 15px">En el coche</span>
+</div>
+<div class="a-pop3" style="display: flex; gap: 10px; align-items: flex-end">
+<svg aria-hidden="true" width="34" height="34" viewBox="0 0 48 48" style="flex: none"><circle cx="24" cy="26" r="18" fill="#C8553D"></circle><ellipse cx="24" cy="32" rx="10" ry="8" fill="#F1E3C8"></ellipse><path d="M16 21 q2.5 -3 5 0 M27 21 q2.5 -3 5 0" fill="none" stroke="#1E1A16" stroke-width="2" stroke-linecap="round"></path><path d="M21.5 25 L24 29 L26.5 25 Z" fill="#E9A23B"></path></svg>
+<div style="background: #F6F1E9; border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 16px; line-height: 1.45; max-width: 80%">Apuntado. Cenar sin pantallas es de lo que más recomiendan los pediatras.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="background: #F6F1E9">
+<div style="max-width: 1180px; margin: 0 auto; padding: 104px 32px; display: flex; flex-direction: column; align-items: center; gap: 48px; text-align: center">
+<div style="display: flex; flex-direction: column; gap: 14px; align-items: center">
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 52px; line-height: 1.08; letter-spacing: -0.01em">Todo lo que necesitas.<br>Gratis.</h2>
+<p style="margin: 0; font-size: 19px; color: #5F574E">Elige lo que queréis preparar y Pío lo hace todo en un solo paso</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; width: 100%">
+
+<div style="background: #FFFFFF; border-radius: 24px; padding: 14px 14px 30px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 24px 50px -36px rgba(30,26,22,0.4); outline: {{pactoRing}}; outline-offset: -2px">
+<div style="position: relative; background: #F7F3ED; border-radius: 16px; height: 230px; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 320 230" style="position: absolute; inset: 0; width: 100%; height: 100%">
+<g fill="none" stroke="#DDD5C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="20" y="40" width="70" height="60" rx="4"></rect><path d="M55 40 v60 M20 70 h70"></path>
+<path d="M230 60 h70 M240 60 v-14 h14 v14 M270 60 v-20 h12 v20"></path>
+<path d="M0 196 H320"></path>
+<path class="a-drift" d="M120 30 c0 -10 14 -12 20 -6 c4 -8 18 -6 20 2 c8 0 10 10 2 12 h-38 c-8 0 -10 -8 -4 -8 z" fill="#FFFFFF"></path>
+<path d="M30 196 v-40 h40 v40 M250 196 c0 -30 30 -30 30 0"></path>
+</g>
+<g stroke="#5A524A" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+<rect x="118" y="40" width="90" height="156" rx="10" fill="#FFFFFF"></rect>
+<path d="M118 92 H208 M130 54 v26 M130 104 v44" fill="none"></path>
+<g class="a-sway">
+<rect x="142" y="102" width="54" height="68" fill="#FFFFFF"></rect>
+<path d="M150 116 h36 M150 126 h30 M150 136 h34" stroke="#BDB3A6" fill="none"></path>
+<path d="M150 156 c5 -6 9 4 14 -2 s9 -3 13 2" fill="none" stroke="#C8553D"></path>
+<circle cx="169" cy="102" r="5" fill="#C8553D"></circle>
+</g>
+</g>
+</svg>
+<button type="button" role="checkbox" aria-checked="{{pactoChecked}}" aria-label="Elegir el pacto familiar" onClick="{{togglePacto}}" style="position: absolute; top: 14px; left: 14px; width: 30px; height: 30px; border-radius: 8px; border: 2px solid {{pactoBorder}}; background: {{pactoBg}}; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0">
+<sc-if value="{{pactoSel}}" hint-placeholder-val="{{true}}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF8EF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div class="serif" style="font-weight: 600; font-size: 28px">Pacto familiar</div>
+<div style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; color: #8A8178">GRATIS · PDF PARA FIRMAR</div>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border-radius: 24px; padding: 14px 14px 30px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 24px 50px -36px rgba(30,26,22,0.4); outline: {{iphoneRing}}; outline-offset: -2px">
+<div style="position: relative; background: #F7F3ED; border-radius: 16px; height: 230px; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 320 230" style="position: absolute; inset: 0; width: 100%; height: 100%">
+<g fill="none" stroke="#DDD5C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M0 176 H320 M30 176 v40 M290 176 v40"></path>
+<path d="M240 176 V96 M226 96 h28 l-6 -22 h-16 z"></path>
+<path d="M40 176 v-26 h36 v26 M46 150 c2 -14 22 -14 24 0"></path>
+<path class="a-drift2" d="M60 40 c0 -10 14 -12 20 -6 c4 -8 18 -6 20 2 c8 0 10 10 2 12 h-38 c-8 0 -10 -8 -4 -8 z" fill="#FFFFFF"></path>
+</g>
+<g stroke="#5A524A" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+<rect x="124" y="30" width="72" height="146" rx="14" fill="#FFFFFF"></rect>
+<rect x="148" y="38" width="24" height="7" rx="3.5" fill="#5A524A"></rect>
+<path d="M136 72 h22 M136 102 h22 M136 132 h22" stroke="#BDB3A6" fill="none"></path>
+<rect x="160" y="64" width="26" height="15" rx="7.5" fill="#C8553D"></rect>
+<rect x="160" y="94" width="26" height="15" rx="7.5" fill="#EDE6DB"></rect>
+<rect x="160" y="124" width="26" height="15" rx="7.5" fill="#C8553D"></rect>
+<path d="M150 164 h20" fill="none"></path>
+</g>
+<circle class="a-toggle" cx="163" cy="71.5" r="5" fill="#FFFFFF"></circle>
+<circle class="a-toggle2" cx="163" cy="101.5" r="5" fill="#FFFFFF" stroke="#5A524A" stroke-width="1.4"></circle>
+<circle class="a-toggle" cx="163" cy="131.5" r="5" fill="#FFFFFF"></circle>
+</svg>
+<button type="button" role="checkbox" aria-checked="{{iphoneChecked}}" aria-label="Elegir la guía para iPhone" onClick="{{toggleIphone}}" style="position: absolute; top: 14px; left: 14px; width: 30px; height: 30px; border-radius: 8px; border: 2px solid {{iphoneBorder}}; background: {{iphoneBg}}; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0">
+<sc-if value="{{iphoneSel}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF8EF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div class="serif" style="font-weight: 600; font-size: 28px">Guía para iPhone</div>
+<div style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; color: #8A8178">GRATIS · TIEMPO DE USO</div>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border-radius: 24px; padding: 14px 14px 30px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 24px 50px -36px rgba(30,26,22,0.4); outline: {{androidRing}}; outline-offset: -2px">
+<div style="position: relative; background: #F7F3ED; border-radius: 16px; height: 230px; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 320 230" style="position: absolute; inset: 0; width: 100%; height: 100%">
+<g fill="none" stroke="#DDD5C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M0 186 H320"></path>
+<path d="M20 186 v-50 c0 -12 10 -20 22 -20 h40 c12 0 22 8 22 20 v50 M20 156 h84"></path>
+<path d="M262 186 l-6 -40 h40 l-6 40 z M276 146 c-6 -18 -18 -22 -24 -30 M276 146 c4 -18 14 -24 22 -28"></path>
+<circle cx="270" cy="50" r="14"></circle>
+</g>
+<g stroke="#5A524A" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+<rect x="122" y="32" width="76" height="150" rx="10" fill="#FFFFFF"></rect>
+<circle cx="160" cy="42" r="3.5" fill="#5A524A"></circle>
+<circle cx="160" cy="98" r="30" fill="#F7F3ED"></circle>
+<path d="M160 74 A 24 24 0 0 1 182 90" fill="none" stroke="#C8553D" stroke-width="5"></path>
+<circle cx="160" cy="98" r="3" fill="#5A524A"></circle>
+<path d="M140 146 h40 M146 160 h28" stroke="#BDB3A6" fill="none"></path>
+</g>
+<line class="a-spin" x1="160" y1="98" x2="160" y2="78" stroke="#1E1A16" stroke-width="3" stroke-linecap="round"></line>
+<g class="a-bob"><path d="M208 56 a12 12 0 1 0 12 16 a9 9 0 1 1 -12 -16 z" fill="#F1E3C8" stroke="#5A524A" stroke-width="2"></path></g>
+</svg>
+<button type="button" role="checkbox" aria-checked="{{androidChecked}}" aria-label="Elegir la guía para Android" onClick="{{toggleAndroid}}" style="position: absolute; top: 14px; left: 14px; width: 30px; height: 30px; border-radius: 8px; border: 2px solid {{androidBorder}}; background: {{androidBg}}; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0">
+<sc-if value="{{androidSel}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF8EF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div class="serif" style="font-weight: 600; font-size: 28px">Guía para Android</div>
+<div style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; color: #8A8178">GRATIS · FAMILY LINK</div>
+</div>
+</div>
+
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 8px">
+<a href="Onboarding4.dc.html" style="background: #B4472F; color: #FFF8EF; text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase; padding: 22px 64px; border-radius: 8px; box-shadow: 0 12px 28px -12px rgba(180,71,47,0.75)">Crear nuestro pacto gratis</a>
+<div style="font-size: 14px; color: #6B635A">{{bundleText}}</div>
+</div>
+</div>
+</section>
+
+<section style="background: #F6F1E9">
+<div style="max-width: 1180px; margin: 0 auto; padding: 104px 32px; display: flex; flex-direction: column; align-items: center; gap: 56px; text-align: center">
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 46px; line-height: 1.08">Cómo funciona</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; width: 100%">
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+<svg aria-hidden="true" width="230" height="160" viewBox="0 0 230 160">
+<ellipse cx="115" cy="150" rx="90" ry="7" fill="#E8DFD1"></ellipse>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<path d="M48 150 C 48 108, 58 92, 76 92 C 94 92, 104 108, 104 150 Z" fill="#F1E3C8"></path>
+<circle cx="76" cy="70" r="18" fill="#FFFDF8"></circle>
+<path d="M58 68 C 56 48, 96 46, 94 68 C 86 58, 66 58, 58 68 Z" fill="#5A524A"></path>
+<path d="M134 150 C 134 118, 142 104, 156 104 C 170 104, 178 118, 178 150 Z" fill="#C8553D"></path>
+<circle cx="156" cy="86" r="15" fill="#FFFDF8"></circle>
+<path d="M141 85 C 140 68, 172 67, 171 85 C 164 77, 148 77, 141 85 Z" fill="#5A524A"></path>
+</g>
+<circle cx="70" cy="72" r="1.8" fill="#1E1A16"></circle><circle cx="82" cy="72" r="1.8" fill="#1E1A16"></circle>
+<circle cx="151" cy="88" r="1.6" fill="#1E1A16"></circle><circle cx="161" cy="88" r="1.6" fill="#1E1A16"></circle>
+<g class="a-pop1"><rect x="20" y="14" width="64" height="28" rx="14" fill="#FFFDF8" stroke="#5A524A" stroke-width="2"></rect><path d="M34 28 h36" stroke="#BDB3A6" stroke-width="2" stroke-linecap="round"></path></g>
+<g class="a-pop2"><rect x="142" y="30" width="64" height="28" rx="14" fill="#C8553D"></rect><path d="M156 44 h36" stroke="#FFFDF8" stroke-width="2" stroke-linecap="round"></path></g>
+</svg>
+<div class="serif" style="font-weight: 600; font-size: 24px">Charláis con Pío</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #5F574E; max-width: 280px">Diez preguntas cortas, como una conversación. Mejor si lo hacéis juntos.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+<svg aria-hidden="true" width="230" height="160" viewBox="0 0 230 160">
+<ellipse cx="115" cy="150" rx="80" ry="7" fill="#E8DFD1"></ellipse>
+<g stroke="#5A524A" stroke-width="2" stroke-linecap="round">
+<circle cx="88" cy="80" r="52" fill="#FFFDF8"></circle>
+<path d="M88 34 v6 M88 120 v6 M42 80 h6 M128 80 h6" fill="none"></path>
+<path d="M88 28 A 52 52 0 0 1 133 54" fill="none" stroke="#C8553D" stroke-width="7"></path>
+<circle cx="88" cy="80" r="4" fill="#5A524A"></circle>
+</g>
+<line class="a-spin" x1="88" y1="80" x2="88" y2="46" stroke="#1E1A16" stroke-width="3" stroke-linecap="round"></line>
+<g class="a-bob">
+<circle cx="172" cy="104" r="22" fill="#C8553D"></circle>
+<ellipse cx="172" cy="112" rx="12" ry="10" fill="#F1E3C8"></ellipse>
+<circle cx="165" cy="98" r="5.5" fill="none" stroke="#1E1A16" stroke-width="1.4"></circle><circle cx="179" cy="98" r="5.5" fill="none" stroke="#1E1A16" stroke-width="1.4"></circle>
+<circle cx="165" cy="98" r="2.6" fill="#1E1A16"></circle><circle cx="179" cy="98" r="2.6" fill="#1E1A16"></circle>
+<path d="M169 104 L172 109 L175 104 Z" fill="#E9A23B"></path>
+<path d="M150 108 C 140 104, 134 100, 134 96 C 140 96, 146 100, 152 102 Z" fill="#A8432D"></path>
+</g>
+</svg>
+<div class="serif" style="font-weight: 600; font-size: 24px">Veis lo recomendado</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #5F574E; max-width: 280px">Pío os cuenta qué dicen los pediatras de vuestro país. La decisión es vuestra.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+<svg aria-hidden="true" width="230" height="160" viewBox="0 0 230 160">
+<ellipse cx="115" cy="150" rx="70" ry="7" fill="#E8DFD1"></ellipse>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<rect x="70" y="8" width="90" height="142" rx="10" fill="#FFFDF8"></rect>
+<path d="M70 52 H160 M82 20 v22 M82 62 v40" fill="none"></path>
+<g class="a-sway">
+<rect x="96" y="66" width="52" height="64" fill="#FFFDF8"></rect>
+<path d="M104 80 h34 M104 90 h28 M104 100 h32" stroke="#BDB3A6" fill="none"></path>
+<path d="M104 118 c5 -6 9 4 14 -2 s9 -3 13 2" fill="none" stroke="#C8553D"></path>
+<circle cx="122" cy="66" r="5" fill="#C8553D"></circle>
+</g>
+</g>
+</svg>
+<div class="serif" style="font-weight: 600; font-size: 24px">Firmáis y a la nevera</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #5F574E; max-width: 280px">Descargáis el PDF, lo firmáis en familia y lo dejáis a la vista.</p>
+</div>
+
+</div>
+<a href="Onboarding4.dc.html" style="background: #B4472F; color: #FFF8EF; text-decoration: none; font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; padding: 18px 38px; border-radius: 8px">Crear nuestro pacto gratis</a>
+</div>
+</section>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 104px 32px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 440px; min-width: 0">
+<svg role="img" aria-label="Ilustración: madre e hijo firman el pacto en la mesa de la cocina" viewBox="0 0 480 320" style="width: 100%; height: auto; display: block">
+<rect x="20" y="20" width="440" height="280" rx="20" fill="#F6F1E9"></rect>
+<g fill="none" stroke="#5A524A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M330 60 h90 v70 h-90 z" fill="#FFFDF8"></path><path d="M375 60 v70 M330 95 h90"></path>
+<path d="M60 70 q20 -20 40 0" ></path><path d="M80 50 v-14"></path>
+<circle cx="80" cy="76" r="14" fill="#F1E3C8"></circle>
+</g>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<path d="M110 250 C 110 180, 124 150, 152 150 C 180 150, 194 180, 194 250 Z" fill="#F1E3C8"></path>
+<circle cx="152" cy="118" r="26" fill="#FFFDF8"></circle>
+<path d="M126 116 C 122 88, 182 84, 178 116 C 168 102, 138 100, 126 116 Z" fill="#5A524A"></path>
+<circle cx="152" cy="86" r="10" fill="#5A524A"></circle>
+<path d="M286 250 C 286 196, 296 172, 318 172 C 340 172, 350 196, 350 250 Z" fill="#C8553D"></path>
+<circle cx="318" cy="146" r="21" fill="#FFFDF8"></circle>
+<path d="M297 144 C 295 118, 341 116, 339 144 C 330 132, 306 132, 297 144 Z" fill="#5A524A"></path>
+</g>
+<g class="a-blink"><circle cx="144" cy="124" r="2.4" fill="#1E1A16"></circle><circle cx="160" cy="124" r="2.4" fill="#1E1A16"></circle></g>
+<g class="a-blink"><circle cx="312" cy="152" r="2.1" fill="#1E1A16"></circle><circle cx="324" cy="152" r="2.1" fill="#1E1A16"></circle></g>
+<path d="M145 133 q7 6 14 0 M312 160 q6 5 12 0" fill="none" stroke="#5A524A" stroke-width="2" stroke-linecap="round"></path>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<rect x="50" y="240" width="380" height="16" rx="6" fill="#FFFDF8"></rect>
+<path d="M80 256 v44 M400 256 v44" fill="none"></path>
+<g transform="rotate(-3 240 236)"><rect x="196" y="214" width="96" height="30" rx="2" fill="#FFFDF8"></rect></g>
+<path class="a-write" d="M206 234 c6 -8 10 4 16 -2 s10 -4 16 2 s8 -4 12 0" fill="none" stroke="#C8553D"></path>
+<path d="M190 214 C 210 210, 222 216, 232 226" fill="none"></path>
+<path d="M290 220 C 276 222, 266 226, 258 232" fill="none"></path>
+<circle cx="258" cy="232" r="6" fill="#FFFDF8"></circle>
+<path d="M258 232 L270 206" fill="none" stroke="#1E1A16" stroke-width="3"></path>
+</g>
+<g class="a-bob"><circle cx="240" cy="84" r="16" fill="#C8553D"></circle><ellipse cx="240" cy="90" rx="9" ry="7" fill="#F1E3C8"></ellipse><path d="M233 80 q2 -2.5 4 0 M243 80 q2 -2.5 4 0" fill="none" stroke="#1E1A16" stroke-width="1.6" stroke-linecap="round"></path><path d="M238 84 L240 88 L242 84 Z" fill="#E9A23B"></path><path class="a-flap" d="M226 82 C 218 74, 216 68, 220 66 C 224 70, 228 76, 230 80 Z" fill="#A8432D"></path></g>
+</svg>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: #A8432D">POR QUÉ UN PACTO</div>
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 44px; line-height: 1.1">No se trata de controlar.<br>Se trata de acompañar.</h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #5F574E">Cuando las normas se hablan y se firman juntos, se entienden mejor y se cumplen más. Y los padres también se comprometen: el móvil fuera de la mesa es para todos.</p>
+</div>
+</section>
+
+<section style="background: #F6F1E9">
+<div style="max-width: 1180px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; align-items: center; gap: 40px">
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 42px; line-height: 1.1; text-align: center">Lo que dicen las familias</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%">
+<figure style="margin: 0; background: #FFFDF8; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 16px"><figcaption style="display: flex; align-items: center; gap: 12px"><svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" fill="#F1E3C8"></circle><circle cx="22" cy="20" r="10" fill="#FFFDF8" stroke="#5A524A" stroke-width="1.6"></circle><path d="M12 19 C 11 6, 33 6, 32 19 C 28 13, 16 13, 12 19 Z" fill="#5A524A"></path><path d="M8 40 C 10 32, 16 30, 22 30 C 28 30, 34 32, 36 40" fill="#C8553D"></path></svg><span><strong style="display: block; font-size: 15px">[Nombre]</strong><span style="font-size: 13px; color: #6B635A">madre de un niño de [edad]</span></span></figcaption><blockquote style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3530">[Testimonio pendiente: una frase real]</blockquote></figure>
+<figure style="margin: 0; background: #FFFDF8; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 16px"><figcaption style="display: flex; align-items: center; gap: 12px"><svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" fill="#E8DFD1"></circle><circle cx="22" cy="20" r="10" fill="#FFFDF8" stroke="#5A524A" stroke-width="1.6"></circle><path d="M12 17 C 12 8, 32 8, 32 17 C 26 14, 18 14, 12 17 Z" fill="#5A524A"></path><path d="M8 40 C 10 32, 16 30, 22 30 C 28 30, 34 32, 36 40" fill="#5A524A"></path></svg><span><strong style="display: block; font-size: 15px">[Nombre]</strong><span style="font-size: 13px; color: #6B635A">padre de una niña de [edad]</span></span></figcaption><blockquote style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3530">[Testimonio pendiente]</blockquote></figure>
+<figure style="margin: 0; background: #FFFDF8; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 16px"><figcaption style="display: flex; align-items: center; gap: 12px"><svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" fill="#F1E3C8"></circle><circle cx="22" cy="20" r="10" fill="#FFFDF8" stroke="#5A524A" stroke-width="1.6"></circle><path d="M11 22 C 9 6, 35 6, 33 22 C 30 14, 14 14, 11 22 Z" fill="#5A524A"></path><path d="M8 40 C 10 32, 16 30, 22 30 C 28 30, 34 32, 36 40" fill="#E9A23B"></path></svg><span><strong style="display: block; font-size: 15px">[Nombre]</strong><span style="font-size: 13px; color: #6B635A">madre de dos</span></span></figcaption><blockquote style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3530">[Testimonio pendiente]</blockquote></figure>
+</div>
+</div>
+</section>
+
+<section id="faq" style="max-width: 1180px; margin: 0 auto; padding: 104px 32px 40px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<svg aria-hidden="true" width="120" height="110" viewBox="0 0 120 110">
+<ellipse cx="60" cy="104" rx="40" ry="5" fill="#E8DFD1"></ellipse>
+<g class="a-bob">
+<path d="M54 14 q2 -7 7 -3" fill="none" stroke="#1E1A16" stroke-width="2" stroke-linecap="round"></path>
+<circle cx="60" cy="56" r="34" fill="#C8553D"></circle>
+<ellipse cx="60" cy="68" rx="19" ry="15" fill="#F1E3C8"></ellipse>
+<path d="M28 58 C 16 50, 14 40, 20 38 C 26 44, 30 50, 34 54 Z" fill="#A8432D"></path>
+<g class="a-blink"><circle cx="50" cy="48" r="4.2" fill="#1E1A16"></circle><circle cx="70" cy="48" r="4.2" fill="#1E1A16"></circle></g>
+<path d="M55 55 L60 63 L65 55 Z" fill="#E9A23B"></path>
+</g>
+<g class="a-pop1"><circle cx="102" cy="22" r="14" fill="#FFFDF8" stroke="#5A524A" stroke-width="2"></circle><text x="102" y="28" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="17" fill="#B4472F">?</text></g>
+</svg>
+<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: #A8432D">PREGUNTAS FRECUENTES</div>
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 42px; line-height: 1.1">Lo que suelen preguntarnos</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5F574E">¿No encuentras tu pregunta? <a href="mailto:feedback@myfirstphoneagreement.com">Escríbele a Pío</a>.</p>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; border-bottom: 1px solid rgba(30,26,22,0.14)">
+<sc-for list="{{faqs}}" as="f" hint-placeholder-count="7">
+<div style="border-top: 1px solid rgba(30,26,22,0.14)">
+<button type="button" onClick="{{f.toggle}}" aria-expanded="{{f.expanded}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; text-align: left; background: transparent; border: 0; padding: 22px 0; font-family: inherit; font-size: 18px; font-weight: 600; color: #1E1A16; cursor: pointer">{{f.q}}<span style="flex: none; width: 32px; height: 32px; border-radius: 50%; background: {{f.iconBg}}; color: {{f.iconFg}}; display: flex; align-items: center; justify-content: center; font-size: 20px; line-height: 1">{{f.icon}}</span></button>
+<sc-if value="{{f.open}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0 48px 24px 0; font-size: 16px; line-height: 1.6; color: #5F574E">{{f.a}}</p>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 96px 32px 88px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px">
+<svg aria-hidden="true" width="260" height="170" viewBox="0 0 260 170">
+<g class="a-drift"><path d="M20 40 c0 -12 18 -16 26 -7 c5 -11 24 -9 26 3 c11 0 14 14 3 16 h-50 c-11 0 -13 -11 -5 -12 z" fill="#FFFDF8" stroke="#5A524A" stroke-width="2" stroke-linejoin="round"></path></g>
+<g stroke="#5A524A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+<path d="M150 160 V96 L196 62 L242 96 V160 Z" fill="#FFFDF8"></path>
+<path d="M140 104 L196 60 L252 104" fill="none"></path>
+<rect x="184" y="120" width="24" height="40" rx="3" fill="#C8553D"></rect>
+<rect x="160" y="108" width="16" height="16" fill="#F1E3C8"></rect><rect x="216" y="108" width="16" height="16" fill="#F1E3C8"></rect>
+<path d="M10 160 H250" fill="none"></path>
+</g>
+<g class="a-bob">
+<path d="M84 72 q2 -6 6 -2" fill="none" stroke="#1E1A16" stroke-width="1.8" stroke-linecap="round"></path>
+<circle cx="88" cy="96" r="22" fill="#C8553D"></circle>
+<ellipse cx="88" cy="104" rx="12" ry="10" fill="#F1E3C8"></ellipse>
+<path class="a-flap" d="M70 92 C 56 78, 52 70, 58 66 C 66 72, 72 82, 76 88 Z" fill="#A8432D"></path>
+<circle cx="82" cy="90" r="2.8" fill="#1E1A16"></circle><circle cx="95" cy="90" r="2.8" fill="#1E1A16"></circle>
+<path d="M85 96 L88 101 L91 96 Z" fill="#E9A23B"></path>
+</g>
+</svg>
+<h2 class="serif" style="margin: 0; font-weight: 500; font-size: 48px; line-height: 1.08">Pío os está esperando.</h2>
+<p style="margin: 0; font-size: 19px; color: #5F574E">5 minutos. Gratis. Sin registro. Nada sale de tu navegador.</p>
+<a href="Onboarding4.dc.html" style="margin-top: 8px; background: #B4472F; color: #FFF8EF; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: 0.06em; text-transform: uppercase; padding: 20px 44px; border-radius: 8px; box-shadow: 0 10px 24px -12px rgba(180,71,47,0.7)">Crear nuestro pacto gratis</a>
+</section>
+
+<footer style="border-top: 1px solid rgba(30,26,22,0.1)">
+<div style="max-width: 1180px; margin: 0 auto; padding: 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; font-size: 14px; color: #6B635A">
+<span class="serif" style="font-size: 20px; color: #1E1A16">Movilnido <span style="font-family: 'Figtree', sans-serif; font-size: 13px; color: #6B635A">Studio</span></span>
+<div style="display: flex; gap: 22px; flex-wrap: wrap"><a href="#">Preguntas</a><a href="#">Apoya el proyecto</a><a href="#">Privacidad</a><a href="#">Contacto</a></div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6000}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { open: 0, pacto: true, iphone: false, android: false };
+}
+renderVals() {
+const data = [
+['¿Guardáis los datos de mi hijo?', 'No. Todo lo que escribes para crear el pacto, como el nombre o la edad, se procesa en tu navegador y nunca llega a nuestros servidores. Tampoco usamos cookies.'],
+['¿De dónde salen las recomendaciones?', 'De la Asociación Española de Pediatría y su Plan Digital Familiar. Cada consejo de Pío enlaza a la fuente y muestra cuándo se revisó. Las edades mínimas de las apps salen de las condiciones de cada plataforma.'],
+['¿Sirve si mi hijo ya tiene móvil?', 'Sí. Pío os pregunta si es el primer móvil o si queréis renovar el pacto, y adapta las preguntas y el tono.'],
+['¿Es un documento legal?', 'No. Es un acuerdo familiar para hablar, decidir juntos y tenerlo a la vista. No tiene validez legal ni la pretende.'],
+['¿Cuánto cuesta?', 'Nada. El pacto y la guía del móvil son gratis, sin anuncios y sin registro. Si os ayuda, podéis apoyar el proyecto de forma voluntaria.'],
+['¿Para qué edades está pensado?', 'Para niños y niñas de 7 a 16 años. Si tiene menos de 7, Pío os explica por qué los pediatras recomiendan esperar.'],
+['¿Puedo editar el pacto después de crearlo?', 'Sí. Antes de descargarlo podéis cambiar cualquier norma o texto, y volver a crearlo cuando lo reviséis.']
+];
+const open = this.state.open;
+const st = this.state;
+const box = (on) => ({ border: on ? '#B4472F' : '#BDB3A6', bg: on ? '#B4472F' : '#FFFFFF', ring: on ? '2px solid #B4472F' : '2px solid transparent', checked: on ? 'true' : 'false' });
+const p = box(st.pacto), i = box(st.iphone), a = box(st.android);
+const names = [st.pacto ? 'Pacto familiar' : null, st.iphone ? 'Guía para iPhone' : null, st.android ? 'Guía para Android' : null].filter(Boolean);
+const bundleText = names.length ? 'Has elegido: ' + names.join(' + ') : 'Elige al menos una opción';
+return {
+pactoSel: st.pacto, pactoChecked: p.checked, pactoBorder: p.border, pactoBg: p.bg, pactoRing: p.ring, togglePacto: () => this.setState({ pacto: !st.pacto }),
+iphoneSel: st.iphone, iphoneChecked: i.checked, iphoneBorder: i.border, iphoneBg: i.bg, iphoneRing: i.ring, toggleIphone: () => this.setState({ iphone: !st.iphone }),
+androidSel: st.android, androidChecked: a.checked, androidBorder: a.border, androidBg: a.bg, androidRing: a.ring, toggleAndroid: () => this.setState({ android: !st.android }),
+bundleText: bundleText,
+faqs: data.map((d, i) => ({
+q: d[0], a: d[1], open: open === i, expanded: open === i ? 'true' : 'false',
+icon: open === i ? '−' : '+',
+iconBg: open === i ? '#B4472F' : '#F6F1E9',
+iconFg: open === i ? '#FFF8EF' : '#B4472F',
+toggle: () => this.setState({ open: open === i ? -1 : i })
+}))
+};
+}
+}
+</script>
+</body>
+</html>

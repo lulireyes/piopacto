@@ -1,14 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
+import { flushSync } from 'react-dom';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
-import { motion } from 'framer-motion';
 import {
   Smartphone, Download, ArrowLeft, Clock, Shield,
   Lock, Eye, Globe, CheckCircle2, AlertTriangle,
-  Users, Timer, Ban, ShoppingCart, MapPin,
+  Users, Timer, Ban, ShoppingCart, MapPin, Info,
 } from 'lucide-react';
-import conversationImg from '@/assets/conversation-illustration.png';
 
 type Platform = 'iphone' | 'android';
 
@@ -517,14 +516,22 @@ export default function TechGuidePage() {
 
   const c = getContent(platform, isEs);
 
-  const handleDownloadPdf = async () => {
+  const platformRef = useRef(platform);
+  platformRef.current = platform;
+
+  const handleDownloadPdf = async (which?: Platform) => {
+    const target = which ?? platformRef.current;
+    if (target !== platformRef.current) {
+      flushSync(() => setPlatform(target));
+      platformRef.current = target;
+    }
     if (!guideRef.current) return;
     const el = guideRef.current;
     el.style.maxWidth = '700px';
     el.style.width = '700px';
 
     const html2pdf = (await import('html2pdf.js')).default;
-    const filename = platform === 'iphone'
+    const filename = target === 'iphone'
       ? (isEs ? 'guia-configurar-iphone-hijo.pdf' : 'iphone-setup-guide-child.pdf')
       : (isEs ? 'guia-configurar-android-hijo.pdf' : 'android-setup-guide-child.pdf');
 
@@ -544,9 +551,36 @@ export default function TechGuidePage() {
     el.style.width = '';
   };
 
+  useEffect(() => {
+    const flag = searchParams.get('download');
+    if (flag !== '1' && flag !== 'both') return;
+    let cancelled = false;
+    const timer = window.setTimeout(async () => {
+      if (cancelled) return;
+      if (flag === 'both') {
+        await handleDownloadPdf('iphone');
+        if (cancelled) return;
+        await handleDownloadPdf('android');
+      } else {
+        await handleDownloadPdf();
+      }
+      if (cancelled) return;
+      const next = new URLSearchParams(searchParams);
+      next.delete('download');
+      const search = next.toString();
+      navigate({ search: search ? `?${search}` : '' }, { replace: true });
+    }, 600);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+    // Una sola vez, cuando la guía ya está pintada.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const PlatformIcon = platform === 'iphone'
-    ? () => <AppleIcon size={28} className="text-white" />
-    : () => <Smartphone style={{ width: 28, height: 28 }} className="text-white" />;
+    ? () => <AppleIcon size={28} className="text-terracotta" />
+    : () => <Smartphone style={{ width: 28, height: 28 }} className="text-terracotta" />;
 
   return (
     <div className="min-h-screen bg-background">
@@ -559,44 +593,42 @@ export default function TechGuidePage() {
           <ArrowLeft className="h-4 w-4" /> {t('back')}
         </button>
         <div className="flex-1" />
-        <div className="inline-flex rounded-xl border border-border bg-card p-1 gap-1">
+        <div className="inline-flex rounded-md border border-border bg-sheet p-1 gap-1">
           <button
             onClick={() => setPlatform('iphone')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${platform === 'iphone' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-180 ${platform === 'iphone' ? 'bg-terracotta-strong text-cream' : 'text-ink-soft hover:text-ink'}`}
           >
             <AppleIcon size={16} /> iPhone
           </button>
           <button
             onClick={() => setPlatform('android')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${platform === 'android' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-180 ${platform === 'android' ? 'bg-terracotta-strong text-cream' : 'text-ink-soft hover:text-ink'}`}
           >
             <Smartphone className="h-4 w-4" /> Android
           </button>
         </div>
-        <button onClick={handleDownloadPdf}
-          className="inline-flex items-center gap-1.5 gradient-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-shadow">
+        <button onClick={() => handleDownloadPdf()}
+          className="inline-flex items-center gap-1.5 rounded-md bg-terracotta-strong text-cream text-btn px-[26px] py-4 hover:bg-terracotta-hover transition-colors duration-180">
           <Download className="h-4 w-4" /> {isEs ? 'Descargar PDF' : 'Download PDF'}
         </button>
       </div>
 
       {/* Guide content */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl mx-auto px-6 pb-16">
+      <div className="max-w-3xl mx-auto px-6 pb-16">
         <div ref={guideRef}
-          className="rounded-2xl border border-border/40 shadow-sm bg-card"
-          style={{ padding: '2.5rem', lineHeight: 1.7, fontFamily: "'Inter', system-ui, sans-serif" }}>
+          className="rounded-lg border border-border bg-sheet"
+          style={{ padding: '40px 48px', lineHeight: 1.5, fontFamily: 'Figtree, system-ui, sans-serif' }}>
 
           {/* ── COVER ── */}
           <div className="text-center mb-10 no-break" style={{ pageBreakAfter: 'always' }}>
-            <div className="mx-auto mb-4 flex items-center justify-center"
-              style={{ width: 56, height: 56, borderRadius: 16, background: 'hsl(var(--primary))', color: '#fff' }}>
+            <div className="mx-auto mb-4 flex items-center justify-center text-terracotta">
               <PlatformIcon />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground mb-2">{c.title}</h1>
-            <p className="text-muted-foreground mb-6">{c.subtitle}</p>
+            <h1 className="font-display text-h2 md:text-h2-lg text-ink mb-2">{c.title}</h1>
+            <p className="text-ink-soft mb-6">{c.subtitle}</p>
             <div className="flex flex-wrap justify-center gap-3">
               {c.coverBadges.map((b, i) => (
-                <span key={i} className="inline-block text-xs font-semibold px-3 py-1.5 rounded-full"
-                  style={{ background: 'hsl(var(--primary) / 0.1)', color: 'hsl(var(--primary))' }}>
+                <span key={i} className="eyebrow text-muted-foreground">
                   {b}
                 </span>
               ))}
@@ -611,9 +643,7 @@ export default function TechGuidePage() {
                 const Icon = p.icon;
                 return (
                   <div key={i} className="flex items-start gap-3 text-sm text-foreground">
-                    <div className="flex-shrink-0 mt-0.5" style={{ width: 28, height: 28, borderRadius: 8, background: 'hsl(var(--primary) / 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Icon style={{ width: 14, height: 14, color: 'hsl(var(--primary))' }} />
-                    </div>
+                    <Icon className="h-4 w-4 text-terracotta flex-shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{p.text}</span>
                   </div>
                 );
@@ -624,9 +654,9 @@ export default function TechGuidePage() {
           {/* ── AGE TABLE ── */}
           <div className="mb-10 no-break">
             <h2 className="font-bold text-foreground text-lg mb-3 flex items-center gap-2">
-              📊 {isEs ? 'Recomendaciones por edad' : 'Age-based recommendations'}
+              {isEs ? 'Recomendaciones por edad' : 'Age-based recommendations'}
             </h2>
-            <div className="overflow-hidden rounded-xl border" style={{ borderColor: 'hsl(var(--border))' }}>
+            <div className="overflow-hidden rounded-lg border border-border">
               <table className="w-full text-sm" style={{ borderCollapse: 'collapse' }}>
                 <thead>
                   <tr style={{ background: 'hsl(var(--primary) / 0.08)' }}>
@@ -656,12 +686,7 @@ export default function TechGuidePage() {
                 <div key={i} className="no-break" style={{ pageBreakInside: 'avoid' }}>
                   {/* Step header */}
                   <div className="flex items-start gap-4 mb-4">
-                    <span style={{
-                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                      width: '36px', height: '36px', minWidth: '36px', borderRadius: '50%',
-                      background: 'hsl(var(--primary))', color: '#fff',
-                      fontSize: '15px', fontWeight: 700, flexShrink: 0,
-                    }}>
+                    <span className="font-display font-bold text-terracotta flex-shrink-0" style={{ width: 18, fontSize: 18 }}>
                       {i + 1}
                     </span>
                     <div className="flex-1">
@@ -678,10 +703,9 @@ export default function TechGuidePage() {
 
                     {/* If not warning */}
                     {'ifNot' in step && step.ifNot && (
-                      <div className="rounded-lg px-4 py-3 text-sm flex items-start gap-2"
-                        style={{ background: 'hsl(0 80% 95%)', border: '1px solid hsl(0 70% 85%)' }}>
-                        <AlertTriangle style={{ width: 16, height: 16, color: 'hsl(0 70% 45%)', flexShrink: 0, marginTop: 2 }} />
-                        <span style={{ color: 'hsl(0 50% 30%)' }}>
+                      <div className="rounded-md px-4 py-3 text-sm flex items-start gap-2 bg-ochre">
+                        <AlertTriangle className="h-4 w-4 text-ochre-ink flex-shrink-0 mt-0.5" />
+                        <span className="text-ochre-ink">
                           <strong>{isEs ? 'Si no lo haces:' : 'If you don\'t:'}</strong> {step.ifNot}
                         </span>
                       </div>
@@ -715,7 +739,7 @@ export default function TechGuidePage() {
                                 <span className="text-sm font-bold text-foreground">{sub.label}</span>
                               </div>
                               <p className="text-xs text-foreground leading-relaxed mb-1">{sub.desc}</p>
-                              <p className="text-xs text-muted-foreground font-mono">📍 {sub.path}</p>
+                              <p className="text-xs text-muted-foreground font-mono">{sub.path}</p>
                             </div>
                           );
                         })}
@@ -726,9 +750,8 @@ export default function TechGuidePage() {
                     {'results' in step && step.results && (
                       <div className="flex flex-wrap gap-2">
                         {step.results.map((r, j) => (
-                          <span key={j} className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full"
-                            style={{ background: 'hsl(var(--primary) / 0.1)', color: 'hsl(var(--primary))' }}>
-                            <CheckCircle2 style={{ width: 12, height: 12 }} /> {r}
+                          <span key={j} className="inline-flex items-center gap-1 text-xs font-medium text-ink">
+                            <CheckCircle2 className="h-3 w-3 text-terracotta" /> {r}
                           </span>
                         ))}
                       </div>
@@ -753,9 +776,8 @@ export default function TechGuidePage() {
 
                     {/* Tip */}
                     {'tip' in step && step.tip && (
-                      <div className="rounded-lg px-4 py-2.5 text-xs text-foreground flex items-start gap-2"
-                        style={{ background: 'hsl(var(--accent) / 0.1)', borderLeft: '3px solid hsl(var(--accent))' }}>
-                        <span>💡</span>
+                      <div className="rounded-md px-4 py-2.5 text-xs text-ochre-ink flex items-start gap-2 bg-ochre">
+                        <Info className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
                         <span>{step.tip}</span>
                       </div>
                     )}
@@ -767,7 +789,7 @@ export default function TechGuidePage() {
 
           {/* ── CHECKLIST ── */}
           <div className="mb-10 no-break" style={{ pageBreakBefore: 'always' }}>
-            <div className="rounded-xl p-6" style={{ background: 'hsl(var(--primary) / 0.04)', border: '1px solid hsl(var(--primary) / 0.12)' }}>
+            <div className="rounded-lg p-6 border border-border bg-sheet">
               <h2 className="font-bold text-foreground text-lg mb-4 flex items-center gap-2">
                 <CheckCircle2 style={{ width: 20, height: 20, color: 'hsl(var(--primary))' }} />
                 {isEs ? 'Checklist antes de entregar' : 'Checklist before handing over'}
@@ -791,20 +813,16 @@ export default function TechGuidePage() {
 
           {/* ── CONVERSATION ── */}
           <div className="mb-10 no-break">
-            <div className="rounded-xl p-6" style={{ background: 'hsl(var(--accent) / 0.08)', border: '1px solid hsl(var(--accent) / 0.15)' }}>
-              <h2 className="font-bold text-foreground text-lg mb-2">{c.conversationTitle}</h2>
-              <p className="text-sm text-foreground leading-relaxed mb-4">{c.conversationIntro}</p>
+            <div className="rounded-lg p-6 bg-ochre">
+              <h2 className="font-display font-semibold text-ink text-[22px] mb-2">{c.conversationTitle}</h2>
+              <p className="text-sm text-ochre-ink leading-relaxed mb-4">{c.conversationIntro}</p>
 
-              <img src={conversationImg} alt={isEs ? 'Padre e hijo hablando sobre el smartphone' : 'Parent and child talking about the smartphone'}
-                className="rounded-lg mb-4 mx-auto" style={{ maxWidth: 280, width: '100%' }} />
-
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+              <p className="eyebrow mb-3">
                 {isEs ? 'Frases que puedes usar:' : 'Phrases you can use:'}
               </p>
               <div className="space-y-2">
                 {c.conversationPoints.map((p, i) => (
-                  <div key={i} className="flex items-start gap-2 text-sm text-foreground italic">
-                    <span className="text-accent flex-shrink-0 not-italic">💬</span>
+                  <div key={i} className="flex items-start gap-2 text-sm text-ochre-ink italic">
                     <span>{p}</span>
                   </div>
                 ))}
@@ -824,7 +842,7 @@ export default function TechGuidePage() {
             </p>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

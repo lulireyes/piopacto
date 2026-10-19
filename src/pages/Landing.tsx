@@ -1,529 +1,531 @@
+import { useEffect, useState, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import BrandMark, { brandTagline } from '@/components/BrandMark';
+import LanguageSelector from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
-import Navbar from '@/components/Navbar';
-import { useNavigate } from 'react-router-dom';
-import { motion, useReducedMotion } from 'framer-motion';
-import {
-  Shield, Heart, FileText, ArrowRight, Smartphone, Check,
-  Clock, MessageCircle, Users, Sparkles, BookOpen, Coffee,
-  ChevronDown, Lock, Download, Settings, Eye, Star, HandHeart,
-  RefreshCw, Zap
-} from 'lucide-react';
-import { useState, useMemo } from 'react';
+import HeroScene from '@/components/illustrations/HeroScene';
+import PioNest from '@/components/illustrations/PioNest';
+import PioMini from '@/components/illustrations/PioMini';
+import IllPacto from '@/components/illustrations/IllPacto';
+import IllIphone from '@/components/illustrations/IllIphone';
+import IllAndroid from '@/components/illustrations/IllAndroid';
+import StepTalk from '@/components/illustrations/StepTalk';
+import StepClock from '@/components/illustrations/StepClock';
+import StepSign from '@/components/illustrations/StepSign';
+import KitchenTable from '@/components/illustrations/KitchenTable';
+import { PortraitAndres, PortraitElena, PortraitMarta } from '@/components/illustrations/TestimonialAvatars';
+import FaqPio from '@/components/illustrations/FaqPio';
+import PioWaiting from '@/components/illustrations/PioWaiting';
 
-import heroImg from '@/assets/hero-photo.jpg';
-import problemImg from '@/assets/problem-photo.jpg';
-import solutionImg from '@/assets/solution-photo.jpg';
-import agreementImg from '@/assets/agreement-photo.jpg';
-import WaveDivider from '@/components/WaveDivider';
+const FEEDBACK_MAIL = 'mailto:feedback@myfirstphoneagreement.com';
+const SUPPORT_URL = 'https://buymeacoffee.com';
+
+const landingCopy = {
+  es: {
+    skip: 'Saltar al contenido',
+    navSections: 'Secciones',
+    navPact: 'El pacto',
+    navGuides: 'Guías del móvil',
+    closeMenu: 'Cerrar menú',
+    openMenu: 'Abrir menú',
+    moreSections: 'Más secciones',
+    questions: 'Preguntas',
+    createPact: 'Crear nuestro pacto',
+    support: 'Apoya el proyecto',
+    privacy: 'Privacidad',
+    contact: 'Contacto',
+    heroTitle: 'Antes del primer móvil, un buen pacto.',
+    heroBody: 'Respondéis unas preguntas sencillas y descargáis un pacto familiar listo para firmar, con lo que recomiendan los pediatras para su edad.',
+    cta: 'Crear nuestro pacto gratis',
+    heroGuide: 'Os guía Pío, nuestro ayudante · 5 minutos · sin registro',
+    meet: 'Conoce a Pío',
+    meetBody: 'Pío vive en el nido de cada familia. Os hace las preguntas importantes, os cuenta qué recomiendan los pediatras para su edad y escribe el pacto con vosotros. Sin juicios, sin prisas y sin guardar nada de lo que le contéis.',
+    talk: 'Hablar con Pío →',
+    chatQ: '¿Cuándo os gustaría que el móvil descanse?',
+    chatMeals: 'En las comidas',
+    chatBed: 'Antes de dormir',
+    chatCar: 'En el coche',
+    chatA: 'Apuntado. Cenar sin pantallas es de lo que más recomiendan los pediatras.',
+    toolsTitleA: 'Todo lo que necesitas.',
+    toolsTitleB: 'Gratis.',
+    toolsIntro: 'Elige lo que queréis preparar y Pío lo hace todo en un solo paso',
+    choosePact: 'Elegir el pacto familiar',
+    pactTitle: 'Pacto familiar',
+    pactMeta: 'GRATIS · PDF PARA FIRMAR',
+    chooseIphone: 'Elegir la guía para iPhone',
+    iphoneTitle: 'Guía para iPhone',
+    guideMeta: 'GRATIS · PDF PARA CONFIGURAR',
+    chooseAndroid: 'Elegir la guía para Android',
+    androidTitle: 'Guía para Android',
+    chosen: 'Has elegido: ',
+    chooseOne: 'Elige al menos una opción',
+    downloadOne: 'Descargar guía (PDF)',
+    downloadTwo: 'Descargar guías (PDF)',
+    how: 'Cómo funciona',
+    step1: 'Charláis con Pío',
+    step1Body: 'Diez preguntas cortas, como una conversación. Mejor si lo hacéis juntos.',
+    step2: 'Veis lo recomendado',
+    step2Body: 'Pío os cuenta qué dicen los pediatras de vuestro país. La decisión es vuestra.',
+    step3: 'Firmáis y a la nevera',
+    step3Body: 'Descargáis el PDF, lo firmáis en familia y lo dejáis a la vista.',
+    whyKicker: 'POR QUÉ UN PACTO',
+    whyTitleA: 'No se trata de controlar.',
+    whyTitleB: 'Se trata de acompañar.',
+    whyBody: 'Cuando las normas se hablan y se firman juntos, se entienden mejor y se cumplen más. Y los padres también se comprometen: el móvil fuera de la mesa es para todos.',
+    stories: 'Lo que dicen las familias',
+    marta: 'madre de un niño de 10 años',
+    martaQuote: 'Lo firmamos en la cocina y lo pegamos en la nevera. Por fin las normas del móvil están claras para los dos, también para nosotros.',
+    andres: 'padre de una niña de 12 años',
+    andresQuote: 'No fue un castigo. Fue la primera conversación tranquila sobre el móvil, y ella también puso sus condiciones.',
+    elena: 'madre de dos, de 8 y 14 años',
+    elenaQuote: 'Con dos edades no sirve el mismo tiempo. El pacto nos ayudó a dejarlo escrito sin discutir cada noche.',
+    faqKicker: 'PREGUNTAS FRECUENTES',
+    faqTitle: 'Lo que suelen preguntarnos',
+    faqMissing: '¿No encuentras tu pregunta? ',
+    faqWrite: 'Escríbele a Pío',
+    waiting: 'Pío os está esperando.',
+    waitingBody: '5 minutos. Gratis. Sin registro. Nada sale de tu navegador.',
+    faqs: [
+      ['¿Guardáis los datos de mi hijo?', 'No. Todo lo que escribes para crear el pacto, como el nombre o la edad, se procesa en tu navegador y nunca llega a nuestros servidores. Tampoco usamos cookies.'],
+      ['¿De dónde salen las recomendaciones?', 'De la Asociación Española de Pediatría y su Plan Digital Familiar. Cada consejo de Pío enlaza a la fuente y muestra cuándo se revisó. Las edades mínimas de las apps salen de las condiciones de cada plataforma.'],
+      ['¿Sirve si mi hijo ya tiene móvil?', 'Sí. Pío os pregunta si es el primer móvil o si queréis renovar el pacto, y adapta las preguntas y el tono.'],
+      ['¿Es un documento legal?', 'No. Es un acuerdo familiar para hablar, decidir juntos y tenerlo a la vista. No tiene validez legal ni la pretende.'],
+      ['¿Cuánto cuesta?', 'Nada. El pacto y la guía del móvil son gratis, sin anuncios y sin registro. Si os ayuda, podéis apoyar el proyecto de forma voluntaria.'],
+      ['¿Para qué edades está pensado?', 'Para niños y niñas de 7 a 16 años. Si tiene menos de 7, Pío os explica por qué los pediatras recomiendan esperar.'],
+      ['¿Puedo editar el pacto después de crearlo?', 'Sí. Antes de descargarlo podéis cambiar cualquier norma o texto, y volver a crearlo cuando lo reviséis.'],
+    ] as [string, string][],
+  },
+  en: {
+    skip: 'Skip to content',
+    navSections: 'Sections',
+    navPact: 'The pact',
+    navGuides: 'Phone guides',
+    closeMenu: 'Close menu',
+    openMenu: 'Open menu',
+    moreSections: 'More sections',
+    questions: 'Questions',
+    createPact: 'Create our pact',
+    support: 'Support the project',
+    privacy: 'Privacy',
+    contact: 'Contact',
+    heroTitle: 'Before the first phone, a good pact.',
+    heroBody: 'You answer a few simple questions and download a family pact ready to sign, with what pediatricians recommend for their age.',
+    cta: 'Create our pact for free',
+    heroGuide: 'Pío guides you · 5 minutes · no sign-up',
+    meet: 'Meet Pío',
+    meetBody: 'Pío lives in every family\'s nest. He asks the important questions, tells you what pediatricians recommend for their age, and writes the pact with you. No judgment, no rush, and nothing you tell him is stored.',
+    talk: 'Talk to Pío →',
+    chatQ: 'When would you like the phone to rest?',
+    chatMeals: 'At meals',
+    chatBed: 'Before bed',
+    chatCar: 'In the car',
+    chatA: 'Noted. Eating dinner without screens is one of the things pediatricians recommend most.',
+    toolsTitleA: 'Everything you need.',
+    toolsTitleB: 'Free.',
+    toolsIntro: 'Choose what you want to prepare and Pío does it all in one step',
+    choosePact: 'Choose the family pact',
+    pactTitle: 'Family pact',
+    pactMeta: 'FREE · PDF TO SIGN',
+    chooseIphone: 'Choose the iPhone guide',
+    iphoneTitle: 'iPhone guide',
+    guideMeta: 'FREE · PDF TO SET UP',
+    chooseAndroid: 'Choose the Android guide',
+    androidTitle: 'Android guide',
+    chosen: 'You\'ve chosen: ',
+    chooseOne: 'Choose at least one option',
+    downloadOne: 'Download guide (PDF)',
+    downloadTwo: 'Download guides (PDF)',
+    how: 'How it works',
+    step1: 'You talk with Pío',
+    step1Body: 'Ten short questions, like a conversation. Better if you do it together.',
+    step2: 'You see what is recommended',
+    step2Body: 'Pío tells you what pediatricians in your country say. The decision is yours.',
+    step3: 'You sign it and put it on the fridge',
+    step3Body: 'You download the PDF, sign it as a family, and leave it where everyone can see it.',
+    whyKicker: 'WHY A PACT',
+    whyTitleA: 'It is not about control.',
+    whyTitleB: 'It is about being there.',
+    whyBody: 'When the rules are talked through and signed together, they are easier to understand and easier to keep. Parents commit too: phones off the table is for everyone.',
+    stories: 'What families say',
+    marta: 'mother of a 10-year-old boy',
+    martaQuote: 'We signed it in the kitchen and stuck it on the fridge. At last the phone rules are clear for both of us, including us.',
+    andres: 'father of a 12-year-old girl',
+    andresQuote: 'It was not a punishment. It was the first calm conversation about the phone, and she set her conditions too.',
+    elena: 'mother of two, ages 8 and 14',
+    elenaQuote: 'With two ages, the same screen time does not work. The pact helped us write it down without arguing every night.',
+    faqKicker: 'FREQUENTLY ASKED QUESTIONS',
+    faqTitle: 'What people usually ask us',
+    faqMissing: 'Can\'t find your question? ',
+    faqWrite: 'Write to Pío',
+    waiting: 'Pío is waiting for you.',
+    waitingBody: '5 minutes. Free. No sign-up. Nothing leaves your browser.',
+    faqs: [
+      ['Do you keep my child\'s data?', 'No. Everything you write to create the pact, such as the name or the age, is processed in your browser and never reaches our servers. We do not use cookies either.'],
+      ['Where do the recommendations come from?', 'From the Spanish Association of Pediatrics and its Family Digital Plan. Every tip from Pío links to the source and shows when it was reviewed. App minimum ages come from each platform\'s terms.'],
+      ['Does it work if my child already has a phone?', 'Yes. Pío asks whether it is the first phone or whether you want to renew the pact, and adapts the questions and the tone.'],
+      ['Is it a legal document?', 'No. It is a family agreement for talking, deciding together, and keeping it in sight. It has no legal standing, and it does not claim to.'],
+      ['How much does it cost?', 'Nothing. The pact and the phone guide are free, with no ads and no sign-up. If it helps, you can support the project voluntarily.'],
+      ['What ages is it for?', 'For children from 7 to 16. If they are under 7, Pío explains why pediatricians recommend waiting.'],
+      ['Can I edit the pact after creating it?', 'Yes. Before you download it you can change any rule or text, and create it again when you review it.'],
+    ] as [string, string][],
+  },
+};
+
+const cta =
+  'inline-flex max-w-full items-center justify-center rounded-lg bg-[#B4472F] px-6 py-5 text-center text-[15px] font-bold uppercase leading-snug tracking-[0.06em] text-[#FFF8EF] no-underline shadow-[0_10px_24px_-12px_rgba(180,71,47,0.7)] transition-colors duration-180 hover:bg-[#963A26] hover:text-[#FFF8EF] sm:px-11 sm:text-[17px] sm:leading-none';
+
+function CheckIcon() {
+  return (
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF8EF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12l5 5 9-10" />
+    </svg>
+  );
+}
+
+function ProductCard({
+  checked,
+  label,
+  title,
+  meta,
+  onToggle,
+  children,
+}: {
+  checked: boolean;
+  label: string;
+  title: string;
+  meta: string;
+  onToggle: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className="flex flex-col gap-[22px] rounded-3xl bg-white px-3.5 pb-[30px] pt-3.5 shadow-[0_24px_50px_-36px_rgba(30,26,22,0.4)]"
+      style={{ outline: checked ? '2px solid #B4472F' : '2px solid transparent', outlineOffset: -2 }}
+    >
+      <div className="relative h-[230px] overflow-hidden rounded-2xl bg-[#F7F3ED]">
+        {children}
+        <button
+          type="button"
+          role="checkbox"
+          aria-checked={checked}
+          aria-label={label}
+          onClick={onToggle}
+          className="absolute left-3.5 top-3.5 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-lg border-2 p-0"
+          style={{
+            borderColor: checked ? '#B4472F' : '#BDB3A6',
+            background: checked ? '#B4472F' : '#FFFFFF',
+          }}
+        >
+          {checked && <CheckIcon />}
+        </button>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <div className="font-display text-[28px] font-semibold text-[#1E1A16]">{title}</div>
+        <div className="text-[13px] font-semibold tracking-[0.1em] text-[#8A8178]">{meta}</div>
+      </div>
+    </div>
+  );
+}
 
 export default function Landing() {
-  const { t } = useLanguage();
-  const navigate = useNavigate();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const { lang } = useLanguage();
+  const c = lang === 'en' ? landingCopy.en : landingCopy.es;
+  const tagline = brandTagline(lang);
+  useEffect(() => {
+    const prev = document.title;
+    document.title = lang === 'en' ? 'PioPacto – the first phone pact' : 'PioPacto – el pacto del primer móvil';
+    return () => { document.title = prev; };
+  }, [lang]);
+  const [pacto, setPacto] = useState(true);
+  const [iphone, setIphone] = useState(false);
+  const [android, setAndroid] = useState(false);
+  const [open, setOpen] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const fadeUp = useMemo(() => ({
-    hidden: prefersReducedMotion
-      ? { opacity: 0 }
-      : { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.08,
-        duration: prefersReducedMotion ? 0.15 : 0.3,
-        ease: 'easeOut',
-      },
-    }),
-  }), [prefersReducedMotion]);
-
-  const faqs = [
-    { q: t('faq1Q'), a: t('faq1A') },
-    { q: t('faq2Q'), a: t('faq2A') },
-    { q: t('faq3Q'), a: t('faq3A') },
-    { q: t('faq4Q'), a: t('faq4A') },
-    { q: t('faq5Q'), a: t('faq5A') },
-  ];
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const names = [
+    pacto ? c.pactTitle : null,
+    iphone ? c.iphoneTitle : null,
+    android ? c.androidTitle : null,
+  ].filter(Boolean);
+  const bundleText = names.length ? `${c.chosen}${names.join(' + ')}` : c.chooseOne;
+  const guideIds = [iphone ? 'iphone' : '', android ? 'android' : ''].filter(Boolean);
+  const bundleOff = !pacto && guideIds.length === 0;
+  const bundleLabel = !pacto && guideIds.length === 1
+    ? c.downloadOne
+    : !pacto && guideIds.length === 2
+      ? c.downloadTwo
+      : c.cta;
+  const bundleHref = !pacto && guideIds.length === 1
+    ? `/tech-guide?platform=${guideIds[0]}&download=1`
+    : !pacto && guideIds.length === 2
+      ? '/tech-guide?platform=iphone&download=both'
+      : guideIds.length
+        ? `/crear?guias=${guideIds.join(',')}`
+        : '/crear';
 
   return (
-    <div className="min-h-screen bg-background">
+    <div lang={lang === 'en' ? 'en' : 'es'} className="min-w-0 overflow-x-hidden bg-[#FFFDF8] font-sans text-[#1E1A16]">
       <a href="#main-content" className="skip-link">
-        {t('skipToContent')}
+        {c.skip}
       </a>
 
-      <Navbar onScrollTo={scrollTo} />
+      <header className="relative mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-4 py-4 sm:px-8 sm:py-5">
+        <Link to="/" className="no-underline" aria-label={tagline ? `PioPacto, ${tagline}` : 'PioPacto'}>
+          <BrandMark subtitle={tagline} />
+        </Link>
+        <div className="flex items-center gap-3 sm:gap-6">
+          <nav aria-label={c.navSections} className="hidden items-center gap-6 text-[15px] text-[#1E1A16] md:flex">
+            <Link to="/crear" className="no-underline hover:text-[#A8432D]">{c.navPact}</Link>
+            <a href="#guias" className="no-underline hover:text-[#A8432D]">{c.navGuides}</a>
+          </nav>
+          <LanguageSelector pill />
+          <button
+            type="button"
+            aria-label={menuOpen ? c.closeMenu : c.openMenu}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="flex h-11 w-11 items-center justify-center border-0 bg-transparent"
+          >
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E1A16" strokeWidth="1.75" strokeLinecap="round">
+              {menuOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
+        </div>
+        {menuOpen && (
+          <nav aria-label={c.moreSections} className="absolute left-4 right-4 top-full z-20 flex flex-col gap-3 rounded-lg bg-[#FFFDF8] px-4 py-4 shadow-[0_2px_0_rgba(30,26,22,0.06)] sm:left-8 sm:right-8">
+            <Link to="/crear" className="text-[#A8432D] no-underline hover:text-[#7E2F1E]" onClick={() => setMenuOpen(false)}>{c.navPact}</Link>
+            <a href="#guias" className="text-[#A8432D] no-underline hover:text-[#7E2F1E]" onClick={() => setMenuOpen(false)}>{c.navGuides}</a>
+            <a href="#faq" className="text-[#A8432D] no-underline hover:text-[#7E2F1E]" onClick={() => setMenuOpen(false)}>{c.questions}</a>
+            <Link to="/crear" className="text-[#A8432D] no-underline hover:text-[#7E2F1E]" onClick={() => setMenuOpen(false)}>{c.createPact}</Link>
+            <a href={SUPPORT_URL} className="text-[#A8432D] no-underline hover:text-[#7E2F1E]" target="_blank" rel="noreferrer">{c.support}</a>
+            <Link to="/privacy" className="text-[#A8432D] no-underline hover:text-[#7E2F1E]" onClick={() => setMenuOpen(false)}>{c.privacy}</Link>
+            <a href={FEEDBACK_MAIL} className="text-[#A8432D] no-underline hover:text-[#7E2F1E]">{c.contact}</a>
+          </nav>
+        )}
+      </header>
 
-      <main id="main-content" role="main">
-
-        {/* ===== HERO ===== */}
-        <section className="px-6 lg:px-10 pt-20 sm:pt-28 pb-0" aria-labelledby="hero-heading">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2 text-sm font-medium text-primary mb-8 shadow-sm">
-              <Zap className="h-3.5 w-3.5" aria-hidden="true" />
-              {t('heroMicrocopy')}
-            </motion.div>
-
-            <motion.h1 initial="hidden" animate="visible" variants={fadeUp} custom={1}
-              id="hero-heading"
-              className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold text-foreground leading-[1.08] mb-8 tracking-tight">
-              <span className="block">{t('heroTitle1')}</span>
-              <span className="block mt-2">
-                <span>{t('heroTitle2').replace('Smartphone.', '')}</span>
-                <span className="text-primary">Smartphone.</span>
-              </span>
-            </motion.h1>
-
-            <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
-              className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto mb-10 whitespace-pre-line leading-relaxed">
-              {t('heroSubtitle')}
-            </motion.p>
-
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={() => navigate('/onboarding')}
-                aria-label={t('heroCta')}
-                className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-lg px-10 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
-              >
-                {t('heroCta')}
-                <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
-              </button>
-              <button
-                onClick={() => {
-                  const el = document.getElementById('setup-guides');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="group inline-flex items-center gap-3 border-2 border-foreground/20 bg-background text-foreground font-bold text-lg px-10 py-5 rounded-2xl hover:border-primary hover:text-primary transition-all duration-200 hover:scale-[1.02]"
-              >
-                <Smartphone className="h-5 w-5" aria-hidden="true" />
-                {t('navSetupGuide')}
-              </button>
-            </motion.div>
+      <main id="main-content">
+        <section className="mx-auto flex max-w-[1180px] flex-col items-center gap-5 px-4 pt-8 text-center sm:px-8 sm:pt-10">
+          <h1 className="m-0 max-w-[860px] font-display text-[40px] font-medium leading-[1.08] tracking-[-0.02em] sm:text-[52px] lg:text-[58px]">
+            {c.heroTitle}
+          </h1>
+          <p className="m-0 max-w-[680px] text-[17px] leading-normal text-[#5F574E] sm:text-[21px] sm:leading-[1.5]">
+            {c.heroBody}
+          </p>
+          <Link to="/crear" className={`${cta} mt-2`}>
+            {c.cta}
+          </Link>
+          <div className="flex items-center gap-2.5 text-[15px] text-[#5F574E]">
+            <PioMini size={30} bob />
+            <span>{c.heroGuide}</span>
           </div>
-
-          {/* Hero image */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={4}
-            className="max-w-4xl mx-auto mt-16">
-            <div className="rounded-3xl overflow-hidden shadow-2xl border border-border/30">
-              <img
-                src={heroImg}
-                alt={t('heroImageAlt')}
-                className="w-full"
-                loading="eager"
-              />
-            </div>
-          </motion.div>
         </section>
 
-        {/* ===== MARQUEE ===== */}
-        <div className="overflow-hidden py-10 sm:py-12 select-none" aria-hidden="true">
-          <div
-            className="flex whitespace-nowrap items-center marquee-scroll"
-            style={prefersReducedMotion ? {} : undefined}
-          >
-            {Array.from({ length: 16 }).map((_, i) => {
-              const phrase = 'FIRST THINGS FIRST  ✦  ';
-              const chars = phrase.split('');
-              const totalChars = chars.length;
+        <div className="mx-auto mt-6 max-w-[1180px] px-4 sm:px-8">
+          <HeroScene />
+        </div>
+
+        <section className="bg-[#F6F1E9]">
+          <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-10 px-4 py-16 sm:gap-14 sm:px-8 sm:py-24">
+            <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-[18px]">
+              <PioNest />
+              <h2 className="m-0 font-display text-[34px] font-medium leading-[1.08] sm:text-[46px]">{c.meet}</h2>
+              <p className="m-0 text-[17px] leading-[1.6] text-[#5F574E] sm:text-[19px]">
+                {c.meetBody}
+              </p>
+              <Link to="/crear" className="self-start text-[17px] font-semibold text-[#A8432D] no-underline hover:text-[#7E2F1E]">
+                {c.talk}
+              </Link>
+            </div>
+            <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-3 rounded-[20px] bg-[#FFFDF8] p-7 shadow-[0_30px_60px_-40px_rgba(30,26,22,0.45)]">
+              <div className="a-pop1 flex items-end gap-2.5">
+                <PioMini size={34} />
+                <div className="max-w-[80%] rounded-[18px] rounded-bl-[4px] bg-[#F6F1E9] px-4 py-3 text-[16px] leading-[1.45]">
+                  {c.chatQ}
+                </div>
+              </div>
+              <div className="a-pop2 flex flex-wrap justify-end gap-2 pl-11">
+                <span className="rounded-full bg-[#B4472F] px-3.5 py-[9px] text-[15px] font-semibold text-[#FFF8EF]">{c.chatMeals}</span>
+                <span className="rounded-full bg-[#B4472F] px-3.5 py-[9px] text-[15px] font-semibold text-[#FFF8EF]">{c.chatBed}</span>
+                <span className="rounded-full border-[1.5px] border-[rgba(30,26,22,0.2)] px-[13px] py-2 text-[15px]">{c.chatCar}</span>
+              </div>
+              <div className="a-pop3 flex items-end gap-2.5">
+                <PioMini size={34} smile />
+                <div className="max-w-[80%] rounded-[18px] rounded-bl-[4px] bg-[#F6F1E9] px-4 py-3 text-[16px] leading-[1.45]">
+                  {c.chatA}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="guias" className="bg-[#F6F1E9]">
+          <div className="mx-auto flex max-w-[1180px] flex-col items-center gap-12 px-4 py-16 text-center sm:px-8 sm:py-[104px]">
+            <div className="flex flex-col items-center gap-3.5">
+              <h2 className="m-0 font-display text-[36px] font-medium leading-[1.08] tracking-[-0.01em] sm:text-[52px]">
+                {c.toolsTitleA}<br />{c.toolsTitleB}
+              </h2>
+              <p className="m-0 text-[17px] text-[#5F574E] sm:text-[19px]">{c.toolsIntro}</p>
+            </div>
+            <div className="grid w-full gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))]">
+              <ProductCard checked={pacto} label={c.choosePact} title={c.pactTitle} meta={c.pactMeta} onToggle={() => setPacto((v) => !v)}>
+                <IllPacto />
+              </ProductCard>
+              <ProductCard checked={iphone} label={c.chooseIphone} title={c.iphoneTitle} meta={c.guideMeta} onToggle={() => setIphone((v) => !v)}>
+                <IllIphone />
+              </ProductCard>
+              <ProductCard checked={android} label={c.chooseAndroid} title={c.androidTitle} meta={c.guideMeta} onToggle={() => setAndroid((v) => !v)}>
+                <IllAndroid />
+              </ProductCard>
+            </div>
+            <div className="mt-2 flex flex-col items-center gap-3.5">
+              {bundleOff ? (
+                <button type="button" aria-disabled="true" disabled className={`${cta} px-8 text-[16px] sm:px-16 sm:py-[22px] sm:text-[18px]`} style={{ background: '#EDE6DB', color: '#8A8178', boxShadow: 'none', cursor: 'not-allowed', opacity: 1 }}>
+                  {bundleLabel}
+                </button>
+              ) : (
+                <Link to={bundleHref} className={`${cta} px-8 text-[16px] shadow-[0_12px_28px_-12px_rgba(180,71,47,0.75)] sm:px-16 sm:py-[22px] sm:text-[18px]`}>
+                  {bundleLabel}
+                </Link>
+              )}
+              <div className="text-[14px] text-[#6B635A]">{bundleText}</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#F6F1E9]">
+          <div className="mx-auto flex max-w-[1180px] flex-col items-center gap-10 px-4 py-16 text-center sm:gap-14 sm:px-8 sm:py-[104px]">
+            <h2 className="m-0 font-display text-[34px] font-medium leading-[1.08] sm:text-[46px]">{c.how}</h2>
+            <div className="grid w-full gap-10 [grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))]">
+              <div className="flex flex-col items-center gap-3.5">
+                <StepTalk />
+                <div className="font-display text-[24px] font-semibold">{c.step1}</div>
+                <p className="m-0 max-w-[280px] text-[16px] leading-normal text-[#5F574E]">{c.step1Body}</p>
+              </div>
+              <div className="flex flex-col items-center gap-3.5">
+                <StepClock />
+                <div className="font-display text-[24px] font-semibold">{c.step2}</div>
+                <p className="m-0 max-w-[280px] text-[16px] leading-normal text-[#5F574E]">{c.step2Body}</p>
+              </div>
+              <div className="flex flex-col items-center gap-3.5">
+                <StepSign />
+                <div className="font-display text-[24px] font-semibold">{c.step3}</div>
+                <p className="m-0 max-w-[280px] text-[16px] leading-normal text-[#5F574E]">{c.step3Body}</p>
+              </div>
+            </div>
+            <Link to="/crear" className="inline-flex max-w-full items-center justify-center rounded-lg bg-[#B4472F] px-8 py-[18px] text-center text-[16px] font-bold uppercase leading-snug tracking-[0.06em] text-[#FFF8EF] no-underline transition-colors duration-180 hover:bg-[#963A26] hover:text-[#FFF8EF]">
+              {c.cta}
+            </Link>
+          </div>
+        </section>
+
+        <section className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-10 px-4 py-16 sm:gap-14 sm:px-8 sm:py-[104px]">
+          <div className="min-w-0 flex-[1_1_440px]">
+            <KitchenTable />
+          </div>
+          <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-[22px]">
+            <div className="text-[12px] font-semibold tracking-[0.14em] text-[#A8432D]">{c.whyKicker}</div>
+            <h2 className="m-0 font-display text-[32px] font-medium leading-[1.1] sm:text-[44px]">
+              {c.whyTitleA}<br />{c.whyTitleB}
+            </h2>
+            <p className="m-0 text-[17px] leading-[1.6] text-[#5F574E] sm:text-[19px]">
+              {c.whyBody}
+            </p>
+          </div>
+        </section>
+
+        <section className="bg-[#F6F1E9]">
+          <div className="mx-auto flex max-w-[1180px] flex-col items-center gap-10 px-4 py-16 sm:px-8 sm:py-24">
+            <h2 className="m-0 text-center font-display text-[32px] font-medium leading-[1.1] sm:text-[42px]">{c.stories}</h2>
+            <div className="grid w-full gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))]">
+              <figure className="m-0 flex flex-col gap-4 rounded-2xl bg-[#FFFDF8] p-[26px]">
+                <figcaption className="flex items-center gap-3">
+                  <PortraitMarta />
+                  <span>
+                    <strong className="block text-[15px]">Marta</strong>
+                    <span className="text-[13px] text-[#6B635A]">{c.marta}</span>
+                  </span>
+                </figcaption>
+                <blockquote className="m-0 text-[16px] leading-[1.55] text-[#3B3530]">{c.martaQuote}</blockquote>
+              </figure>
+              <figure className="m-0 flex flex-col gap-4 rounded-2xl bg-[#FFFDF8] p-[26px]">
+                <figcaption className="flex items-center gap-3">
+                  <PortraitAndres />
+                  <span>
+                    <strong className="block text-[15px]">Andrés</strong>
+                    <span className="text-[13px] text-[#6B635A]">{c.andres}</span>
+                  </span>
+                </figcaption>
+                <blockquote className="m-0 text-[16px] leading-[1.55] text-[#3B3530]">{c.andresQuote}</blockquote>
+              </figure>
+              <figure className="m-0 flex flex-col gap-4 rounded-2xl bg-[#FFFDF8] p-[26px]">
+                <figcaption className="flex items-center gap-3">
+                  <PortraitElena />
+                  <span>
+                    <strong className="block text-[15px]">Elena</strong>
+                    <span className="text-[13px] text-[#6B635A]">{c.elena}</span>
+                  </span>
+                </figcaption>
+                <blockquote className="m-0 text-[16px] leading-[1.55] text-[#3B3530]">{c.elenaQuote}</blockquote>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" className="mx-auto flex max-w-[1180px] flex-wrap gap-10 px-4 pb-10 pt-16 sm:gap-14 sm:px-8 sm:pt-[104px]">
+          <div className="flex min-w-0 flex-[1_1_320px] flex-col gap-4">
+            <FaqPio />
+            <div className="text-[12px] font-semibold tracking-[0.14em] text-[#A8432D]">{c.faqKicker}</div>
+            <h2 className="m-0 font-display text-[32px] font-medium leading-[1.1] sm:text-[42px]">{c.faqTitle}</h2>
+            <p className="m-0 text-[16px] leading-[1.55] text-[#5F574E]">
+              {c.faqMissing}
+              <a href={FEEDBACK_MAIL} className="text-[#A8432D] hover:text-[#7E2F1E]">{c.faqWrite}</a>.
+            </p>
+          </div>
+          <div className="flex min-w-0 flex-[2_1_560px] flex-col border-b border-[rgba(30,26,22,0.14)]">
+            {c.faqs.map(([q, a], i) => {
+              const isOpen = open === i;
               return (
-                <span key={i} className="flex items-baseline shrink-0">
-                  {chars.map((char, ci) => {
-                    const globalIndex = i * totalChars + ci;
-                    return (
-                      <span
-                        key={`${i}-${ci}`}
-                        className={`inline-block ${char === '✦' ? 'text-accent text-base sm:text-lg' : 'text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary uppercase tracking-[0.12em]'}`}
-                        style={{
-                          fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
-                          animation: prefersReducedMotion ? 'none' : 'marqueeWave 2.5s ease-in-out infinite',
-                          animationDelay: `${-globalIndex * 0.07}s`,
-                        }}
-                      >
-                        {char === ' ' ? '\u00A0' : char}
-                      </span>
-                    );
-                  })}
-                </span>
+                <div key={q} className="border-t border-[rgba(30,26,22,0.14)]">
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpen(isOpen ? -1 : i)}
+                    className="flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent py-[22px] text-left font-[inherit] text-[18px] font-semibold text-[#1E1A16]"
+                  >
+                    {q}
+                    <span
+                      className="flex h-8 w-8 flex-none items-center justify-center rounded-full text-[20px] leading-none"
+                      style={{ background: isOpen ? '#B4472F' : '#F6F1E9', color: isOpen ? '#FFF8EF' : '#B4472F' }}
+                    >
+                      {isOpen ? '\u2212' : '+'}
+                    </span>
+                  </button>
+                  {isOpen && <p className="mb-6 mr-12 mt-0 text-[16px] leading-[1.6] text-[#5F574E]">{a}</p>}
+                </div>
               );
             })}
           </div>
-        </div>
-
-        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--background))" />
-
-        {/* ===== PROBLEM ===== */}
-        <section className="px-6 lg:px-10 py-20 sm:py-28" aria-labelledby="problem-heading">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="flex justify-center lg:justify-start order-2 lg:order-1">
-              <img src={problemImg} alt={t('problemImageAlt')} className="w-full max-w-md rounded-2xl shadow-lg" loading="lazy" />
-            </motion.div>
-
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-              className="order-1 lg:order-2">
-              <h2 id="problem-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
-                {t('problemTitle')}
-              </h2>
-              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{t('problemIntro')}</p>
-
-              <div className="space-y-3 mb-8" role="list" aria-label={t('problemQuestionsLabel')}>
-                {[t('problemQ1'), t('problemQ2'), t('problemQ3'), t('problemQ4')].map((q, i) => (
-                  <div key={i} role="listitem" className="flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20">
-                    <MessageCircle className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" aria-hidden="true" />
-                    <p className="text-foreground font-medium leading-relaxed text-sm">{q}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
         </section>
 
-        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
-
-        {/* ===== SOLUTION ===== */}
-        <section className="px-6 lg:px-10 py-20 sm:py-28 bg-warm" aria-labelledby="solution-heading">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="solution-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
-                {t('solutionTitle')}
-              </h2>
-              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{t('solutionIntro')}</p>
-
-              <div className="space-y-4 mb-8">
-                {[
-                  { icon: Users, text: t('solutionPoint1'), color: 'text-primary bg-primary/10' },
-                  { icon: MessageCircle, text: t('solutionPoint2'), color: 'text-secondary bg-secondary/10' },
-                  { icon: FileText, text: t('solutionPoint3'), color: 'text-accent bg-accent/10' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${item.color}`}>
-                      <item.icon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <p className="font-medium text-foreground leading-relaxed pt-2">{item.text}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-muted-foreground leading-relaxed">{t('solutionDesc')}</p>
-            </motion.div>
-
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-              className="flex justify-center lg:justify-end">
-              <img src={solutionImg} alt={t('solutionImageAlt')} className="w-full max-w-md rounded-2xl shadow-lg" loading="lazy" />
-            </motion.div>
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
-
-        {/* ===== HOW IT WORKS ===== */}
-        <section className="px-6 lg:px-10 py-24 sm:py-32" aria-labelledby="how-heading">
-          <div className="max-w-4xl mx-auto">
-            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              id="how-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground text-center mb-20">
-              {t('howItWorksTitle')}
-            </motion.h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-              {[
-                { num: '1', icon: MessageCircle, title: t('step1Title'), desc: t('step1Desc'), color: 'from-primary to-secondary' },
-                { num: '2', icon: Sparkles, title: t('step2Title'), desc: t('step2Desc'), color: 'from-secondary to-accent' },
-                { num: '3', icon: Download, title: t('step3Title'), desc: t('step3Desc'), color: 'from-accent to-primary' },
-              ].map((s, i) => (
-                <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                  className="text-center">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} text-primary-foreground font-bold flex items-center justify-center text-xl mx-auto mb-5 shadow-md`} aria-hidden="true">
-                    {s.num}
-                  </div>
-                  <h3 className="font-display font-bold text-foreground text-lg mb-2">{s.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
-
-        {/* ===== DIFFERENTIATORS ===== */}
-        <section className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="diff-heading">
-          <div className="max-w-5xl mx-auto">
-            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              id="diff-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground text-center mb-16">
-              {t('diffTitle')}
-            </motion.h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { icon: Settings, title: t('diff1'), desc: t('diff1Desc'), accent: 'text-primary' },
-                { icon: Heart, title: t('diff2'), desc: t('diff2Desc'), accent: 'text-secondary' },
-                { icon: Shield, title: t('diff3'), desc: t('diff3Desc'), accent: 'text-accent' },
-                { icon: Users, title: t('diff4'), desc: t('diff4Desc'), accent: 'text-primary' },
-                { icon: RefreshCw, title: t('diff5'), desc: t('diff5Desc'), accent: 'text-secondary' },
-              ].map((d, i) => (
-                <motion.article key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                  className="bg-card rounded-2xl p-8 border border-border/40 shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-                  <d.icon className={`h-6 w-6 ${d.accent} mb-5`} aria-hidden="true" />
-                  <h3 className="font-display font-bold text-foreground mb-2 text-lg">{d.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{d.desc}</p>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
-
-        {/* ===== WHAT'S INCLUDED ===== */}
-        <section className="px-6 lg:px-10 py-24 sm:py-28" aria-labelledby="includes-heading">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="flex justify-center lg:justify-start">
-              <img src={agreementImg} alt={t('agreementImageAlt')} className="w-full max-w-sm rounded-2xl shadow-lg" loading="lazy" />
-            </motion.div>
-
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
-              <h2 id="includes-heading" className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-10">
-                {t('includesTitle')}
-              </h2>
-
-              <ul className="space-y-3 mb-10" role="list">
-                {[t('includes1'), t('includes2'), t('includes3'), t('includes4'), t('includes5'), t('includes6')].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 bg-card rounded-xl p-4 border border-border/40 shadow-sm">
-                    <div className="w-6 h-6 rounded-full bg-highlight/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="h-3.5 w-3.5 text-highlight-foreground" aria-hidden="true" />
-                    </div>
-                    <span className="text-foreground font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <blockquote className="bg-primary/5 rounded-xl p-6 border-l-4 border-primary/40">
-                <p className="text-foreground italic leading-relaxed whitespace-pre-line">{t('includesQuote')}</p>
-              </blockquote>
-            </motion.div>
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
-
-        {/* ===== ABOUT ===== */}
-        <section id="about-section" className="px-6 lg:px-10 py-24 sm:py-28 bg-warm" aria-labelledby="about-heading">
-          <div className="max-w-2xl mx-auto">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="about-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
-                {t('aboutTitle')}
-              </h2>
-              <p className="text-primary font-medium text-lg mb-10 italic whitespace-pre-line">{t('aboutMotto')}</p>
-              <div className="space-y-6 text-foreground leading-[1.8] text-[1.05rem]">
-                <p>{t('aboutP1')}</p>
-                <p>{t('aboutP2')}</p>
-                <p>{t('aboutP3')}</p>
-                <p>{t('aboutP4')}</p>
-                <p>
-                  {t('aboutP5')}{' '}
-                  <a href="mailto:feedback@myfirstphoneagreement.com" className="underline text-primary hover:text-foreground transition-colors duration-200">
-                    {t('aboutFeedbackLink')}
-                  </a>
-                </p>
-                <p className="font-medium text-muted-foreground">{t('aboutP6')}</p>
-                <div className="pt-4 border-t border-border/40">
-                  <p className="font-bold text-foreground">{t('aboutSignName')}</p>
-                  <p className="text-muted-foreground text-sm">{t('aboutSignDesc')}</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
-
-        {/* ===== SUPPORT ===== */}
-        <section className="px-6 lg:px-10 py-24 max-w-2xl mx-auto text-center" aria-labelledby="support-heading">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <HandHeart className="h-10 w-10 text-secondary mx-auto mb-6" aria-hidden="true" />
-            <h2 id="support-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
-              {t('supportTitle')}
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-8 max-w-md mx-auto">
-              {t('supportDesc')}
-            </p>
-            <a
-              href="https://buymeacoffee.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 bg-foreground text-background font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
-              aria-label={t('supportCta')}
-            >
-              <Coffee className="h-5 w-5" aria-hidden="true" />
-              {t('supportCta')}
-            </a>
-            <p className="text-xs text-muted-foreground mt-4">{t('supportNote')}</p>
-          </motion.div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
-
-        {/* ===== SEO GUIDE ===== */}
-        <section id="guide-section" className="px-6 lg:px-10 py-24 bg-warm" aria-labelledby="guide-heading">
-          <div className="max-w-3xl mx-auto">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <h2 id="guide-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-5">
-                {t('guideTitle')}
-              </h2>
-              <p className="text-muted-foreground mb-10 leading-relaxed">{t('guideIntro')}</p>
-
-              <ul className="space-y-3 mb-10" role="list">
-                {[
-                  { icon: Clock, text: t('guide1') },
-                  { icon: Lock, text: t('guide2') },
-                  { icon: Shield, text: t('guide3') },
-                  { icon: FileText, text: t('guide4') },
-                  { icon: Eye, text: t('guide5') },
-                ].map((g, i) => (
-                  <li key={i} className="flex items-center gap-4 bg-card rounded-xl p-5 border border-border/40 shadow-sm">
-                    <g.icon className="h-5 w-5 text-accent flex-shrink-0" aria-hidden="true" />
-                    <span className="text-foreground font-medium">{g.text}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  {
-                    platform: 'iphone',
-                    icon: (
-                      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                      </svg>
-                    ),
-                    label: t('guideIphone'), desc: t('guideIphoneDesc'), aria: t('guideIphoneAria'),
-                  },
-                  {
-                    platform: 'android',
-                    icon: <Smartphone className="h-6 w-6" aria-hidden="true" />,
-                    label: t('guideAndroid'), desc: t('guideAndroidDesc'), aria: t('guideAndroidAria'),
-                  },
-                ].map(g => (
-                  <button
-                    key={g.platform}
-                    onClick={() => navigate(`/tech-guide?platform=${g.platform}`)}
-                    aria-label={g.aria}
-                    className="group flex items-center gap-4 bg-foreground text-background rounded-2xl p-6 border border-foreground shadow-sm hover:shadow-lg hover:opacity-90 transition-all duration-200"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-background/15 flex items-center justify-center flex-shrink-0 group-hover:bg-background/25 transition-colors">
-                      {g.icon}
-                    </div>
-                    <div className="text-left flex-1 min-w-0">
-                      <p className="font-bold text-background text-base">{g.label}</p>
-                      <p className="text-sm text-background/70 leading-snug mt-0.5">{g.desc}</p>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all">
-                      <ArrowRight className="h-4 w-4 text-primary-foreground" aria-hidden="true" />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--warm))" bottomColor="hsl(var(--background))" />
-
-        {/* ===== FAQ ===== */}
-        <section className="px-6 lg:px-10 py-24 max-w-3xl mx-auto" aria-labelledby="faq-heading">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            id="faq-heading" className="font-display text-2xl sm:text-3xl font-bold text-foreground text-center mb-16">
-            {t('faqTitle')}
-          </motion.h2>
-
-          <div className="space-y-3" role="list">
-            {faqs.map((faq, i) => (
-              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="bg-card rounded-xl border border-border/40 overflow-hidden shadow-sm" role="listitem">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left"
-                  aria-expanded={openFaq === i}
-                  aria-controls={`faq-answer-${i}`}
-                  id={`faq-question-${i}`}
-                >
-                  <span className="font-semibold text-foreground pr-4 leading-snug">{faq.q}</span>
-                  <ChevronDown className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`} aria-hidden="true" />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-6 pt-0" id={`faq-answer-${i}`} role="region" aria-labelledby={`faq-question-${i}`}>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        <WaveDivider topColor="hsl(var(--background))" bottomColor="hsl(var(--warm))" />
-
-        {/* ===== FINAL CTA ===== */}
-        <section className="px-6 lg:px-10 py-28 sm:py-36 text-center bg-warm" aria-labelledby="final-cta-heading">
-          <div className="max-w-2xl mx-auto">
-            <h2 id="final-cta-heading" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              <span className="block">{t('heroTitle1')}</span>
-              <span className="block mt-2">
-                <span>{t('heroTitle2').replace('Smartphone.', '')}</span>
-                <span className="gradient-vibrant bg-clip-text text-transparent">Smartphone.</span>
-              </span>
-            </h2>
-            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{t('solutionDesc')}</p>
-            <button
-              onClick={() => navigate('/onboarding')}
-              className="group inline-flex items-center gap-3 gradient-primary text-primary-foreground font-bold text-xl px-12 py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] focus-visible:scale-[1.02]"
-              aria-label={t('heroCta')}
-            >
-              {t('heroCta')}
-              <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
-            </button>
-            <p className="text-sm text-muted-foreground mt-5">{t('heroMicrocopy')}</p>
-          </div>
+        <section className="mx-auto flex max-w-[1180px] flex-col items-center gap-5 px-4 py-16 text-center sm:px-8 sm:pb-[88px] sm:pt-24">
+          <PioWaiting />
+          <h2 className="m-0 font-display text-[36px] font-medium leading-[1.08] sm:text-[48px]">{c.waiting}</h2>
+          <p className="m-0 text-[17px] text-[#5F574E] sm:text-[19px]">{c.waitingBody}</p>
+          <Link to="/crear" className={`${cta} mt-2`}>
+            {c.cta}
+          </Link>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border/40 py-10 px-6 lg:px-10" role="contentinfo">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-5 mb-6">
-            <div className="flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-lg gradient-primary flex items-center justify-center">
-                <Smartphone className="h-3 w-3 text-primary-foreground" aria-hidden="true" />
-              </div>
-              <span className="font-display font-bold text-sm text-foreground">{t('brandName')}</span>
-            </div>
-            <p className="text-sm text-muted-foreground text-center">{t('footerText')}</p>
-            <a
-              href="https://buymeacoffee.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-1.5"
-              aria-label={t('footerSupport')}
-            >
-              <Coffee className="h-3.5 w-3.5" aria-hidden="true" /> {t('footerSupport')}
-            </a>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-            <a href="/terms" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
-              {t('footerTerms')}
-            </a>
-            <span aria-hidden="true">·</span>
-            <a href="/privacy" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
-              {t('footerPrivacy')}
-            </a>
-            <span aria-hidden="true">·</span>
-            <a href="mailto:legal@myfirstphoneagreement.com" className="hover:text-foreground transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded">
-              {t('footerContact')}
-            </a>
+      <footer className="border-t border-[rgba(30,26,22,0.1)]">
+        <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-4 px-4 py-8 text-[14px] text-[#6B635A] sm:px-8">
+          <BrandMark compact />
+          <div className="flex flex-wrap gap-[22px]">
+            <a href="#faq" className="text-[#A8432D] hover:text-[#7E2F1E]">{c.questions}</a>
+            <a href={SUPPORT_URL} className="text-[#A8432D] hover:text-[#7E2F1E]" target="_blank" rel="noreferrer">{c.support}</a>
+            <Link to="/privacy" className="text-[#A8432D] hover:text-[#7E2F1E]">{c.privacy}</Link>
+            <a href={FEEDBACK_MAIL} className="text-[#A8432D] hover:text-[#7E2F1E]">{c.contact}</a>
           </div>
         </div>
       </footer>
